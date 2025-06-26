@@ -24,7 +24,6 @@ const DataTable = ({ columns, loading, error, data, pagination, setPagination, s
   })
   const [columnVisibility, setColumnVisibility] = useState({})
   const [columnFilters, setColumnFilters] = useState([])
-  const [allSelected, setAllSelected] = useState(false)
 
   const table = useReactTable({
     columns,
@@ -78,9 +77,10 @@ const DataTable = ({ columns, loading, error, data, pagination, setPagination, s
                 <TableRow className={styles.tr} key={headerGroup.id}>
                   <StyledTableCell className={styles.th}>
                     <Checkbox
-                      checked={allSelected}
+                      checked={table.getIsAllPageRowsSelected()}
+                      indeterminate={table.getIsSomePageRowsSelected()}
                       sx={{ "& .MuiSvgIcon-root": { fontSize: 14 }, margin: 0 }}
-                      onChange={() => setAllSelected(!allSelected)}
+                      onChange={table.getToggleAllPageRowsSelectedHandler()}
                       disableFocusRipple
                       disableTouchRipple
                       disableRipple
@@ -119,9 +119,9 @@ const DataTable = ({ columns, loading, error, data, pagination, setPagination, s
                 <TableRow key={row.id} className={styles.tr}>
                   <StyledTableCell className={styles.td} padding="checkbox">
                     <Checkbox
-                      checked={allSelected}
+                      checked={row.getIsSelected()}
                       sx={{ "& .MuiSvgIcon-root": { fontSize: 14 }, margin: 0 }}
-                      onChange={() => setAllSelected(!allSelected)}
+                      onChange={row.getToggleSelectedHandler()}
                       disableFocusRipple
                       disableTouchRipple
                       disableRipple
@@ -147,7 +147,6 @@ const DataTable = ({ columns, loading, error, data, pagination, setPagination, s
                       </div>
                     </StyledTableCell>
                   ))}
-                  {console.log(row.getIsSelected())}
                 </TableRow>
               ))}
             </TableBody>
