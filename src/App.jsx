@@ -1,16 +1,142 @@
-import { useMemo, useState } from "react"
-import { Edit2, Trash2 } from "react-feather"
+import React, { useState } from "react"
+import Checkbox from "@mui/material/Checkbox"
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 
 import useData from "./hooks/useData"
 
-import DataTable from "./components/DataTable"
-import RowOptions from "./components/RowOptions"
+import ColumnHeader from "./Datatable/ColumnHeader"
+import Datatable from "./Datatable"
+import RowOptionsMenu from "./Datatable/RowOptionsMenu"
+
+const columns = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        type="checkbox"
+        checked={table.getIsAllPageRowsSelected()}
+        indeterminate={table.getIsSomePageRowsSelected()}
+        onChange={table.getToggleAllPageRowsSelectedHandler()}
+        disableRipple
+        disableFocusRipple
+        disableTouchRipple
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        type="checkbox"
+        checked={row.getIsSelected()}
+        onChange={row.getToggleSelectedHandler()}
+        disableRipple
+        disableFocusRipple
+        disableTouchRipple
+      />
+    ),
+  },
+  {
+    accessorFn: row => row.product,
+    id: "product",
+    header: ({ column }) => <ColumnHeader column={column} title="Product" />,
+    meta: {
+      label: "Product",
+    },
+    enablePinning: false,
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorFn: row => row.price,
+    id: "price",
+    header: ({ column }) => <ColumnHeader column={column} title="Price" />,
+    cell: info => <span>₹ {info.getValue()}</span>,
+    enablePinning: true,
+    meta: {
+      label: "Price",
+    },
+  },
+  {
+    accessorFn: row => row.material,
+    id: "material",
+    header: ({ column }) => <ColumnHeader column={column} title="Material" />,
+    meta: {
+      label: "Material",
+    },
+  },
+  {
+    accessorFn: row => row.department,
+    id: "department",
+    header: ({ column }) => <ColumnHeader column={column} title="Department" />,
+    meta: {
+      label: "Department",
+    },
+  },
+  {
+    accessorFn: row => row.title,
+    id: "title",
+    header: ({ column }) => <ColumnHeader column={column} title="Title" />,
+    meta: {
+      label: "Title",
+    },
+  },
+  {
+    accessorFn: row => row.author,
+    id: "author",
+    header: ({ column }) => <ColumnHeader column={column} title="Author" />,
+    meta: {
+      label: "Author",
+    },
+  },
+  {
+    accessorFn: row => row.publisher,
+    id: "publisher",
+    header: ({ column }) => <ColumnHeader column={column} title="Publisher" />,
+    meta: {
+      label: "Publisher",
+    },
+  },
+  {
+    accessorFn: row => row.genre,
+    id: "genre",
+    header: ({ column }) => <ColumnHeader column={column} title="Genre" />,
+    meta: {
+      label: "Genre",
+    },
+  },
+  {
+    id: "options",
+    header: () => <div style={{ textAlign: "center" }}>Options</div>,
+    cell: info => (
+      <RowOptionsMenu
+        options={[
+          {
+            label: "Edit",
+            icon: <EditOutlinedIcon fontSize="small" />,
+            onClick: () => alert(`Edited ${info.row.original.product}!`),
+          },
+          {
+            label: "Delete",
+            icon: <DeleteOutlineIcon fontSize="small" />,
+            onClick: () => confirm("This won't do anything, but are you sure?"),
+          },
+        ]}
+        key={info.row.original.product}
+      />
+    ),
+    disableColumnMenu: true,
+    enableHiding: false,
+    meta: {
+      label: "Options",
+    },
+  },
+]
 
 const App = () => {
+  const [searchQuery, setSearchQuery] = useState("")
   const [sorting, setSorting] = useState([])
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 50,
   })
 
   const { loading, error, data } = useData({
@@ -18,102 +144,12 @@ const App = () => {
     rowsPerPage: pagination.pageSize,
     sortBy: sorting[0] && sorting[0].id,
     sortOrder: sorting[0] && !sorting[0].desc,
+    searchQuery,
   })
-
-  const columns = useMemo(
-    () => [
-      {
-        accessorFn: row => row.id,
-        id: "id",
-        header: "ID",
-        disableColumnMenu: true,
-        meta: "ID",
-      },
-      {
-        accessorFn: row => row.product,
-        id: "product",
-        header: "Product",
-        disableSorting: true,
-        disableHiding: true,
-        meta: "Product",
-      },
-      {
-        accessorFn: row => row.price,
-        id: "price",
-        header: "Price",
-        cell: info => <span>₹ {info.getValue()}</span>,
-        disablePinning: true,
-        meta: "Price",
-      },
-      {
-        accessorFn: row => row.material,
-        id: "material",
-        header: "Material",
-        meta: "Material",
-      },
-      {
-        accessorFn: row => row.department,
-        id: "department",
-        header: "Department",
-        meta: "Department",
-      },
-      {
-        accessorFn: row => row.title,
-        id: "title",
-        header: "Title",
-        meta: "Title",
-      },
-      {
-        accessorFn: row => row.author,
-        id: "author",
-        header: "Author",
-        meta: "Author",
-      },
-      {
-        accessorFn: row => row.publisher,
-        id: "publisher",
-        header: "Publisher",
-        meta: "Publisher",
-      },
-      {
-        accessorFn: row => row.genre,
-        id: "genre",
-        header: "Genre",
-        meta: "Genre",
-      },
-      {
-        id: "options",
-        header: () => <div style={{ textAlign: "center" }}>Options</div>,
-        cell: info => (
-          <div style={{ display: "flex", justifyContent: "center" }}>
-            <RowOptions
-              options={[
-                {
-                  label: "Edit",
-                  icon: <Edit2 size={14} />,
-                  onClick: () => alert(`Edited ${info.row.original.product}!`),
-                },
-                {
-                  label: "Delete",
-                  icon: <Trash2 size={14} />,
-                  onClick: () => confirm("This won't do anything, but are you sure?"),
-                },
-              ]}
-            />
-          </div>
-        ),
-        disableColumnMenu: true,
-        enableHiding: false,
-        meta: "Options",
-        size: 100,
-      },
-    ],
-    []
-  )
 
   return (
     <div style={{ padding: 32 }}>
-      <DataTable
+      <Datatable
         columns={columns}
         loading={loading}
         error={error}
@@ -122,6 +158,7 @@ const App = () => {
         setPagination={setPagination}
         sorting={sorting}
         setSorting={setSorting}
+        setSearchQuery={setSearchQuery}
         totalPages={data?.total}
       />
     </div>

@@ -14,8 +14,8 @@ const Pagination = ({ table, rowsPerPageDropdownOptions }) => {
       }}
     >
       <RowPerPage table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
-      <span style={{ fontWeight: 500 }}>
-        Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+      <span>
+        Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}{" "}
       </span>
       <PageNavigation table={table} />
     </div>
