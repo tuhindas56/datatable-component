@@ -1,5 +1,7 @@
 import { useState } from "react"
-import { Button, Menu, MenuItem } from "@mui/material"
+import Button from "@mui/material/Button"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 
 const RowsPerPageMenu = ({ value, options = [], onChange, anchorOrigin = { vertical: "top", horizontal: "left" } }) => {

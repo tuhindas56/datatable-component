@@ -1,10 +1,12 @@
 import { useState } from "react"
-import { Button, Menu, MenuItem } from "@mui/material"
-import PushPinIcon from "@mui/icons-material/PushPin"
-import { ChevronUp, ChevronDown } from "react-feather"
+import Button from "@mui/material/Button"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
+import Stack from "@mui/material/Stack"
+import { ChevronUp, ChevronDown, MoreVertical } from "react-feather"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 
-const ColumnHeaderMenu = ({ buttonLabel = "Menu Button", options = [], isSorted = false, isPinned = false }) => {
+const ColumnHeaderMenu = ({ buttonLabel = "Menu Button", options = [], isSorted = false }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
@@ -17,11 +19,13 @@ const ColumnHeaderMenu = ({ buttonLabel = "Menu Button", options = [], isSorted 
 
   return (
     <>
-      <Button size="small" onClick={handleClick} endIcon={<MoreVertIcon />}>
-        {buttonLabel}
-        {isSorted === "asc" && <ChevronUp />}
-        {isSorted === "desc" && <ChevronDown />}
-        {isPinned && <PushPinIcon fontSize="small" sx={{ transform: "rotate(40deg)" }} />}
+      <Button size="small" onClick={handleClick} className={"column-header-menu-trigger" + (open ? " menu-open" : "")}>
+        <Stack direction="row" alignItems="center" justifyContent="center" spacing={0.5} useFlexGap>
+          {buttonLabel}
+          {isSorted === "asc" && <ChevronUp />}
+          {isSorted === "desc" && <ChevronDown />}
+          <MoreVertIcon />
+        </Stack>
       </Button>
       <Menu
         anchorEl={anchorEl}

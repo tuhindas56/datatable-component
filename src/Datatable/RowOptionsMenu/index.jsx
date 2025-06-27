@@ -1,5 +1,8 @@
 import React, { useState } from "react"
-import { IconButton, Menu, MenuItem, Stack } from "@mui/material"
+import IconButton from "@mui/material/IconButton"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
+import Stack from "@mui/material/Stack"
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 
 const RowOptionsMenu = React.memo(({ options = [] }) => {
@@ -11,7 +14,7 @@ const RowOptionsMenu = React.memo(({ options = [] }) => {
 
   return (
     <Stack alignItems="center">
-      <IconButton onClick={handleClick}>
+      <IconButton onClick={handleClick} className="row-options-trigger">
         <MoreHorizIcon />
       </IconButton>
       <Menu id="row-options-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>

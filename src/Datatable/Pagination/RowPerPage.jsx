@@ -1,4 +1,5 @@
-import { Stack } from "@mui/material"
+import Stack from "@mui/material/Stack"
+import Typography from "@mui/material/Typography"
 
 import RowsPerPageMenu from "./RowsPerPageMenu"
 
@@ -7,7 +8,7 @@ const RowPerPage = ({ table, rowsPerPageDropdownOptions = [{ label: 10, value: 1
 
   return (
     <Stack direction="row" spacing={1} alignItems="center">
-      <span>Rows per page</span>
+      <Typography fontWeight={500}>Rows per page</Typography>
       <RowsPerPageMenu
         value={rowsPerPage}
         options={rowsPerPageDropdownOptions}

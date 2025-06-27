@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Input } from "@mui/material"
+import Input from "@mui/material/Input"
 
 const Search = ({ placeholder, setSearchQuery }) => {
   const [search, setSearch] = useState("")

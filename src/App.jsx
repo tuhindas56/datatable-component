@@ -33,6 +33,7 @@ const columns = [
         disableTouchRipple
       />
     ),
+    size: 32,
   },
   {
     accessorFn: row => row.product,
@@ -139,6 +140,7 @@ const App = () => {
     pageSize: 50,
   })
 
+  console.log(pagination)
   const { loading, error, data } = useData({
     currentPage: pagination.pageIndex,
     rowsPerPage: pagination.pageSize,

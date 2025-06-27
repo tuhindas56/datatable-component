@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { Button, Stack } from "@mui/material"
+import IconButton from "@mui/material/IconButton"
+import Stack from "@mui/material/Stack"
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft"
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight"
@@ -16,23 +17,23 @@ const PageNavigation = ({ table }) => {
 
   return (
     <Stack direction="row" spacing={1}>
-      <Button size="small" variant="outlined" onClick={() => table.firstPage()} disabled={!table.getCanPreviousPage()}>
-        <KeyboardDoubleArrowLeftIcon fontSize="small" />
-      </Button>
-      <Button
+      <IconButton
         size="small"
         variant="outlined"
-        onClick={() => table.previousPage()}
+        onClick={() => table.firstPage()}
         disabled={!table.getCanPreviousPage()}
       >
+        <KeyboardDoubleArrowLeftIcon fontSize="small" />
+      </IconButton>
+      <IconButton size="small" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
         <KeyboardArrowLeftIcon fontSize="small" />
-      </Button>
-      <Button size="small" variant="outlined" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+      </IconButton>
+      <IconButton size="small" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
         <KeyboardArrowRightIcon fontSize="small" />
-      </Button>
-      <Button size="small" variant="outlined" onClick={() => table.lastPage()} disabled={!table.getCanNextPage()}>
+      </IconButton>
+      <IconButton size="small" onClick={() => table.lastPage()} disabled={!table.getCanNextPage()}>
         <KeyboardDoubleArrowRightIcon fontSize="small" />
-      </Button>
+      </IconButton>
     </Stack>
   )
 }

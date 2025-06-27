@@ -1,5 +1,9 @@
 import { useId, useState } from "react"
-import { Menu, MenuItem, Divider, Stack, Input } from "@mui/material"
+import Menu from "@mui/material/Menu"
+import MenuItem from "@mui/material/MenuItem"
+import Divider from "@mui/material/Divider"
+import Stack from "@mui/material/Stack"
+import Input from "@mui/material/Input"
 import SearchIcon from "@mui/icons-material/Search"
 
 function MenuSearchBar({ value, setSearch, placeholder }) {

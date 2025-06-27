@@ -1,6 +1,6 @@
 import CheckIcon from "@mui/icons-material/Check"
 import TuneIcon from "@mui/icons-material/Tune"
-import { Button } from "@mui/material"
+import Button from "@mui/material/Button"
 
 import SearchableMenu from "../SearchableMenu"
 

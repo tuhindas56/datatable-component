@@ -1,3 +1,5 @@
+import Typography from "@mui/material/Typography"
+
 import RowPerPage from "./RowPerPage"
 import PageNavigation from "./PageNavigation"
 
@@ -14,9 +16,9 @@ const Pagination = ({ table, rowsPerPageDropdownOptions }) => {
       }}
     >
       <RowPerPage table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
-      <span>
+      <Typography fontWeight={500}>
         Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}{" "}
-      </span>
+      </Typography>
       <PageNavigation table={table} />
     </div>
   )
