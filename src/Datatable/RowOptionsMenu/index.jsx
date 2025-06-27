@@ -4,6 +4,7 @@ import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import Stack from "@mui/material/Stack"
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
+import Typography from "@mui/material/Typography"
 
 const RowOptionsMenu = React.memo(({ options = [] }) => {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -13,7 +14,7 @@ const RowOptionsMenu = React.memo(({ options = [] }) => {
   const handleClose = () => setAnchorEl(null)
 
   return (
-    <Stack alignItems="center">
+    <>
       <IconButton onClick={handleClick} className="row-options-trigger">
         <MoreHorizIcon />
       </IconButton>
@@ -26,14 +27,14 @@ const RowOptionsMenu = React.memo(({ options = [] }) => {
               handleClose()
             }}
           >
-            <Stack direction="row" spacing={1} alignItems="center">
+            <Stack direction="row" spacing={1} alignItems="center" useFlexGap>
               {option.icon}
-              {option.label}
+              <Typography variant="body2">{option.label}</Typography>
             </Stack>
           </MenuItem>
         ))}
       </Menu>
-    </Stack>
+    </>
   )
 })
 

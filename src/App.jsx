@@ -34,6 +34,9 @@ const columns = [
       />
     ),
     size: 32,
+    meta: {
+      align: "center",
+    },
   },
   {
     accessorFn: row => row.product,
@@ -42,9 +45,6 @@ const columns = [
     meta: {
       label: "Product",
     },
-    enablePinning: false,
-    enableSorting: false,
-    enableHiding: false,
   },
   {
     accessorFn: row => row.price,
@@ -63,6 +63,9 @@ const columns = [
     meta: {
       label: "Material",
     },
+    enablePinning: false,
+    enableSorting: false,
+    enableHiding: false,
   },
   {
     accessorFn: row => row.department,
@@ -106,7 +109,7 @@ const columns = [
   },
   {
     id: "options",
-    header: () => <div style={{ textAlign: "center" }}>Options</div>,
+    header: "Options",
     cell: info => (
       <RowOptionsMenu
         options={[
@@ -128,6 +131,7 @@ const columns = [
     enableHiding: false,
     meta: {
       label: "Options",
+      align: "center",
     },
   },
 ]
@@ -140,7 +144,6 @@ const App = () => {
     pageSize: 50,
   })
 
-  console.log(pagination)
   const { loading, error, data } = useData({
     currentPage: pagination.pageIndex,
     rowsPerPage: pagination.pageSize,

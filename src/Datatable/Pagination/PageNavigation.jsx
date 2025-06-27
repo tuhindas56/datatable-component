@@ -18,20 +18,24 @@ const PageNavigation = ({ table }) => {
   return (
     <Stack direction="row" spacing={1}>
       <IconButton
-        size="small"
+        className="pagination-trigger"
         variant="outlined"
         onClick={() => table.firstPage()}
         disabled={!table.getCanPreviousPage()}
       >
         <KeyboardDoubleArrowLeftIcon fontSize="small" />
       </IconButton>
-      <IconButton size="small" onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+      <IconButton
+        className="pagination-trigger"
+        onClick={() => table.previousPage()}
+        disabled={!table.getCanPreviousPage()}
+      >
         <KeyboardArrowLeftIcon fontSize="small" />
       </IconButton>
-      <IconButton size="small" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+      <IconButton className="pagination-trigger" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
         <KeyboardArrowRightIcon fontSize="small" />
       </IconButton>
-      <IconButton size="small" onClick={() => table.lastPage()} disabled={!table.getCanNextPage()}>
+      <IconButton className="pagination-trigger" onClick={() => table.lastPage()} disabled={!table.getCanNextPage()}>
         <KeyboardDoubleArrowRightIcon fontSize="small" />
       </IconButton>
     </Stack>

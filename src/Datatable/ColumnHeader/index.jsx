@@ -1,5 +1,8 @@
 import CheckIcon from "@mui/icons-material/Check"
-import { ChevronUp, ChevronDown, X, EyeOff } from "react-feather"
+import CloseIcon from "@mui/icons-material/Close"
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 
 import ColumnHeaderMenu from "./ColumnHeaderMenu"
 
@@ -30,19 +33,19 @@ const ColumnHeader = ({ column, title = "Header" }) => {
     if (canSort) {
       options.push(
         {
-          icon: <ChevronUp />,
+          icon: <KeyboardArrowUpIcon />,
           label: "Asc",
           onClick: () => handleSorting(false),
           endIcon: isSorted === "asc" && <CheckIcon />,
         },
         {
-          icon: <ChevronDown />,
+          icon: <KeyboardArrowDownIcon />,
           label: "Desc",
           onClick: () => handleSorting(true),
           endIcon: isSorted === "desc" && <CheckIcon />,
         },
         {
-          icon: <X />,
+          icon: <CloseIcon />,
           label: "Reset",
           onClick: handleReset,
           showDivider: canHide,
@@ -52,7 +55,7 @@ const ColumnHeader = ({ column, title = "Header" }) => {
 
     if (canHide) {
       options.push({
-        icon: <EyeOff />,
+        icon: <VisibilityOffIcon />,
         label: "Hide",
         onClick: handleHide,
       })

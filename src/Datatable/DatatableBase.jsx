@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react"
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
+import Stack from "@mui/material/Stack"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
@@ -71,7 +72,7 @@ const DatatableBase = ({
   if (error) return <h1>Uh oh! {error.message}.</h1>
 
   return (
-    <>
+    <Stack spacing={2}>
       <TableHeader table={table} setSearchQuery={setSearchQuery} />
 
       <TableContainer>
@@ -90,6 +91,7 @@ const DatatableBase = ({
                           ? header.column.getStart("left")
                           : 0,
                       zIndex: header.column.id === "select" && header.column.getIsPinned() ? 1 : 0,
+                      textAlign: header.column.columnDef.meta?.align ?? "left",
                     }}
                   >
                     <div style={{ width: header.column.getSize() }}>
@@ -124,6 +126,7 @@ const DatatableBase = ({
                         left:
                           cell.column.id === "select" && cell.column.getIsPinned() ? cell.column.getStart("left") : 0,
                         zIndex: cell.column.id === "select" && cell.column.getIsPinned() ? 1 : 0,
+                        textAlign: cell.column.columnDef.meta?.align ?? "left",
                       }}
                     >
                       <div style={{ width: cell.column.getSize() }}>
@@ -139,7 +142,7 @@ const DatatableBase = ({
       </TableContainer>
 
       <Pagination table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
-    </>
+    </Stack>
   )
 }
 

@@ -16,7 +16,7 @@ const Pagination = ({ table, rowsPerPageDropdownOptions }) => {
       }}
     >
       <RowPerPage table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
-      <Typography fontWeight={500}>
+      <Typography fontWeight={500} variant="body2">
         Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}{" "}
       </Typography>
       <PageNavigation table={table} />

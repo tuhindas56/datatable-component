@@ -7,13 +7,19 @@ const RowPerPage = ({ table, rowsPerPageDropdownOptions = [{ label: 10, value: 1
   const rowsPerPage = table.getState().pagination.pageSize
 
   return (
-    <Stack direction="row" spacing={1} alignItems="center">
-      <Typography fontWeight={500}>Rows per page</Typography>
+    <Stack direction="row" spacing={2} alignItems="center">
+      <Typography fontWeight={500} variant="body2">
+        Rows per page
+      </Typography>
       <RowsPerPageMenu
         value={rowsPerPage}
         options={rowsPerPageDropdownOptions}
         anchorOrigin={{
           vertical: "top",
+          horizontal: "left",
+        }}
+        transformOrigin={{
+          vertical: "bottom",
           horizontal: "left",
         }}
       />
