@@ -1,5 +1,5 @@
-import { useState, useMemo } from "react"
-import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
+import { Fragment, useState, useMemo } from "react"
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import Stack from "@mui/material/Stack"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
@@ -10,6 +10,62 @@ import TableRow from "@mui/material/TableRow"
 
 import TableHeader from "./TableHeader"
 import Pagination from "./Pagination"
+
+const SubRowTable = ({ subRowsColumns = [], data = [] }) => {
+  const subRowsTable = useReactTable({
+    columns: subRowsColumns,
+    data: data ?? [],
+    getRowId: row => row.id,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    enableHiding: false,
+    enableColumnPinning: false,
+  })
+
+  return (
+    <Table>
+      <TableHead>
+        {subRowsTable.getHeaderGroups().map(headerGroup => (
+          <TableRow key={headerGroup.id}>
+            {headerGroup.headers.map(header => (
+              <TableCell
+                key={header.id}
+                colSpan={header.colSpan}
+                sx={{
+                  position: header.column.getIsPinned() ? "sticky" : "static",
+                  left: header.column.getIsPinned() ? header.column.getStart("left") : 0,
+                  zIndex: header.column.getIsPinned() ? 1 : 0,
+                }}
+              >
+                <div style={{ width: header.column.getSize() }}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </div>
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableHead>
+      <TableBody>
+        {subRowsTable.getRowModel().rows.map(row => (
+          <TableRow key={row.id}>
+            {row.getVisibleCells().map(cell => (
+              <TableCell
+                key={cell.id}
+                sx={{
+                  position: cell.column.getIsPinned() ? "sticky" : "static",
+                  left: cell.column.getIsPinned() ? cell.column.getStart("left") : 0,
+                  zIndex: cell.column.getIsPinned() ? 1 : 0,
+                }}
+              >
+                <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
+              </TableCell>
+            ))}
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  )
+}
 
 const DatatableBase = ({
   columns,
@@ -22,22 +78,28 @@ const DatatableBase = ({
   setSorting,
   setSearchQuery,
   totalPages,
+  enableSubRows = false,
+  getSubRows = () => [],
+  subRowsColumns = [],
 }) => {
   const [columnPinning, setColumnPinning] = useState({
-    left: ["select"],
+    left: ["select", "expand"],
     right: [],
   })
   const [columnVisibility, setColumnVisibility] = useState({})
   const [rowSelection, setRowSelection] = useState({})
+  const [expanded, setExpanded] = useState([])
 
   const table = useReactTable({
     columns,
-    getCoreRowModel: getCoreRowModel(),
     data: data?.data ?? [],
     getRowId: row => row.id,
+    getCoreRowModel: getCoreRowModel(),
+    getSubRows: enableSubRows ? getSubRows : undefined,
     state: {
       columnPinning,
       columnVisibility,
+      expanded,
       pagination,
       sorting,
       rowSelection,
@@ -55,6 +117,8 @@ const DatatableBase = ({
     onSortingChange: setSorting,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
+    onExpandedChange: setExpanded,
+    enableExpanding: enableSubRows,
   })
 
   const rowsPerPageDropdownOptions = useMemo(
@@ -86,11 +150,8 @@ const DatatableBase = ({
                     colSpan={header.colSpan}
                     sx={{
                       position: header.column.getIsPinned() ? "sticky" : "static",
-                      left:
-                        header.column.id === "select" && header.column.getIsPinned()
-                          ? header.column.getStart("left")
-                          : 0,
-                      zIndex: header.column.id === "select" && header.column.getIsPinned() ? 1 : 0,
+                      left: header.column.getIsPinned() ? header.column.getStart("left") : 0,
+                      zIndex: header.column.getIsPinned() ? 1 : 0,
                       textAlign: header.column.columnDef.meta?.align ?? "left",
                     }}
                   >
@@ -117,24 +178,34 @@ const DatatableBase = ({
               </TableRow>
             ) : (
               table.getRowModel().rows.map(row => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map(cell => (
-                    <TableCell
-                      key={cell.id}
-                      sx={{
-                        position: cell.column.getIsPinned() ? "sticky" : "static",
-                        left:
-                          cell.column.id === "select" && cell.column.getIsPinned() ? cell.column.getStart("left") : 0,
-                        zIndex: cell.column.id === "select" && cell.column.getIsPinned() ? 1 : 0,
-                        textAlign: cell.column.columnDef.meta?.align ?? "left",
-                      }}
-                    >
-                      <div style={{ width: cell.column.getSize() }}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </div>
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <Fragment key={row.id}>
+                  <TableRow>
+                    {row.getVisibleCells().map(cell => (
+                      <TableCell
+                        key={cell.id}
+                        className={row.getIsSelected() && "row-selected"}
+                        sx={{
+                          position: cell.column.getIsPinned() ? "sticky" : "static",
+                          left: cell.column.getIsPinned() ? cell.column.getStart("left") : 0,
+                          zIndex: cell.column.getIsPinned() ? 1 : 0,
+                          textAlign: cell.column.columnDef.meta?.align ?? "left",
+                        }}
+                      >
+                        <div style={{ width: cell.column.getSize() }}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </div>
+                      </TableCell>
+                    ))}
+                  </TableRow>
+
+                  {enableSubRows && row.getCanExpand() && row.getIsExpanded() && (
+                    <TableRow>
+                      <TableCell colSpan={table.getHeaderGroups()[0].headers.length} className="expanded-table-cell">
+                        <SubRowTable subRowsColumns={subRowsColumns} data={row.original?.children} />
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </Fragment>
               ))
             )}
           </TableBody>

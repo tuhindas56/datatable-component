@@ -2,6 +2,9 @@ import React, { useState } from "react"
 import Checkbox from "@mui/material/Checkbox"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
+import IconButton from "@mui/material/IconButton"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 
 import useData from "./hooks/useData"
 
@@ -23,26 +26,37 @@ const columns = [
         disableTouchRipple
       />
     ),
-    cell: ({ row }) => (
+    cell: info => (
       <Checkbox
         type="checkbox"
-        checked={row.getIsSelected()}
-        onChange={row.getToggleSelectedHandler()}
+        checked={info.row.getIsSelected()}
+        onChange={info.row.getToggleSelectedHandler()}
         disableRipple
         disableFocusRipple
         disableTouchRipple
       />
     ),
-    size: 32,
+    size: 40,
     enableHiding: false,
     meta: {
       align: "center",
     },
   },
   {
+    id: "expand",
+    cell: info => (
+      <IconButton onClick={info.row.getToggleExpandedHandler()}>
+        {info.row.getIsExpanded() ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+      </IconButton>
+    ),
+    size: 40,
+    enableHiding: false,
+  },
+  {
     accessorFn: row => row.product,
     id: "product",
     header: ({ column }) => <ColumnHeader column={column} title="Product" />,
+    minSize: 200,
     meta: {
       label: "Product",
     },
@@ -130,10 +144,67 @@ const columns = [
     ),
     disableColumnMenu: true,
     enableHiding: false,
+    size: 64,
     meta: {
       label: "Options",
       align: "center",
     },
+  },
+]
+
+const subRowsColumns = [
+  {
+    accessorFn: row => row.name,
+    id: "name",
+    header: ({ column }) => <ColumnHeader column={column} title="Name" child />,
+  },
+  {
+    accessorFn: row => row.age,
+    id: "age",
+    header: ({ column }) => <ColumnHeader column={column} title="Age" child />,
+  },
+  {
+    accessorFn: row => row.occupation,
+    id: "occupation",
+    header: ({ column }) => <ColumnHeader column={column} title="Occupation" child />,
+  },
+  {
+    accessorFn: row => row.location,
+    id: "location",
+    header: ({ column }) => <ColumnHeader column={column} title="Location" child />,
+  },
+  {
+    accessorFn: row => row.isActive,
+    id: "isActive",
+    header: ({ column }) => <ColumnHeader column={column} title="Active" child />,
+    cell: info => (info.getValue() ? "Yes" : "No"),
+  },
+  {
+    accessorFn: row => row.salary,
+    id: "salary",
+    header: ({ column }) => <ColumnHeader column={column} title="Salary" child />,
+    cell: info => `₹ ${info.getValue().toLocaleString()}`,
+  },
+  {
+    accessorFn: row => row.department,
+    id: "department",
+    header: ({ column }) => <ColumnHeader column={column} title="Department" child />,
+  },
+  {
+    accessorFn: row => row.joinDate,
+    id: "joinDate",
+    header: ({ column }) => <ColumnHeader column={column} title="Join Date" child />,
+    cell: info => new Date(info.getValue()).toLocaleDateString(),
+  },
+  {
+    accessorFn: row => row.experience,
+    id: "experience",
+    header: ({ column }) => <ColumnHeader column={column} title="Experience (yrs)" child />,
+  },
+  {
+    accessorFn: row => row.rating,
+    id: "rating",
+    header: ({ column }) => <ColumnHeader column={column} title="Rating" child />,
   },
 ]
 
@@ -166,6 +237,9 @@ const App = () => {
         setSorting={setSorting}
         setSearchQuery={setSearchQuery}
         totalPages={data?.total}
+        enableSubRows={true}
+        getSubRows={row => row.children}
+        subRowsColumns={subRowsColumns}
       />
     </div>
   )

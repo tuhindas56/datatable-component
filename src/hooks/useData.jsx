@@ -34,6 +34,37 @@ const useData = ({ currentPage = 0, rowsPerPage = 10, sortBy = null, sortOrder =
 
       if (response.error) throw new Error(response.error.message)
 
+      response?.data?.forEach(item => {
+        item.children = [
+          {
+            id: crypto.randomUUID(),
+            name: "John",
+            age: 25,
+            occupation: "Accountant",
+            location: "New York",
+            isActive: true,
+            salary: 55000,
+            department: "Finance",
+            joinDate: "2021-04-15",
+            experience: 2,
+            rating: 4.3,
+          },
+          {
+            id: crypto.randomUUID(),
+            name: "Jane",
+            age: 50,
+            occupation: "Baker",
+            location: "Chicago",
+            isActive: false,
+            salary: 42000,
+            department: "Culinary",
+            joinDate: "2022-11-01",
+            experience: 1,
+            rating: 3.9,
+          },
+        ]
+      })
+
       setData({
         ...response,
         total: Math.ceil(response.count / rowsPerPage),

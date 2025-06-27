@@ -3,15 +3,20 @@ import CloseIcon from "@mui/icons-material/Close"
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
+import PushPinIcon from "@mui/icons-material/PushPin"
 
 import ColumnHeaderMenu from "./ColumnHeaderMenu"
 
-const ColumnHeader = ({ column, title = "Header" }) => {
-  const canSort = column?.getCanSort()
+const ColumnHeader = ({ column, title = "Header", child = false }) => {
+  const canPin = column?.getCanPin() || false
+  const isPinned = canPin && column?.getIsPinned()
+  const canSort = column?.getCanSort() || false
   const isSorted = canSort && column?.getIsSorted()
   const canHide = column?.getCanHide() || false
 
-  if (!canHide && !canSort) {
+  child && console.log(canHide && canPin && canSort)
+
+  if (!canHide && !canPin && !canSort) {
     return <div>{title}</div>
   }
 
@@ -21,6 +26,10 @@ const ColumnHeader = ({ column, title = "Header" }) => {
 
   const handleHide = () => {
     column.toggleVisibility(false)
+  }
+
+  const handlePin = () => {
+    column.pin(isPinned ? false : "left")
   }
 
   const handleReset = () => {
@@ -53,6 +62,14 @@ const ColumnHeader = ({ column, title = "Header" }) => {
       )
     }
 
+    if (canPin) {
+      options.push({
+        icon: <PushPinIcon sx={{ transform: "rotateZ(45deg)" }} />,
+        label: isPinned ? "Unpin" : "Pin",
+        onClick: handlePin,
+      })
+    }
+
     if (canHide) {
       options.push({
         icon: <VisibilityOffIcon />,
@@ -64,7 +81,7 @@ const ColumnHeader = ({ column, title = "Header" }) => {
     return options
   }
 
-  return <ColumnHeaderMenu buttonLabel={title} options={getOptions()} isSorted={isSorted} />
+  return <ColumnHeaderMenu buttonLabel={title} options={getOptions()} isSorted={isSorted} isPinned={isPinned} />
 }
 
 export default ColumnHeader

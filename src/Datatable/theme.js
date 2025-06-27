@@ -3,10 +3,9 @@ import { createTheme } from "@mui/material/styles"
 const borderRadius = 4
 const boxShadowSubtle = "0 1px 2px 0 rgba(0,0,0,0.05)"
 const boxShadowStrong = "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px"
-const iconSizeSm = 12
-const iconSizeMd = 16
+const iconSizeMd = 14
 const iconSizeLg = 20
-const iconColorLight = "#999999"
+const iconColorLight = "#565656"
 const checkedColor = "#171717"
 const hoverColor = "#f5f5f5"
 const strokeDark = "#e5e5e5"
@@ -14,6 +13,7 @@ const strokeLight = "#f2f2f2"
 const paddingSm = 4
 const paddingMd = 8
 const tableCellBg = "#fff"
+const rowSelectionColor = "#f7f7f7"
 
 const theme = createTheme({
   palette: {
@@ -64,7 +64,6 @@ const theme = createTheme({
           },
           "&.rows-per-page-menu-trigger": {
             justifyContent: "space-between",
-            height: "auto",
           },
           "&.menu-open": {
             backgroundColor: hoverColor,
@@ -96,8 +95,7 @@ const theme = createTheme({
           },
           "&:disabled": {
             border: `1px solid ${strokeLight}`,
-          },
-          "&:disabled svg": {
+            boxShadow: "none",
             color: iconColorLight,
           },
         },
@@ -131,6 +129,9 @@ const theme = createTheme({
           padding: "6px 8px",
           "& .end-icon": {
             marginLeft: "auto",
+          },
+          "& .MuiSvgIcon-root": {
+            color: iconColorLight,
           },
         },
       },
@@ -175,12 +176,25 @@ const theme = createTheme({
     MuiTableCell: {
       styleOverrides: {
         root: {
-          padding: paddingMd,
           backgroundColor: tableCellBg,
+          padding: paddingMd,
+          "&.expanded-table-cell": {
+            paddingBlock: 0,
+          },
           "& div:not(:has(.column-header-menu-trigger))": {
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
             overflow: "hidden",
+          },
+        },
+      },
+    },
+
+    MuiTableRow: {
+      styleOverrides: {
+        root: {
+          "& .row-selected": {
+            backgroundColor: rowSelectionColor,
           },
         },
       },
@@ -204,7 +218,7 @@ const theme = createTheme({
   },
 
   typography: {
-    fontFamily: "system-ui",
+    fontFamily: "Inter",
     fontSize: 14,
   },
 })
