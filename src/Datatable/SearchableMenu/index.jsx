@@ -5,6 +5,7 @@ import Divider from "@mui/material/Divider"
 import Stack from "@mui/material/Stack"
 import Input from "@mui/material/Input"
 import SearchIcon from "@mui/icons-material/Search"
+import Typography from "@mui/material/Typography"
 
 function MenuSearchBar({ value, setSearch, placeholder }) {
   const handleInputChange = e => {
@@ -16,26 +17,31 @@ function MenuSearchBar({ value, setSearch, placeholder }) {
   }
 
   return (
-    <div>
-      <Stack direction="row">
-        <SearchIcon />
+    <Stack>
+      <Stack direction="row" spacing={1} alignItems="center">
+        <SearchIcon className="search-icon" />
         <Input
           type="text"
           value={value}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
-          disableUnderline
           placeholder={placeholder}
+          className="menu-search-bar"
+          disableUnderline
           autoFocus
         />
       </Stack>
       <Divider />
-    </div>
+    </Stack>
   )
 }
 
 function NoResultsItem() {
-  return <MenuItem sx={{ pointerEvents: "none" }}>No matches found.</MenuItem>
+  return (
+    <MenuItem sx={{ pointerEvents: "none" }}>
+      <Typography variant="body2">No matches found.</Typography>
+    </MenuItem>
+  )
 }
 
 const SearchableMenu = ({
@@ -88,7 +94,7 @@ const SearchableMenu = ({
           visibleItems.map((item, index) => (
             <MenuItem key={index} onClick={e => handleMenuItemClick(e, item?.onClick)} disabled={item.disabled}>
               {item.icon && <span>{item.icon}</span>}
-              {item.label}
+              <Typography variant="body2">{item.label}</Typography>
             </MenuItem>
           ))
         ) : (

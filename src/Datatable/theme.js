@@ -3,7 +3,9 @@ import { createTheme } from "@mui/material/styles"
 const borderRadius = 4
 const boxShadowSubtle = "0 1px 2px 0 rgba(0,0,0,0.05)"
 const boxShadowStrong = "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px"
-const iconSize = 16
+const iconSizeSm = 12
+const iconSizeMd = 16
+const iconSizeLg = 20
 const iconColorLight = "#999999"
 const checkedColor = "#171717"
 const hoverColor = "#f5f5f5"
@@ -14,7 +16,24 @@ const paddingMd = 8
 const tableCellBg = "#fff"
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#000000",
+    },
+    text: {
+      primary: "#000000",
+    },
+  },
+
   components: {
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          marginBlock: "4px",
+        },
+      },
+    },
+
     MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
@@ -38,7 +57,7 @@ const theme = createTheme({
           },
 
           "&.column-header-menu-trigger": {
-            marginLeft: `-${Math.floor(paddingMd / 2)}px`,
+            marginLeft: `-${paddingMd / 2}px`,
             overflow: "visible",
             boxShadow: "none",
             border: "none",
@@ -70,7 +89,7 @@ const theme = createTheme({
             padding: paddingMd,
           },
           "&.row-options-trigger svg": {
-            fontSize: 18,
+            fontSize: iconSizeLg,
           },
           "&:not(.row-options-trigger)": {
             border: `1px solid ${strokeDark}`,
@@ -95,7 +114,7 @@ const theme = createTheme({
           color: "#e5e5e5",
           padding: 0,
           "& svg": {
-            fontSize: 18,
+            fontSize: iconSizeLg,
           },
           "&.Mui-checked, &.MuiCheckbox-indeterminate": {
             color: checkedColor,
@@ -131,6 +150,18 @@ const theme = createTheme({
       },
     },
 
+    MuiInput: {
+      styleOverrides: {
+        root: {
+          fontSize: 14,
+          color: "black",
+          "&.menu-search-bar": {
+            width: "126px",
+          },
+        },
+      },
+    },
+
     MuiTableContainer: {
       styleOverrides: {
         root: {
@@ -158,7 +189,11 @@ const theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          fontSize: iconSize,
+          fontSize: iconSizeMd,
+          "&.search-icon": {
+            marginLeft: "4px",
+            color: iconColorLight,
+          },
         },
       },
     },

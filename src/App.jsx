@@ -34,6 +34,7 @@ const columns = [
       />
     ),
     size: 32,
+    enableHiding: false,
     meta: {
       align: "center",
     },
