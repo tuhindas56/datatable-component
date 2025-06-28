@@ -14,8 +14,6 @@ const ColumnHeader = ({ column, title = "Header", child = false }) => {
   const isSorted = canSort && column?.getIsSorted()
   const canHide = column?.getCanHide() || false
 
-  child && console.log(canHide && canPin && canSort)
-
   if (!canHide && !canPin && !canSort) {
     return <div>{title}</div>
   }

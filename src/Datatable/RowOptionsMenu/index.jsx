@@ -15,10 +15,17 @@ const RowOptionsMenu = React.memo(({ options = [] }) => {
 
   return (
     <>
-      <IconButton onClick={handleClick} className="row-options-trigger">
+      <IconButton onClick={handleClick} className={`row-options-trigger ${open ? "menu-open" : ""}`}>
         <MoreHorizIcon />
       </IconButton>
-      <Menu id="row-options-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
+      <Menu
+        id="row-options-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+      >
         {options.map((option, index) => (
           <MenuItem
             key={index}

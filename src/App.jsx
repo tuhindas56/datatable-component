@@ -1,13 +1,10 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import Checkbox from "@mui/material/Checkbox"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 import IconButton from "@mui/material/IconButton"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown"
-import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp"
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight"
 
 import useData from "./hooks/useData"
 
@@ -21,19 +18,22 @@ const columns = [
     header: ({ table }) => (
       <IconButton onClick={table.getToggleAllRowsExpandedHandler()}>
         {table.getIsAllRowsExpanded() ? (
-          <KeyboardDoubleArrowUpIcon />
+          <KeyboardDoubleArrowDownIcon className="rotate-180" />
         ) : table.getIsSomeRowsExpanded() ? (
-          <KeyboardDoubleArrowUpIcon className="rotate90" />
+          <KeyboardDoubleArrowDownIcon className="rotate-90" />
         ) : (
-          <KeyboardDoubleArrowUpIcon className="rotate180" />
+          <KeyboardDoubleArrowDownIcon />
         )}
       </IconButton>
     ),
     cell: info => (
       <IconButton onClick={info.row.getToggleExpandedHandler()}>
-        {info.row.getIsExpanded() ? <ExpandMoreIcon className="rotate180" /> : <ExpandMoreIcon />}
+        {info.row.getIsExpanded() ? <ExpandMoreIcon className="rotate-180" /> : <ExpandMoreIcon />}
       </IconButton>
     ),
+    meta: {
+      align: "center",
+    },
     size: 40,
     enableHiding: false,
   },
@@ -41,7 +41,6 @@ const columns = [
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        type="checkbox"
         checked={table.getIsAllPageRowsSelected()}
         indeterminate={table.getIsSomePageRowsSelected()}
         onChange={table.getToggleAllPageRowsSelectedHandler()}
@@ -52,7 +51,6 @@ const columns = [
     ),
     cell: info => (
       <Checkbox
-        type="checkbox"
         checked={info.row.getIsSelected()}
         onChange={info.row.getToggleSelectedHandler()}
         disableRipple
@@ -60,10 +58,10 @@ const columns = [
         disableTouchRipple
       />
     ),
-    size: 40,
+    size: 32,
     enableHiding: false,
     meta: {
-      align: "center",
+      align: "left",
     },
   },
   {
@@ -227,7 +225,7 @@ const App = () => {
   const [sorting, setSorting] = useState([])
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 50,
+    pageSize: 25,
   })
 
   const { loading, error, data } = useData({

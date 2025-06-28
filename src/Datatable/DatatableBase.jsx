@@ -1,4 +1,4 @@
-import { Fragment, useState, useMemo } from "react"
+import { Fragment, useState } from "react"
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import Stack from "@mui/material/Stack"
 import Table from "@mui/material/Table"
@@ -69,7 +69,7 @@ const DatatableBase = ({
 }) => {
   const [columnPinning, setColumnPinning] = useState({
     left: ["expand", "select"],
-    right: [],
+    right: ["options"],
   })
   const [columnVisibility, setColumnVisibility] = useState({})
   const [rowSelection, setRowSelection] = useState({})
@@ -104,6 +104,8 @@ const DatatableBase = ({
     onRowSelectionChange: setRowSelection,
     onExpandedChange: setExpanded,
     enableExpanding: enableSubRows,
+    debugTable: true,
+    debugRows: true,
   })
 
   if (error) return <h1>Uh oh! {error.message}.</h1>
@@ -122,7 +124,8 @@ const DatatableBase = ({
                     key={header.id}
                     colSpan={header.colSpan}
                     sx={{
-                      left: header.column.getIsPinned() ? header.column.getStart("left") : 0,
+                      left: header.column.getIsPinned() && header.column.getStart("left"),
+                      right: header.column.getIsPinned() && header.column.getStart("right"),
                       zIndex: header.column.getIsPinned() ? 2 : 1,
                     }}
                   >
@@ -161,10 +164,11 @@ const DatatableBase = ({
                     {row.getVisibleCells().map(cell => (
                       <TableCell
                         key={cell.id}
-                        className={`${row.getIsSelected() ? "row-selected" : ""} ${row.getIsPinned() ? "pinned" : ""}`}
+                        className={`${row.getIsSelected() ? "row-selected" : ""}`}
                         sx={{
                           position: cell.column.getIsPinned() ? "sticky" : "static",
-                          left: cell.column.getIsPinned() ? cell.column.getStart("left") : 0,
+                          left: cell.column.getIsPinned() && cell.column.getStart("left"),
+                          right: cell.column.getIsPinned() && cell.column.getStart("right"),
                           zIndex: cell.column.getIsPinned() ? 1 : 0,
                         }}
                       >

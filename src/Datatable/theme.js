@@ -43,6 +43,9 @@ const theme = createTheme({
           cursor: "default",
           boxShadow: boxShadowSubtle,
           maxHeight: 32,
+          "&.menu-open": {
+            backgroundColor: hoverColor,
+          },
         },
       },
     },
@@ -64,9 +67,6 @@ const theme = createTheme({
           },
           "&.rows-per-page-menu-trigger": {
             justifyContent: "space-between",
-          },
-          "&.menu-open": {
-            backgroundColor: hoverColor,
           },
         },
         endIcon: {
@@ -209,16 +209,16 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontSize: iconSizeMd,
-          transition: "transform .14s ease-out",
+          transition: "transform .2s ease-out",
           "&.search-icon": {
             marginLeft: "4px",
             color: iconColorLight,
           },
-          "&.rotate90": {
-            transform: "rotate(90deg)",
+          "&.rotate-90": {
+            transform: "rotate(-90deg)",
           },
-          "&.rotate180": {
-            transform: "rotate(180deg)",
+          "&.rotate-180": {
+            transform: "rotate(-180deg)",
           },
         },
       },
