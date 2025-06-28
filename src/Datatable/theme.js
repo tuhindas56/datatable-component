@@ -50,7 +50,7 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          gap: "8px",
+          maxWidth: "max-content",
           border: `1px solid ${strokeDark}`,
           "&:hover": {
             backgroundColor: hoverColor,
@@ -83,6 +83,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius,
+          maxWidth: "max-content",
           padding: paddingSm,
           "&.pagination-trigger": {
             padding: paddingMd,
@@ -181,6 +182,10 @@ const theme = createTheme({
           "&.expanded-table-cell": {
             paddingBlock: 0,
           },
+          "&.pinned div": {
+            boxShadow: boxShadowStrong,
+            color: "green",
+          },
           "& div:not(:has(.column-header-menu-trigger))": {
             whiteSpace: "nowrap",
             textOverflow: "ellipsis",
@@ -204,9 +209,16 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontSize: iconSizeMd,
+          transition: "transform .14s ease-out",
           "&.search-icon": {
             marginLeft: "4px",
             color: iconColorLight,
+          },
+          "&.rotate90": {
+            transform: "rotate(90deg)",
+          },
+          "&.rotate180": {
+            transform: "rotate(180deg)",
           },
         },
       },

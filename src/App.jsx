@@ -5,6 +5,9 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 import IconButton from "@mui/material/IconButton"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
+import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown"
+import KeyboardDoubleArrowUpIcon from "@mui/icons-material/KeyboardDoubleArrowUp"
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight"
 
 import useData from "./hooks/useData"
 
@@ -13,6 +16,27 @@ import Datatable from "./Datatable"
 import RowOptionsMenu from "./Datatable/RowOptionsMenu"
 
 const columns = [
+  {
+    id: "expand",
+    header: ({ table }) => (
+      <IconButton onClick={table.getToggleAllRowsExpandedHandler()}>
+        {table.getIsAllRowsExpanded() ? (
+          <KeyboardDoubleArrowUpIcon />
+        ) : table.getIsSomeRowsExpanded() ? (
+          <KeyboardDoubleArrowUpIcon className="rotate90" />
+        ) : (
+          <KeyboardDoubleArrowUpIcon className="rotate180" />
+        )}
+      </IconButton>
+    ),
+    cell: info => (
+      <IconButton onClick={info.row.getToggleExpandedHandler()}>
+        {info.row.getIsExpanded() ? <ExpandMoreIcon className="rotate180" /> : <ExpandMoreIcon />}
+      </IconButton>
+    ),
+    size: 40,
+    enableHiding: false,
+  },
   {
     id: "select",
     header: ({ table }) => (
@@ -41,16 +65,6 @@ const columns = [
     meta: {
       align: "center",
     },
-  },
-  {
-    id: "expand",
-    cell: info => (
-      <IconButton onClick={info.row.getToggleExpandedHandler()}>
-        {info.row.getIsExpanded() ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-      </IconButton>
-    ),
-    size: 40,
-    enableHiding: false,
   },
   {
     accessorFn: row => row.product,

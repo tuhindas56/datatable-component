@@ -3,11 +3,11 @@ import Button from "@mui/material/Button"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import Stack from "@mui/material/Stack"
-import MoreVertIcon from "@mui/icons-material/MoreVert"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
-import Typography from "@mui/material/Typography"
 import PushPinIcon from "@mui/icons-material/PushPin"
+import Typography from "@mui/material/Typography"
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
 
 const ColumnHeaderMenu = ({ buttonLabel = "Menu Button", options = [], isSorted = false, isPinned = false }) => {
   const [anchorEl, setAnchorEl] = useState(null)
@@ -23,7 +23,7 @@ const ColumnHeaderMenu = ({ buttonLabel = "Menu Button", options = [], isSorted 
   return (
     <>
       <Button size="small" onClick={handleClick} className={`column-header-menu-trigger ${open ? "menu-open" : ""}`}>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={0.5} useFlexGap>
+        <Stack direction="row" alignItems="center" spacing={0.5} useFlexGap>
           <Typography variant="body2" fontWeight={500}>
             {buttonLabel}
           </Typography>
@@ -32,7 +32,7 @@ const ColumnHeaderMenu = ({ buttonLabel = "Menu Button", options = [], isSorted 
             {isSorted === "desc" && <KeyboardArrowDownIcon />}
             {isPinned && <PushPinIcon sx={{ transform: "rotateZ(45deg)" }} />}
           </Stack>
-          <MoreVertIcon />
+          <UnfoldMoreIcon />
         </Stack>
       </Button>
       <Menu

@@ -28,15 +28,7 @@ const SubRowTable = ({ subRowsColumns = [], data = [] }) => {
         {subRowsTable.getHeaderGroups().map(headerGroup => (
           <TableRow key={headerGroup.id}>
             {headerGroup.headers.map(header => (
-              <TableCell
-                key={header.id}
-                colSpan={header.colSpan}
-                sx={{
-                  position: header.column.getIsPinned() ? "sticky" : "static",
-                  left: header.column.getIsPinned() ? header.column.getStart("left") : 0,
-                  zIndex: header.column.getIsPinned() ? 1 : 0,
-                }}
-              >
+              <TableCell key={header.id} colSpan={header.colSpan}>
                 <div style={{ width: header.column.getSize() }}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                 </div>
@@ -49,14 +41,7 @@ const SubRowTable = ({ subRowsColumns = [], data = [] }) => {
         {subRowsTable.getRowModel().rows.map(row => (
           <TableRow key={row.id}>
             {row.getVisibleCells().map(cell => (
-              <TableCell
-                key={cell.id}
-                sx={{
-                  position: cell.column.getIsPinned() ? "sticky" : "static",
-                  left: cell.column.getIsPinned() ? cell.column.getStart("left") : 0,
-                  zIndex: cell.column.getIsPinned() ? 1 : 0,
-                }}
-              >
+              <TableCell key={cell.id}>
                 <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
               </TableCell>
             ))}
@@ -83,7 +68,7 @@ const DatatableBase = ({
   subRowsColumns = [],
 }) => {
   const [columnPinning, setColumnPinning] = useState({
-    left: ["select", "expand"],
+    left: ["expand", "select"],
     right: [],
   })
   const [columnVisibility, setColumnVisibility] = useState({})
@@ -121,18 +106,6 @@ const DatatableBase = ({
     enableExpanding: enableSubRows,
   })
 
-  const rowsPerPageDropdownOptions = useMemo(
-    () => [
-      { label: "5", value: 5, onClick: () => table.setPageSize(5) },
-      { label: "10", value: 10, onClick: () => table.setPageSize(10) },
-      { label: "15", value: 15, onClick: () => table.setPageSize(15) },
-      { label: "25", value: 25, onClick: () => table.setPageSize(25) },
-      { label: "50", value: 50, onClick: () => table.setPageSize(50) },
-      { label: "100", value: 100, onClick: () => table.setPageSize(100) },
-    ],
-    []
-  )
-
   if (error) return <h1>Uh oh! {error.message}.</h1>
 
   return (
@@ -149,13 +122,18 @@ const DatatableBase = ({
                     key={header.id}
                     colSpan={header.colSpan}
                     sx={{
-                      position: header.column.getIsPinned() ? "sticky" : "static",
                       left: header.column.getIsPinned() ? header.column.getStart("left") : 0,
-                      zIndex: header.column.getIsPinned() ? 1 : 0,
-                      textAlign: header.column.columnDef.meta?.align ?? "left",
+                      zIndex: header.column.getIsPinned() ? 2 : 1,
                     }}
                   >
-                    <div style={{ width: header.column.getSize() }}>
+                    <div
+                      style={{
+                        display: "grid",
+                        placeContent: `center ${header.column.columnDef.meta?.align}` ?? "center left",
+                        width: header.column.getSize(),
+                        textAlign: header.column.columnDef.meta?.align ?? "left",
+                      }}
+                    >
                       {flexRender(header.column.columnDef.header, header.getContext())}
                     </div>
                   </TableCell>
@@ -183,15 +161,21 @@ const DatatableBase = ({
                     {row.getVisibleCells().map(cell => (
                       <TableCell
                         key={cell.id}
-                        className={row.getIsSelected() && "row-selected"}
+                        className={`${row.getIsSelected() ? "row-selected" : ""} ${row.getIsPinned() ? "pinned" : ""}`}
                         sx={{
                           position: cell.column.getIsPinned() ? "sticky" : "static",
                           left: cell.column.getIsPinned() ? cell.column.getStart("left") : 0,
                           zIndex: cell.column.getIsPinned() ? 1 : 0,
-                          textAlign: cell.column.columnDef.meta?.align ?? "left",
                         }}
                       >
-                        <div style={{ width: cell.column.getSize() }}>
+                        <div
+                          style={{
+                            width: cell.column.getSize(),
+                            display: "grid",
+                            placeContent: `center ${cell.column.columnDef.meta?.align}` ?? "center left",
+                            textAlign: cell.column.columnDef.meta?.align ?? "left",
+                          }}
+                        >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </div>
                       </TableCell>
@@ -212,7 +196,7 @@ const DatatableBase = ({
         </Table>
       </TableContainer>
 
-      <Pagination table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
+      <Pagination table={table} />
     </Stack>
   )
 }

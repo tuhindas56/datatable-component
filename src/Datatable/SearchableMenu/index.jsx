@@ -95,6 +95,7 @@ const SearchableMenu = ({
             <MenuItem key={index} onClick={e => handleMenuItemClick(e, item?.onClick)} disabled={item.disabled}>
               {item.icon && <span>{item.icon}</span>}
               <Typography variant="body2">{item.label}</Typography>
+              {item?.endIcon && <span style={{ marginLeft: "auto" }}>{item.endIcon}</span>}
             </MenuItem>
           ))
         ) : (
