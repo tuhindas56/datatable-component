@@ -1,0 +1,7 @@
+.ts-dt-table-container {
+  overflow-x: auto;
+}
+
+.ts-dt-table-container tr {
+  border-top: 1px solid lightgray;
+}
