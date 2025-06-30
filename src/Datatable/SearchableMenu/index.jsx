@@ -1,54 +1,26 @@
 import { useId, useState } from "react"
+import Button from "@mui/material/Button"
+import Checkbox from "@mui/material/Checkbox"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
-import Divider from "@mui/material/Divider"
-import Stack from "@mui/material/Stack"
-import Input from "@mui/material/Input"
-import SearchIcon from "@mui/icons-material/Search"
 import Typography from "@mui/material/Typography"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
-function MenuSearchBar({ value, setSearch, placeholder }) {
-  const handleInputChange = e => {
-    setSearch(e.target.value)
-  }
+import MenuSearchBar from "./MenuSearchBar"
+import NoResultsItem from "./NoResultsItem"
 
-  const handleKeyDown = e => {
-    e.stopPropagation()
-  }
-
-  return (
-    <Stack>
-      <Stack direction="row" spacing={1} alignItems="center">
-        <SearchIcon className="search-icon" />
-        <Input
-          type="text"
-          value={value}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          className="menu-search-bar"
-          disableUnderline
-          autoFocus
-        />
-      </Stack>
-      <Divider />
-    </Stack>
-  )
-}
-
-function NoResultsItem() {
-  return (
-    <MenuItem sx={{ pointerEvents: "none" }}>
-      <Typography variant="body2">No matches found.</Typography>
-    </MenuItem>
-  )
-}
+const DefaultTrigger = props => (
+  <Button {...props}>
+    <ExpandMoreIcon /> Menu
+  </Button>
+)
 
 const SearchableMenu = ({
-  triggerComponent: TriggerComponent,
+  triggerComponent: TriggerComponent = DefaultTrigger,
   menuItems = [],
   anchorOrigin = { vertical: "bottom", horizontal: "left" },
   searchPlaceholder = "Search...",
+  checkboxes = false,
 }) => {
   const [search, setSearch] = useState("")
   const [anchorEl, setAnchorEl] = useState(null)
@@ -81,7 +53,8 @@ const SearchableMenu = ({
 
   return (
     <>
-      {TriggerComponent && <TriggerComponent onClick={handleClick} open={open} id={triggerId} />}
+      <TriggerComponent onClick={handleClick} open={open} id={triggerId} />
+
       <Menu
         anchorEl={anchorEl}
         open={open}
@@ -90,12 +63,14 @@ const SearchableMenu = ({
         transformOrigin={transformOrigin}
       >
         <MenuSearchBar value={search} setSearch={setSearch} placeholder={searchPlaceholder} />
+
         {visibleItems.length > 0 ? (
           visibleItems.map((item, index) => (
-            <MenuItem key={index} onClick={e => handleMenuItemClick(e, item?.onClick)} disabled={item.disabled}>
+            <MenuItem key={index} onClick={e => handleMenuItemClick(e, item?.onClick)} disabled={item?.disabled}>
+              {checkboxes && <Checkbox onChange={() => {}} />}
               {item.icon && <span>{item.icon}</span>}
-              <Typography variant="body2">{item.label}</Typography>
-              {item?.endIcon && <span style={{ marginLeft: "auto" }}>{item.endIcon}</span>}
+              <Typography variant="body2">{item?.label}</Typography>
+              {item.endIcon && <span style={{ marginLeft: "auto" }}>{item.endIcon}</span>}
             </MenuItem>
           ))
         ) : (
