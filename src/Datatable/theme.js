@@ -53,6 +53,7 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          gap: 4,
           maxWidth: "max-content",
           border: `1px solid ${strokeDark}`,
           "&:hover": {
