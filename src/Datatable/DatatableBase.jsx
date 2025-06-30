@@ -77,7 +77,7 @@ const DatatableBase = ({
 
   const table = useReactTable({
     columns,
-    data: data?.data ?? [],
+    data: data ?? [],
     getRowId: row => row.id,
     getCoreRowModel: getCoreRowModel(),
     getSubRows: enableSubRows ? getSubRows : undefined,
