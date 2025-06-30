@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, memo } from "react"
 import Checkbox from "@mui/material/Checkbox"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
@@ -34,7 +34,7 @@ const columns = [
     meta: {
       align: "center",
     },
-    size: 40,
+    size: 32,
     enableHiding: false,
   },
   {
@@ -58,10 +58,10 @@ const columns = [
         disableTouchRipple
       />
     ),
-    size: 32,
+    size: 24,
     enableHiding: false,
     meta: {
-      align: "left",
+      align: "center",
     },
   },
   {
@@ -225,7 +225,7 @@ const App = () => {
   const [sorting, setSorting] = useState([])
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 25,
+    pageSize: 100,
   })
 
   const { loading, error, data } = useData({
@@ -242,7 +242,7 @@ const App = () => {
         columns={columns}
         loading={loading}
         error={error}
-        data={data}
+        data={data?.data}
         pagination={pagination}
         setPagination={setPagination}
         sorting={sorting}
