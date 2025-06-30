@@ -8,6 +8,19 @@ const App = () => {
   const columns = useMemo(
     () => [
       {
+        id: "select",
+        header: ({ table }) => (
+          <input
+            type="checkbox"
+            checked={table.getIsAllPageRowsSelected()}
+            onChange={table.getToggleAllPageRowsSelectedHandler()}
+          />
+        ),
+        cell: ({ row }) => (
+          <input type="checkbox" checked={row.getIsSelected()} onChange={row.getToggleSelectedHandler()} />
+        ),
+      },
+      {
         accessorFn: row => row.product,
         header: "Product",
       },

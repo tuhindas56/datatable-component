@@ -1,13 +1,19 @@
+import { useState } from "react"
 import { flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
 
 import styles from "./styles.module.css"
 
 const Datatable = ({ loading = false, error = null, data = [], columns = [] }) => {
+  const [rowSelection, setRowSelection] = useState({})
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getRowId: row => row.id,
+    state: {
+      rowSelection,
+    },
+    onRowSelectionChange: setRowSelection,
   })
   const colCount = table.getHeaderGroups()[0].headers.length
 
