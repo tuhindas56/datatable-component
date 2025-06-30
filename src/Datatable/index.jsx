@@ -1,13 +1,14 @@
-import { ThemeProvider } from "@mui/material/styles"
+// import { ThemeProvider } from "@mui/material/styles"
 
-import DatatableBase from "./DatatableBase"
-import theme from "./theme"
+// import DatatableBase from "./DatatableBase"
+import DatatableBase from "./DatatableBootstrap"
+// import theme from "./theme"
 
 const Datatable = props => {
   return (
-    <ThemeProvider theme={theme}>
-      <DatatableBase {...props} />
-    </ThemeProvider>
+    // <ThemeProvider theme={theme}>
+    <DatatableBase {...props} />
+    // </ThemeProvider>
   )
 }
 

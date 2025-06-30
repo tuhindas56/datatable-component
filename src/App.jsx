@@ -1,10 +1,11 @@
-import { useState, memo } from "react"
-import Checkbox from "@mui/material/Checkbox"
+import { useState } from "react"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
-import IconButton from "@mui/material/IconButton"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown"
+
+import Button from "react-bootstrap/Button"
+import Form from "react-bootstrap/Form"
 
 import useData from "./hooks/useData"
 
@@ -16,7 +17,7 @@ const columns = [
   {
     id: "expand",
     header: ({ table }) => (
-      <IconButton onClick={table.getToggleAllRowsExpandedHandler()}>
+      <Button onClick={table.getToggleAllRowsExpandedHandler()} variant="secondary">
         {table.getIsAllRowsExpanded() ? (
           <KeyboardDoubleArrowDownIcon className="rotate-180" />
         ) : table.getIsSomeRowsExpanded() ? (
@@ -24,12 +25,12 @@ const columns = [
         ) : (
           <KeyboardDoubleArrowDownIcon />
         )}
-      </IconButton>
+      </Button>
     ),
     cell: info => (
-      <IconButton onClick={info.row.getToggleExpandedHandler()}>
+      <Button onClick={info.row.getToggleExpandedHandler()} variant="secondary">
         {info.row.getIsExpanded() ? <ExpandMoreIcon className="rotate-180" /> : <ExpandMoreIcon />}
-      </IconButton>
+      </Button>
     ),
     meta: {
       align: "center",
@@ -40,24 +41,9 @@ const columns = [
   {
     id: "select",
     header: ({ table }) => (
-      <Checkbox
-        checked={table.getIsAllPageRowsSelected()}
-        indeterminate={table.getIsSomePageRowsSelected()}
-        onChange={table.getToggleAllPageRowsSelectedHandler()}
-        disableRipple
-        disableFocusRipple
-        disableTouchRipple
-      />
+      <Form.Check checked={table.getIsAllPageRowsSelected()} onChange={table.getToggleAllPageRowsSelectedHandler()} />
     ),
-    cell: info => (
-      <Checkbox
-        checked={info.row.getIsSelected()}
-        onChange={info.row.getToggleSelectedHandler()}
-        disableRipple
-        disableFocusRipple
-        disableTouchRipple
-      />
-    ),
+    cell: info => <Form.Check checked={info.row.getIsSelected()} onChange={info.row.getToggleSelectedHandler()} />,
     size: 24,
     enableHiding: false,
     meta: {
