@@ -1,8 +1,9 @@
 import { useMemo } from "react"
 
 import useData from "./hooks/useData"
-
 import Datatable from "./Datatable"
+import IndeterminateCheckbox from "./Datatable/IndeterminateCheckbox"
+import RowLevelOptions from "./Datatable/RowLevelOptions"
 
 const App = () => {
   const columns = useMemo(
@@ -10,15 +11,16 @@ const App = () => {
       {
         id: "select",
         header: ({ table }) => (
-          <input
-            type="checkbox"
+          <IndeterminateCheckbox
             checked={table.getIsAllPageRowsSelected()}
+            indeterminate={table.getIsSomePageRowsSelected()}
             onChange={table.getToggleAllPageRowsSelectedHandler()}
           />
         ),
         cell: ({ row }) => (
-          <input type="checkbox" checked={row.getIsSelected()} onChange={row.getToggleSelectedHandler()} />
+          <IndeterminateCheckbox checked={row.getIsSelected()} onChange={row.getToggleSelectedHandler()} />
         ),
+        size: 32,
       },
       {
         accessorFn: row => row.product,
