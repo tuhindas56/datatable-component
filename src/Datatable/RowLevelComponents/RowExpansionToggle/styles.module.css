@@ -1,0 +1,32 @@
+button.row-expansion-toggle,
+button.row-expansion-toggle {
+  --bs-btn-bg: white;
+  --bs-btn-color: #565656;
+  --bs-btn-border-color: #e5e5e5;
+  --bs-btn-hover-border-color: #e5e5e5;
+  --bs-btn-active-border-color: #e5e5e5;
+  --bs-btn-hover-bg: #f5f5f5;
+  --bs-btn-hover-color: #565656;
+  --bs-btn-active-bg: #f5f5f5;
+  --bs-btn-active-color: #565656;
+  --bs-btn-padding-x: 4px;
+  --bs-btn-padding-y: 4px;
+
+  display: grid;
+  place-content: center;
+}
+
+button.row-expansion-toggle:hover {
+}
+
+button.row-expansion-toggle svg {
+  transition: transform 0.2s ease-out;
+}
+
+button.row-expansion-toggle svg.rotate-90 {
+  transform: rotate(90deg);
+}
+
+button.row-expansion-toggle svg.rotate-180 {
+  transform: rotate(-90deg);
+}

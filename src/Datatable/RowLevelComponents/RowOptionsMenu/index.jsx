@@ -52,7 +52,7 @@ import Stack from "@mui/material/Stack"
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap"
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 
-import styles from "../../styles.module.css"
+import styles from "./styles.module.css"
 
 const RowOptionsMenu = ({ rowID = "", options = [] }) => {
   const [isOpen, setIsOpen] = useState(false)

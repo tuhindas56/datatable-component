@@ -17,8 +17,8 @@ const ViewMenu = ({ table }) => {
   const options = []
 
   for (let column of columns) {
-    const meta = column.columnDef.meta || {}
-    if (column.getCanHide()) {
+    const meta = column.columnDef.meta
+    if (meta && column.getCanHide()) {
       options.push({
         label: meta?.label || column?.id,
         onClick: () => column.toggleVisibility(!column.getIsVisible()),

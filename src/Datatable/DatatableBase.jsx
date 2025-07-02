@@ -22,9 +22,9 @@ const SubRowTable = ({ subRowsColumns = [], data = [] }) => {
 
   return (
     <Table className={styles["ts-dt"]}>
-      <thead>
+      <thead className={styles["thead"]}>
         {subRowsTable.getHeaderGroups().map(headerGroup => (
-          <tr key={headerGroup.id}>
+          <tr key={headerGroup.id} className={styles["tr"]}>
             {headerGroup.headers.map(header => (
               <th key={header.id} colSpan={header.colSpan} className={styles["th"]}>
                 <div style={{ width: header.column.getSize() }}>
@@ -35,9 +35,9 @@ const SubRowTable = ({ subRowsColumns = [], data = [] }) => {
           </tr>
         ))}
       </thead>
-      <tbody>
+      <tbody className={styles["tbody"]}>
         {subRowsTable.getRowModel().rows.map(row => (
-          <tr key={row.id}>
+          <tr key={row.id} className={styles["tr"]}>
             {row.getVisibleCells().map(cell => (
               <td key={cell.id} className={styles["td"]}>
                 <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
@@ -112,9 +112,9 @@ const DatatableBase = ({
 
       <TableContainer>
         <Table className={styles["ts-dt"]}>
-          <thead style={{ position: "sticky", top: 0, zIndex: 4 }}>
+          <thead className={styles["thead"]}>
             {table.getHeaderGroups().map(headerGroup => (
-              <tr key={headerGroup.id}>
+              <tr key={headerGroup.id} className={styles["tr"]}>
                 {headerGroup.headers.map(header => (
                   <th
                     key={header.id}
@@ -140,15 +140,15 @@ const DatatableBase = ({
               </tr>
             ))}
           </thead>
-          <tbody>
+          <tbody className={styles["tbody"]}>
             {loading ? (
-              <tr>
+              <tr className={styles["tr"]}>
                 <td colSpan={table.getHeaderGroups()[0].headers.length}>
                   <div style={{ textAlign: "center" }}>Loading...</div>
                 </td>
               </tr>
             ) : data?.data?.length === 0 ? (
-              <tr>
+              <tr className={styles["tr"]}>
                 <td colSpan={table.getHeaderGroups()[0].headers.length} align="center">
                   No data found.
                 </td>
@@ -156,7 +156,7 @@ const DatatableBase = ({
             ) : (
               table.getRowModel().rows.map(row => (
                 <Fragment key={row.id}>
-                  <tr>
+                  <tr className={styles["tr"]}>
                     {row.getVisibleCells().map(cell => (
                       <td
                         key={cell.id}
@@ -181,8 +181,8 @@ const DatatableBase = ({
                   </tr>
 
                   {enableSubRows && row.getCanExpand() && row.getIsExpanded() && (
-                    <tr>
-                      <td colSpan={table.getHeaderGroups()[0].headers.length} className="expanded-table-cell">
+                    <tr className={styles["tr"]}>
+                      <td colSpan={table.getHeaderGroups()[0].headers.length} className={styles["expanded-table-cell"]}>
                         <SubRowTable subRowsColumns={subRowsColumns} data={row.original?.children} />
                       </td>
                     </tr>
