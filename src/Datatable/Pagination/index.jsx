@@ -1,6 +1,6 @@
 import Typography from "@mui/material/Typography"
 
-import RowPerPage from "./RowPerPage"
+import RowsPerPage from "./RowsPerPage"
 import PageNavigation from "./PageNavigation"
 
 const Pagination = ({ table, rowsPerPageDropdownOptions }) => {
@@ -15,7 +15,7 @@ const Pagination = ({ table, rowsPerPageDropdownOptions }) => {
         paddingBlock: 8,
       }}
     >
-      <RowPerPage table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
+      <RowsPerPage table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
       <Typography fontWeight={500} variant="body2">
         Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}{" "}
       </Typography>

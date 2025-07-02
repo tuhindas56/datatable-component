@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography"
 
 import RowsPerPageMenu from "./RowsPerPageMenu"
 
-const RowPerPage = ({ table }) => {
+const RowsPerPage = ({ table }) => {
   const rowsPerPage = table.getState().pagination.pageSize
   const rowsPerPageDropdownOptions = [
     { label: "5", value: 5, onClick: () => table.setPageSize(5) },
@@ -35,4 +35,4 @@ const RowPerPage = ({ table }) => {
   )
 }
 
-export default RowPerPage
+export default RowsPerPage

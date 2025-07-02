@@ -2,7 +2,7 @@ import Button from "@mui/material/Button"
 import Menu from "@mui/material/Menu"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import SearchableMenu from "../SearchableMenu"
+import SearchableMenu from "../../SearchableMenu"
 
 // string filters: contains, does not contain, is, is not, is empty, is not empty
 // numeric filters: is, is not, is less than, is less than or equal to, is greater than, is greater than or equal to, is between, is empty, is not empty
