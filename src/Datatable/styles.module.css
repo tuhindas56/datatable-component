@@ -1,5 +1,6 @@
 .ts-dt {
   margin: 0;
+  font-family: Inter;
 }
 
 .ts-dt .expanded-table-cell {
@@ -15,8 +16,6 @@
   top: 0;
   z-index: 99;
 }
-
-/* .ts-dt .expanded-table-cell {} */
 
 .ts-dt .th,
 .ts-dt .td {

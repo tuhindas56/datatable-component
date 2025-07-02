@@ -87,7 +87,7 @@ const DatatableBase = ({
       sorting,
       rowSelection,
     },
-    enableColumnPinning: false,
+    enableColumnPinning: true,
     onColumnPinningChange: setColumnPinning,
     enableHiding: true,
     onColumnVisibilityChange: setColumnVisibility,

@@ -3,7 +3,6 @@
   place-content: center left;
 }
 
-input[type="checkbox"].indeterminate-checkbox,
 input[type="checkbox"].indeterminate-checkbox {
   border: var(--checkbox-border, 1px solid #d5d5d5);
   box-shadow: none;

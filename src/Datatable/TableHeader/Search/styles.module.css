@@ -2,9 +2,10 @@
   height: 32px;
   max-width: 224px;
   font-size: 14px;
+  font-family: Inter;
 }
 
 .table-search-input:focus {
   border-color: #a1a1a1;
-  box-shadow: 0 0 0 3px #cfcfcf, /* 3px ring with 50% opacity of the 'ring' color */ 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  box-shadow: 0 0 0 3px #cfcfcf, 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }

@@ -21,12 +21,13 @@
 }
 
 .dropdown-menu {
-  --bs-dropdown-zindex: 3;
+  --bs-dropdown-bg: white;
   --bs-dropdown-border-width: 0;
   --bs-dropdown-font-size: 14px;
   --bs-dropdown-min-width: 100px;
   --bs-dropdown-padding-x: 4px;
   --bs-dropdown-padding-y: 4px;
+  --bs-dropdown-zindex: 3;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
@@ -34,7 +35,10 @@
   --bs-dropdown-item-padding-x: 8px;
   --bs-dropdown-item-padding-y: 6px;
   --bs-dropdown-item-font-size: 14px;
+  --bs-dropdown-link-active-bg: #f5f5f5;
+  --bs-dropdown-link-active-color: black;
   display: flex;
   align-items: center;
   gap: 0.4rem;
+  border-radius: 4px;
 }
