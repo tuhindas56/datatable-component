@@ -1,3 +1,4 @@
+import Stack from "@mui/material/Stack"
 import CheckIcon from "@mui/icons-material/Check"
 import CloseIcon from "@mui/icons-material/Close"
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
@@ -15,7 +16,7 @@ const ColumnHeader = ({ column, title = "Header", child = false }) => {
   const canHide = column?.getCanHide() || false
 
   if (!canHide && !canPin && !canSort) {
-    return <div>{title}</div>
+    return title
   }
 
   const handleSorting = desc => {
@@ -27,7 +28,7 @@ const ColumnHeader = ({ column, title = "Header", child = false }) => {
   }
 
   const handlePin = () => {
-    column.pin(isPinned ? false : "left")
+    column.pin(!child && (isPinned ? false : "left"))
   }
 
   const handleReset = () => {

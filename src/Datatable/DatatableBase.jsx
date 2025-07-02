@@ -1,15 +1,13 @@
 import { Fragment, useState } from "react"
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import Stack from "@mui/material/Stack"
-import Table from "@mui/material/Table"
-import TableBody from "@mui/material/TableBody"
-import TableCell from "@mui/material/TableCell"
 import TableContainer from "@mui/material/TableContainer"
-import TableHead from "@mui/material/TableHead"
-import TableRow from "@mui/material/TableRow"
+import { Table } from "reactstrap"
 
 import TableHeader from "./TableHeader"
 import Pagination from "./Pagination"
+
+import styles from "./styles.module.css"
 
 const SubRowTable = ({ subRowsColumns = [], data = [] }) => {
   const subRowsTable = useReactTable({
@@ -23,31 +21,31 @@ const SubRowTable = ({ subRowsColumns = [], data = [] }) => {
   })
 
   return (
-    <Table>
-      <TableHead>
+    <Table className={styles["ts-dt"]}>
+      <thead>
         {subRowsTable.getHeaderGroups().map(headerGroup => (
-          <TableRow key={headerGroup.id}>
+          <tr key={headerGroup.id}>
             {headerGroup.headers.map(header => (
-              <TableCell key={header.id} colSpan={header.colSpan}>
+              <th key={header.id} colSpan={header.colSpan} className={styles["th"]}>
                 <div style={{ width: header.column.getSize() }}>
                   {flexRender(header.column.columnDef.header, header.getContext())}
                 </div>
-              </TableCell>
+              </th>
             ))}
-          </TableRow>
+          </tr>
         ))}
-      </TableHead>
-      <TableBody>
+      </thead>
+      <tbody>
         {subRowsTable.getRowModel().rows.map(row => (
-          <TableRow key={row.id}>
+          <tr key={row.id}>
             {row.getVisibleCells().map(cell => (
-              <TableCell key={cell.id}>
+              <td key={cell.id} className={styles["td"]}>
                 <div>{flexRender(cell.column.columnDef.cell, cell.getContext())}</div>
-              </TableCell>
+              </td>
             ))}
-          </TableRow>
+          </tr>
         ))}
-      </TableBody>
+      </tbody>
     </Table>
   )
 }
@@ -69,7 +67,7 @@ const DatatableBase = ({
 }) => {
   const [columnPinning, setColumnPinning] = useState({
     left: ["expand", "select"],
-    right: ["options"],
+    right: [],
   })
   const [columnVisibility, setColumnVisibility] = useState({})
   const [rowSelection, setRowSelection] = useState({})
@@ -89,7 +87,7 @@ const DatatableBase = ({
       sorting,
       rowSelection,
     },
-    enableColumnPinning: true,
+    enableColumnPinning: false,
     onColumnPinningChange: setColumnPinning,
     enableHiding: true,
     onColumnVisibilityChange: setColumnVisibility,
@@ -104,8 +102,6 @@ const DatatableBase = ({
     onRowSelectionChange: setRowSelection,
     onExpandedChange: setExpanded,
     enableExpanding: enableSubRows,
-    debugTable: true,
-    debugRows: true,
   })
 
   if (error) return <h1>Uh oh! {error.message}.</h1>
@@ -115,57 +111,57 @@ const DatatableBase = ({
       <TableHeader table={table} setSearchQuery={setSearchQuery} />
 
       <TableContainer>
-        <Table stickyHeader>
-          <TableHead>
+        <Table className={styles["ts-dt"]}>
+          <thead style={{ position: "sticky", top: 0, zIndex: 4 }}>
             {table.getHeaderGroups().map(headerGroup => (
-              <TableRow key={headerGroup.id}>
+              <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                  <TableCell
+                  <th
                     key={header.id}
                     colSpan={header.colSpan}
-                    sx={{
+                    className={styles["th"]}
+                    style={{
+                      position: header.column.getIsPinned() ? "sticky" : "static",
                       left: header.column.getIsPinned() && header.column.getStart("left"),
                       right: header.column.getIsPinned() && header.column.getStart("right"),
-                      zIndex: header.column.getIsPinned() ? 2 : 1,
+                      zIndex: header.column.getIsPinned() ? 4 : 1,
                     }}
                   >
                     <div
                       style={{
-                        display: "grid",
-                        placeContent: `center ${header.column.columnDef.meta?.align}` ?? "center left",
                         width: header.column.getSize(),
                         textAlign: header.column.columnDef.meta?.align ?? "left",
                       }}
                     >
                       {flexRender(header.column.columnDef.header, header.getContext())}
                     </div>
-                  </TableCell>
+                  </th>
                 ))}
-              </TableRow>
+              </tr>
             ))}
-          </TableHead>
-          <TableBody>
+          </thead>
+          <tbody>
             {loading ? (
-              <TableRow>
-                <TableCell colSpan={table.getHeaderGroups()[0].headers.length}>
+              <tr>
+                <td colSpan={table.getHeaderGroups()[0].headers.length}>
                   <div style={{ textAlign: "center" }}>Loading...</div>
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             ) : data?.data?.length === 0 ? (
-              <TableRow>
-                <TableCell colSpan={table.getHeaderGroups()[0].headers.length} align="center">
+              <tr>
+                <td colSpan={table.getHeaderGroups()[0].headers.length} align="center">
                   No data found.
-                </TableCell>
-              </TableRow>
+                </td>
+              </tr>
             ) : (
               table.getRowModel().rows.map(row => (
                 <Fragment key={row.id}>
-                  <TableRow>
+                  <tr>
                     {row.getVisibleCells().map(cell => (
-                      <TableCell
+                      <td
                         key={cell.id}
-                        className={`${row.getIsSelected() ? "row-selected" : ""}`}
-                        sx={{
+                        className={`${styles["td"]} ${row.getIsSelected() ? "row-selected" : ""}`}
+                        style={{
                           position: cell.column.getIsPinned() ? "sticky" : "static",
                           left: cell.column.getIsPinned() && cell.column.getStart("left"),
                           right: cell.column.getIsPinned() && cell.column.getStart("right"),
@@ -175,28 +171,26 @@ const DatatableBase = ({
                         <div
                           style={{
                             width: cell.column.getSize(),
-                            display: "grid",
-                            placeContent: `center ${cell.column.columnDef.meta?.align}` ?? "center left",
                             textAlign: cell.column.columnDef.meta?.align ?? "left",
                           }}
                         >
                           {flexRender(cell.column.columnDef.cell, cell.getContext())}
                         </div>
-                      </TableCell>
+                      </td>
                     ))}
-                  </TableRow>
+                  </tr>
 
                   {enableSubRows && row.getCanExpand() && row.getIsExpanded() && (
-                    <TableRow>
-                      <TableCell colSpan={table.getHeaderGroups()[0].headers.length} className="expanded-table-cell">
+                    <tr>
+                      <td colSpan={table.getHeaderGroups()[0].headers.length} className="expanded-table-cell">
                         <SubRowTable subRowsColumns={subRowsColumns} data={row.original?.children} />
-                      </TableCell>
-                    </TableRow>
+                      </td>
+                    </tr>
                   )}
                 </Fragment>
               ))
             )}
-          </TableBody>
+          </tbody>
         </Table>
       </TableContainer>
 

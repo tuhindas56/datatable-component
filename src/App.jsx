@@ -1,36 +1,20 @@
-import { useState, memo } from "react"
-import Checkbox from "@mui/material/Checkbox"
+import { useState } from "react"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
-import IconButton from "@mui/material/IconButton"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown"
 
 import useData from "./hooks/useData"
 
 import ColumnHeader from "./Datatable/ColumnHeader"
 import Datatable from "./Datatable"
-import RowOptionsMenu from "./Datatable/RowOptionsMenu"
+import IndeterminateCheckbox from "./Datatable/RowLevelComponents/IndeterminateCheckbox"
+import RowExpansionToggle from "./Datatable/RowLevelComponents/RowExpansionToggle"
+import RowOptionsMenu from "./Datatable/RowLevelComponents/RowOptionsMenu"
 
 const columns = [
   {
     id: "expand",
-    header: ({ table }) => (
-      <IconButton onClick={table.getToggleAllRowsExpandedHandler()}>
-        {table.getIsAllRowsExpanded() ? (
-          <KeyboardDoubleArrowDownIcon className="rotate-180" />
-        ) : table.getIsSomeRowsExpanded() ? (
-          <KeyboardDoubleArrowDownIcon className="rotate-90" />
-        ) : (
-          <KeyboardDoubleArrowDownIcon />
-        )}
-      </IconButton>
-    ),
-    cell: info => (
-      <IconButton onClick={info.row.getToggleExpandedHandler()}>
-        {info.row.getIsExpanded() ? <ExpandMoreIcon className="rotate-180" /> : <ExpandMoreIcon />}
-      </IconButton>
-    ),
+    header: ({ table }) => <RowExpansionToggle table={table} />,
+    cell: info => <RowExpansionToggle row={info.row} />,
     meta: {
       align: "center",
     },
@@ -40,23 +24,14 @@ const columns = [
   {
     id: "select",
     header: ({ table }) => (
-      <Checkbox
+      <IndeterminateCheckbox
         checked={table.getIsAllPageRowsSelected()}
         indeterminate={table.getIsSomePageRowsSelected()}
         onChange={table.getToggleAllPageRowsSelectedHandler()}
-        disableRipple
-        disableFocusRipple
-        disableTouchRipple
       />
     ),
     cell: info => (
-      <Checkbox
-        checked={info.row.getIsSelected()}
-        onChange={info.row.getToggleSelectedHandler()}
-        disableRipple
-        disableFocusRipple
-        disableTouchRipple
-      />
+      <IndeterminateCheckbox checked={info.row.getIsSelected()} onChange={info.row.getToggleSelectedHandler()} />
     ),
     size: 24,
     enableHiding: false,
@@ -151,7 +126,6 @@ const columns = [
             onClick: () => confirm("This won't do anything, but are you sure?"),
           },
         ]}
-        key={info.row.original.product}
       />
     ),
     disableColumnMenu: true,
