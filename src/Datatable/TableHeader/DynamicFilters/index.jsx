@@ -25,7 +25,7 @@ const generateFilter = column => {
   const type = canFilter && column.columnDef?.meta?.filterType
   const label = canFilter && column.columnDef?.meta?.label
   const selectedOptions = canFilter && column.getFilterValue()
-  console.log(column)
+
   switch (type) {
     case "multiselect":
       return (
