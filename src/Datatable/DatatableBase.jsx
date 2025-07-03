@@ -55,6 +55,8 @@ const DatatableBase = ({
   loading,
   error,
   data,
+  columnFilters,
+  setColumnFilters,
   pagination,
   setPagination,
   sorting,
@@ -80,6 +82,7 @@ const DatatableBase = ({
     getCoreRowModel: getCoreRowModel(),
     getSubRows: enableSubRows ? getSubRows : undefined,
     state: {
+      columnFilters,
       columnPinning,
       columnVisibility,
       expanded,
@@ -87,6 +90,7 @@ const DatatableBase = ({
       sorting,
       rowSelection,
     },
+    onColumnFiltersChange: setColumnFilters,
     enableColumnPinning: true,
     onColumnPinningChange: setColumnPinning,
     enableHiding: true,
@@ -147,7 +151,7 @@ const DatatableBase = ({
                   <div style={{ textAlign: "center" }}>Loading...</div>
                 </td>
               </tr>
-            ) : data?.data?.length === 0 ? (
+            ) : data?.length === 0 ? (
               <tr className={styles["tr"]}>
                 <td colSpan={table.getHeaderGroups()[0].headers.length} align="center">
                   No data found.

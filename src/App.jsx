@@ -10,6 +10,10 @@ import IndeterminateCheckbox from "./Datatable/RowLevelComponents/IndeterminateC
 import RowExpansionToggle from "./Datatable/RowLevelComponents/RowExpansionToggle"
 import RowOptionsMenu from "./Datatable/RowLevelComponents/RowOptionsMenu"
 
+const dateFormatter = new Intl.DateTimeFormat("en-IN", {
+  dateStyle: "medium",
+}).format
+
 const columns = [
   {
     id: "expand",
@@ -44,6 +48,7 @@ const columns = [
     id: "product",
     header: ({ column }) => <ColumnHeader column={column} title="Product" />,
     minSize: 200,
+    enableColumnFilter: false,
     meta: {
       label: "Product",
     },
@@ -56,6 +61,7 @@ const columns = [
     enablePinning: true,
     meta: {
       label: "Price",
+      filterType: "range",
     },
   },
   {
@@ -64,6 +70,8 @@ const columns = [
     header: ({ column }) => <ColumnHeader column={column} title="Material" />,
     meta: {
       label: "Material",
+      filterType: "multiselect",
+      filterOptions: ["Marble", "Bronze", "Plastic"],
     },
     enablePinning: false,
     enableSorting: false,
@@ -75,12 +83,25 @@ const columns = [
     header: ({ column }) => <ColumnHeader column={column} title="Department" />,
     meta: {
       label: "Department",
+      filterType: "multiselect",
+      filterOptions: ["Games", "Health", "Grocery", "Jewelry", "Electronics", "Sports"],
+    },
+  },
+  {
+    accessorFn: row => row.date_unix,
+    id: "date_unix",
+    header: ({ column }) => <ColumnHeader column={column} title="Date" />,
+    cell: info => dateFormatter(new Date(info.getValue() * 1000)),
+    meta: {
+      label: "Date",
+      filterType: "range",
     },
   },
   {
     accessorFn: row => row.title,
     id: "title",
     header: ({ column }) => <ColumnHeader column={column} title="Title" />,
+    enableColumnFilter: false,
     meta: {
       label: "Title",
     },
@@ -89,6 +110,7 @@ const columns = [
     accessorFn: row => row.author,
     id: "author",
     header: ({ column }) => <ColumnHeader column={column} title="Author" />,
+    enableColumnFilter: false,
     meta: {
       label: "Author",
     },
@@ -97,6 +119,7 @@ const columns = [
     accessorFn: row => row.publisher,
     id: "publisher",
     header: ({ column }) => <ColumnHeader column={column} title="Publisher" />,
+    enableColumnFilter: false,
     meta: {
       label: "Publisher",
     },
@@ -105,6 +128,7 @@ const columns = [
     accessorFn: row => row.genre,
     id: "genre",
     header: ({ column }) => <ColumnHeader column={column} title="Genre" />,
+    enableColumnFilter: false,
     meta: {
       label: "Genre",
     },
@@ -197,9 +221,11 @@ const subRowsColumns = [
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [sorting, setSorting] = useState([])
+  const [columnFilters, setColumnFilters] = useState([])
+
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 100,
+    pageSize: 15,
   })
 
   const { loading, error, data } = useData({
@@ -208,7 +234,10 @@ const App = () => {
     sortBy: sorting[0] && sorting[0].id,
     sortOrder: sorting[0] && !sorting[0].desc,
     searchQuery,
+    filters: columnFilters,
   })
+
+  console.log(columnFilters)
 
   return (
     <div style={{ padding: 32 }}>
@@ -226,6 +255,8 @@ const App = () => {
         enableSubRows={true}
         getSubRows={row => row.children}
         subRowsColumns={subRowsColumns}
+        columnFilters={columnFilters}
+        setColumnFilters={setColumnFilters}
       />
     </div>
   )

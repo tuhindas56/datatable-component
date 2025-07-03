@@ -3,7 +3,14 @@ import { createClient } from "@supabase/supabase-js"
 
 const supabase = createClient("https://serttcbgdvcdujcrnusw.supabase.co/", import.meta.env.VITE_SUPABASE_API_KEY)
 
-const useData = ({ currentPage = 0, rowsPerPage = 10, sortBy = null, sortOrder = true, searchQuery = "" }) => {
+const useData = ({
+  currentPage = 0,
+  rowsPerPage = 10,
+  sortBy = null,
+  sortOrder = true,
+  searchQuery = null,
+  filters = null,
+}) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
@@ -22,6 +29,23 @@ const useData = ({ currentPage = 0, rowsPerPage = 10, sortBy = null, sortOrder =
 
       if (searchQuery) {
         query = query.ilike("product", `%${searchQuery}%`)
+      }
+
+      if (filters && filters.length > 0) {
+        filters.forEach(filter => {
+          if (!filter.value) return
+          switch (filter.id) {
+            case "department":
+            case "material":
+              query = query.in(filter.id, filter.value)
+              break
+            case "date_unix":
+            case "price":
+              if (filter.value.lessThanEqual) query = query.lte(filter.id, filter.value.lessThanEqual)
+              if (filter.value.greaterThanEqual) query = query.gte(filter.id, filter.value.greaterThanEqual)
+              break
+          }
+        })
       }
 
       if (sortBy) {
@@ -82,7 +106,7 @@ const useData = ({ currentPage = 0, rowsPerPage = 10, sortBy = null, sortOrder =
 
   useEffect(() => {
     getData()
-  }, [currentPage, rowsPerPage, sortBy, sortOrder, searchQuery])
+  }, [currentPage, rowsPerPage, sortBy, sortOrder, searchQuery, filters])
 
   return { loading, error, data }
 }

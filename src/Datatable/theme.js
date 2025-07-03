@@ -113,12 +113,31 @@ const theme = createTheme({
           borderRadius,
           color: "#e5e5e5",
           padding: 0,
-          "& svg": {
-            fontSize: iconSizeLg,
-          },
           "&.Mui-checked, &.MuiCheckbox-indeterminate": {
             color: checkedColor,
           },
+        },
+      },
+    },
+
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          borderRadius,
+          maxHeight: 20,
+        },
+        label: {
+          padding: "2px 4px",
+          fontWeight: 300,
+          fontSize: 12,
+        },
+      },
+    },
+
+    MuiDivider: {
+      styleOverrides: {
+        root: {
+          margin: 4,
         },
       },
     },

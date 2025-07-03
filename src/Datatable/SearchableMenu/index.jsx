@@ -1,6 +1,5 @@
 import { useId, useState } from "react"
 import Button from "@mui/material/Button"
-import Checkbox from "@mui/material/Checkbox"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import Typography from "@mui/material/Typography"
@@ -20,10 +19,10 @@ const SearchableMenu = ({
   menuItems = [],
   anchorOrigin = { vertical: "bottom", horizontal: "left" },
   searchPlaceholder = "Search...",
-  checkboxes = false,
 }) => {
   const [search, setSearch] = useState("")
   const [anchorEl, setAnchorEl] = useState(null)
+
   const open = Boolean(anchorEl)
   const id = useId()
   const triggerId = `searchable-menu-${id}`
@@ -67,7 +66,6 @@ const SearchableMenu = ({
         {visibleItems.length > 0 ? (
           visibleItems.map((item, index) => (
             <MenuItem key={index} onClick={e => handleMenuItemClick(e, item?.onClick)} disabled={item?.disabled}>
-              {checkboxes && <Checkbox onChange={() => {}} />}
               {item.icon && <span>{item.icon}</span>}
               <Typography variant="body2">{item?.label}</Typography>
               {item.endIcon && <span style={{ marginLeft: "auto" }}>{item.endIcon}</span>}

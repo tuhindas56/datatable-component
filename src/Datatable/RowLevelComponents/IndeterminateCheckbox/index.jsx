@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react"
-import { Input } from "reactstrap"
+import Stack from "@mui/material/Stack"
 
-import styles from "./styles.module.css"
+import Checkbox from "../../Checkbox"
 
-const IndeterminateCheckbox = ({ indeterminate, className = "", ...props }) => {
+const IndeterminateCheckbox = ({ indeterminate, ...props }) => {
   const checkboxRef = useRef(null)
 
   useEffect(() => {
@@ -11,14 +11,9 @@ const IndeterminateCheckbox = ({ indeterminate, className = "", ...props }) => {
   }, [indeterminate])
 
   return (
-    <div className={styles["indeterminate-checkbox-container"]}>
-      <Input
-        type="checkbox"
-        innerRef={checkboxRef}
-        className={`${styles["indeterminate-checkbox"]} ${className}`}
-        {...props}
-      />
-    </div>
+    <Stack>
+      <Checkbox innerRef={checkboxRef} {...props} />
+    </Stack>
   )
 }
 

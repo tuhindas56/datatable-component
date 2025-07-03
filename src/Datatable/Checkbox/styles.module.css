@@ -1,0 +1,22 @@
+input[type="checkbox"].ts-dt-checkbox {
+  border: var(--checkbox-border, 1px solid #d5d5d5);
+  box-shadow: none;
+  margin: 0;
+}
+
+input[type="checkbox"].ts-dt-checkbox:active,
+input[type="checkbox"]:active {
+  box-shadow: none;
+}
+
+input[type="checkbox"].ts-dt-checkbox:focus,
+input[type="checkbox"].ts-dt-checkbox:focus {
+  background-color: transparent;
+}
+
+input[type="checkbox"].ts-dt-checkbox:indeterminate,
+input[type="checkbox"].ts-dt-checkbox:checked,
+input[type="checkbox"].ts-dt-checkbox:checked {
+  background-color: var(--checkbox-checked-bg, #000000);
+  border: var(--checkbox-border, 1px solid #d5d5d5);
+}
