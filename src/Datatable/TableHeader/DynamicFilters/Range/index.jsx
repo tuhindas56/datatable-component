@@ -7,10 +7,8 @@ import Typography from "@mui/material/Typography"
 import Input from "../../../Input"
 import TriggerComponent from "../TriggerComponent"
 
-const convertToUnixTimestamp = date => Math.floor(new Date(date).getTime() / 1000)
-
-const Datepicker = ({ column, label, filterValues = [] }) => {
-  const [selected, setSelected] = useState({ from: "", to: "" })
+const Range = ({ column, label, filterValues = [] }) => {
+  const [range, setRange] = useState({ from: "", to: "" })
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
 
@@ -18,37 +16,32 @@ const Datepicker = ({ column, label, filterValues = [] }) => {
   const handleClose = () => setOpen(false)
 
   const handleChange = ({ from, to }) => {
-    if (from) setSelected(prev => ({ ...prev, from }))
-    if (to) setSelected(prev => ({ ...prev, to }))
+    if (from) setRange(prev => ({ ...prev, from }))
+    if (to) setRange(prev => ({ ...prev, to }))
   }
 
   const handleClear = () => {
     if (filterValues.length) {
-      setSelected({ from: "", to: "" })
+      setRange({ from: "", to: "" })
       column.setFilterValue(undefined)
     }
   }
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      if (selected.from && selected.to) {
-        const filterValue = [convertToUnixTimestamp(selected.from), convertToUnixTimestamp(selected.to)]
+      if (range.from >= 0 && range.to > 0) {
+        const filterValue = [range.from, range.to]
         column.setFilterValue(filterValue)
       }
     }, 600)
 
     return () => clearTimeout(timeout)
-  }, [selected, column])
+  }, [range, column])
 
   return (
     <>
-      <TriggerComponent
-        onClick={handleClick}
-        label={label}
-        filterValues={filterValues}
-        ref={anchorRef}
-        type="daterange"
-      />
+      <TriggerComponent onClick={handleClick} label={label} filterValues={filterValues} ref={anchorRef} type="range" />
+
       <Popover
         anchorEl={anchorRef.current}
         open={open}
@@ -61,21 +54,22 @@ const Datepicker = ({ column, label, filterValues = [] }) => {
           </Typography>
           <Stack direction="row" spacing={2} useFlexGap>
             <Input
-              type="date"
-              required
-              placeholder="Start date"
+              type="number"
+              min={0}
+              value={range.from}
               onChange={e => handleChange({ from: e.target.value })}
-              value={selected.from}
+              placeholder="min"
+              style={{ maxWidth: 96 }}
             />
             <Input
-              type="date"
-              required
-              placeholder="End date"
+              type="number"
+              value={range.to}
               onChange={e => handleChange({ to: e.target.value })}
-              value={selected.to}
+              placeholder="max"
+              style={{ maxWidth: 96 }}
             />
           </Stack>
-          <Button sx={{ width: "100%", maxWidth: "unset" }} onClick={handleClear}>
+          <Button sx={{ width: "100%", maxWidth: "unset", cursor: "default" }} onClick={handleClear}>
             Clear
           </Button>
         </Stack>
@@ -83,5 +77,4 @@ const Datepicker = ({ column, label, filterValues = [] }) => {
     </>
   )
 }
-
-export default Datepicker
+export default Range

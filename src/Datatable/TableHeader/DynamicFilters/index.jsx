@@ -3,6 +3,7 @@ import CloseIcon from "@mui/icons-material/Close"
 
 import CheckboxToggleMenu from "./CheckboxToggleMenu"
 import Datepicker from "./Datepicker"
+import Range from "./Range"
 
 const generateFilter = column => {
   const canFilter = column.getCanFilter()
@@ -14,7 +15,7 @@ const generateFilter = column => {
     case "multiselect":
       return (
         <CheckboxToggleMenu
-          key={`${column.id}-dynamic-filter`}
+          key={`${column.id}-dynamic-multiselect-filter`}
           column={column}
           label={label}
           filterValues={filterValues}
@@ -22,12 +23,19 @@ const generateFilter = column => {
       )
     case "daterange":
       return (
-        <Datepicker key={`${column.id}-dynamic-filter`} column={column} label={label} filterValues={filterValues} />
+        <Datepicker
+          key={`${column.id}-dynamic-daterange-filter`}
+          column={column}
+          label={label}
+          filterValues={filterValues}
+        />
       )
     case "timerange":
       return <></>
     case "range":
-      return <></>
+      return (
+        <Range key={`${column.id}-dynamic-range-filter`} column={column} label={label} filterValues={filterValues} />
+      )
     default:
       return <></>
   }

@@ -172,6 +172,17 @@ const theme = createTheme({
       },
     },
 
+    MuiPopover: {
+      defaultProps: {
+        elevation: 0,
+      },
+      styleOverrides: {
+        paper: {
+          boxShadow: boxShadowStrong,
+        },
+      },
+    },
+
     MuiInput: {
       styleOverrides: {
         root: {
@@ -239,6 +250,16 @@ const theme = createTheme({
           },
           "&.rotate-180": {
             transform: "rotate(-180deg)",
+          },
+        },
+      },
+    },
+
+    MuiStack: {
+      styleOverrides: {
+        root: {
+          "&.filter-popover-container": {
+            padding: "12px",
           },
         },
       },

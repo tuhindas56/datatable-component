@@ -8,7 +8,7 @@ const TableHeader = ({ table, setSearchQuery }) => {
   return (
     <Stack spacing={2}>
       <Stack direction="row" justifyContent="space-between">
-        <Stack direction="row" gap={2} useFlexGap>
+        <Stack direction="row" gap={2} useFlexGap flexWrap="wrap">
           <Search placeholder="Search..." setSearchQuery={setSearchQuery} />
           <DynamicFilters table={table} />
         </Stack>

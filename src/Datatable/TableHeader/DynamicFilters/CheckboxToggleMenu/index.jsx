@@ -39,7 +39,13 @@ const CheckboxToggleMenu = ({
 
   return (
     <>
-      <TriggerComponent onClick={handleClick} label={label} filterValues={filterValues} ref={anchorRef} />
+      <TriggerComponent
+        onClick={handleClick}
+        label={label}
+        filterValues={filterValues}
+        ref={anchorRef}
+        type="multiselect"
+      />
       <Menu
         anchorEl={anchorRef.current}
         open={open}

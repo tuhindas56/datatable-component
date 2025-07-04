@@ -20,3 +20,13 @@ input[type="checkbox"].ts-dt-checkbox:checked {
   background-color: var(--checkbox-checked-bg, #000000);
   border: var(--checkbox-border, 1px solid #d5d5d5);
 }
+
+input.ts-dt-filter-input {
+  font-size: 14px;
+  font-family: Inter;
+}
+
+input.ts-dt-filter-input:focus {
+  border-color: #a1a1a1;
+  box-shadow: 0 0 0 3px #cfcfcf, 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}

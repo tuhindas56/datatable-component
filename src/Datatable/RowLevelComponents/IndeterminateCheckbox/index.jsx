@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import Stack from "@mui/material/Stack"
 
-import Checkbox from "../../Checkbox"
+import Input from "../../Input"
 
 const IndeterminateCheckbox = ({ indeterminate, ...props }) => {
   const checkboxRef = useRef(null)
@@ -12,7 +12,7 @@ const IndeterminateCheckbox = ({ indeterminate, ...props }) => {
 
   return (
     <Stack>
-      <Checkbox innerRef={checkboxRef} {...props} />
+      <Input type="checkbox" innerRef={checkboxRef} {...props} />
     </Stack>
   )
 }
