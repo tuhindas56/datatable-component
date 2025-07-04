@@ -1,42 +1,29 @@
 import Button from "@mui/material/Button"
-import Chip from "@mui/material/Chip"
-import Divider from "@mui/material/Divider"
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import CloseIcon from "@mui/icons-material/Close"
 
 import CheckboxToggleMenu from "./CheckboxToggleMenu"
-
-const Trigger = ({ label = "Add a label", selectedOptions = [], ...props }) => {
-  return (
-    <Button {...props}>
-      <AddCircleOutlineIcon /> {label}
-      {selectedOptions.length > 0 && (
-        <>
-          <Divider orientation="vertical" variant="middle" />
-          <Chip label={`${selectedOptions.length} selected`} />
-        </>
-      )}
-    </Button>
-  )
-}
+import Datepicker from "./Datepicker"
 
 const generateFilter = column => {
   const canFilter = column.getCanFilter()
   const type = canFilter && column.columnDef?.meta?.filterType
   const label = canFilter && column.columnDef?.meta?.label
-  const selectedOptions = canFilter && column.getFilterValue()
+  const filterValues = canFilter && column.getFilterValue()
 
   switch (type) {
     case "multiselect":
       return (
         <CheckboxToggleMenu
-          triggerComponent={props => <Trigger label={label} selectedOptions={selectedOptions} {...props} />}
-          column={column}
           key={`${column.id}-dynamic-filter`}
+          column={column}
+          label={label}
+          filterValues={filterValues}
         />
       )
     case "daterange":
-      return <></>
+      return (
+        <Datepicker key={`${column.id}-dynamic-filter`} column={column} label={label} filterValues={filterValues} />
+      )
     case "timerange":
       return <></>
     case "range":
@@ -52,9 +39,10 @@ const DynamicFilters = ({ table }) => {
   const handleReset = () => {
     table.resetColumnFilters()
   }
+
   return (
     <>
-      {filterableColumns.map(column => generateFilter(column))}{" "}
+      {filterableColumns.map(column => generateFilter(column))}
       {table.getState().columnFilters.length > 0 && (
         <Button onClick={handleReset}>
           <CloseIcon /> Reset

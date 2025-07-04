@@ -94,7 +94,7 @@ const columns = [
     cell: info => dateFormatter(new Date(info.getValue() * 1000)),
     meta: {
       label: "Date",
-      filterType: "range",
+      filterType: "daterange",
     },
   },
   {
@@ -236,8 +236,6 @@ const App = () => {
     searchQuery,
     filters: columnFilters,
   })
-
-  console.log(columnFilters)
 
   return (
     <div style={{ padding: 32 }}>

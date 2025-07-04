@@ -47,7 +47,6 @@ const SearchableMenu = ({
 
   const handleMenuItemClick = (e, onClick = () => {}) => {
     onClick(e)
-    handleClose()
   }
 
   return (

@@ -90,6 +90,7 @@ const DatatableBase = ({
       sorting,
       rowSelection,
     },
+    manualFiltering: true,
     onColumnFiltersChange: setColumnFilters,
     enableColumnPinning: true,
     onColumnPinningChange: setColumnPinning,

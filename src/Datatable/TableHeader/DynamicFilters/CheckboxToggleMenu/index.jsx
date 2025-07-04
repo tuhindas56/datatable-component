@@ -1,82 +1,55 @@
-import { useId, useState } from "react"
-import Button from "@mui/material/Button"
+import { useRef, useState } from "react"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
-import Stack from "@mui/material/Stack"
-import Typography from "@mui/material/Typography"
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 
-import Checkbox from "../../../Checkbox"
-
-const DefaultTrigger = ({ label = "Add a label", ...props }) => {
-  return (
-    <Button {...props}>
-      <AddCircleOutlineIcon /> {label}
-    </Button>
-  )
-}
-
-const CheckboxMenuToggleItem = ({ label = "Add a label", checked = false, onChange = () => {}, icon = null }) => {
-  return (
-    <Stack direction="row" alignItems="center" spacing={1} useFlexGap>
-      <Checkbox checked={checked} onChange={onChange} />
-      {icon && icon}
-      <Typography variant="body2">{label}</Typography>
-    </Stack>
-  )
-}
+import CheckboxMenuToggleItem from "./CheckboxMenuToggleItem"
+import TriggerComponent from "../TriggerComponent"
 
 const CheckboxToggleMenu = ({
-  triggerComponent: TriggerComponent = DefaultTrigger,
   column,
   anchorOrigin = { vertical: "bottom", horizontal: "left" },
+  label,
+  filterValues = [],
 }) => {
-  const [anchorEl, setAnchorEl] = useState(null)
+  const [open, setOpen] = useState(false)
+  const anchorRef = useRef(null)
 
-  const open = Boolean(anchorEl)
-  const id = useId()
-  const triggerId = `filter-menu-${id}`
   const filterOptions = column?.columnDef?.meta?.filterOptions
-  const filterValue = column.getFilterValue() ?? []
 
   const transformOrigin = {
     vertical: anchorOrigin.vertical === "bottom" ? "top" : "bottom",
     horizontal: anchorOrigin.horizontal,
   }
 
-  const handleClick = event => {
-    setAnchorEl(event.currentTarget)
-  }
+  const handleClick = () => setOpen(true)
 
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
+  const handleClose = () => setOpen(false)
 
   const handleMenuItemClick = item => {
-    const nextValue = filterValue.includes(item)
-      ? filterValue.length > 1
-        ? filterValue.filter(filterItem => filterItem !== item)
-        : undefined
-      : [...filterValue, item]
+    let nextValue
+
+    if (!filterValues.includes(item)) {
+      nextValue = [...filterValues, item]
+    } else if (filterValues.length > 1) {
+      nextValue = filterValues.filter(filterItem => filterItem !== item)
+    }
 
     column.setFilterValue(nextValue)
-
-    handleClose()
   }
 
   return (
     <>
-      <TriggerComponent onClick={handleClick} open={open} id={triggerId} />
+      <TriggerComponent onClick={handleClick} label={label} filterValues={filterValues} ref={anchorRef} />
       <Menu
-        anchorEl={anchorEl}
+        anchorEl={anchorRef.current}
         open={open}
         onClose={handleClose}
         anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
       >
         {filterOptions.map((item, index) => (
-          <MenuItem key={`${item}-${index}`} onClick={() => handleMenuItemClick(item)} disabled={item?.disabled}>
-            <CheckboxMenuToggleItem label={item} checked={filterValue.includes(item)} />
+          <MenuItem key={`${item}-${index}`} onClick={() => handleMenuItemClick(item)}>
+            <CheckboxMenuToggleItem label={item} checked={filterValues.includes(item)} />
           </MenuItem>
         ))}
       </Menu>

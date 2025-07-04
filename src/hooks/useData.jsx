@@ -41,8 +41,8 @@ const useData = ({
               break
             case "date_unix":
             case "price":
-              if (filter.value.lessThanEqual) query = query.lte(filter.id, filter.value.lessThanEqual)
-              if (filter.value.greaterThanEqual) query = query.gte(filter.id, filter.value.greaterThanEqual)
+              if (filter.value[0]) query = query.gte(filter.id, filter.value[0])
+              if (filter.value[1]) query = query.lte(filter.id, filter.value[1])
               break
           }
         })
