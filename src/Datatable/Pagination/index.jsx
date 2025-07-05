@@ -1,26 +1,24 @@
+import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 
 import RowsPerPage from "./RowsPerPage"
 import PageNavigation from "./PageNavigation"
 
 const Pagination = ({ table, rowsPerPageDropdownOptions }) => {
+  console.log(Array.from(table.getState().rowSelection))
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        gap: "2rem",
-        flexWrap: "wrap",
-        paddingBlock: 8,
-      }}
-    >
-      <RowsPerPage table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
-      <Typography fontWeight={500} variant="body2">
-        Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}{" "}
-      </Typography>
-      <PageNavigation table={table} />
-    </div>
+    <Stack direction="row" justifyContent="space-between">
+      <span style={{ fontSize: 14 }}>
+        {table.getSelectedRowModel().rows.length} of {table.getRowModel().rows.length} row(s) selected.
+      </span>
+      <Stack direction="row" justifyContent="flex-end" alignItems="center" gap={2} flexWrap="wrap">
+        <RowsPerPage table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
+        <Typography fontWeight={500} variant="body2">
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </Typography>
+        <PageNavigation table={table} />
+      </Stack>
+    </Stack>
   )
 }
 
