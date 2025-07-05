@@ -4,8 +4,7 @@ A table component powered by tanstack table.
 
 ## Pending features
 
-- Pinning (UI)
-- Dynamic Filters
+- Dynamic Filters (Date component needs update)
 - Advanced Filters
   - For dates, keep start and end date
   - For everything else keep single text input
@@ -15,7 +14,8 @@ A table component powered by tanstack table.
 ## Completed features
 
 - Column Hiding
-- Pinning (logic)
+- Dynamic Filters
+- Pinning (w/ caveats)
 - Row expansion
 - Row level options
 - Server side pagination
