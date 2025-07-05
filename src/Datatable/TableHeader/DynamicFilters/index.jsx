@@ -30,14 +30,10 @@ const generateFilter = column => {
           filterValues={filterValues}
         />
       )
-    case "timerange":
-      return <></>
     case "range":
       return (
         <Range key={`${column.id}-dynamic-range-filter`} column={column} label={label} filterValues={filterValues} />
       )
-    default:
-      return <></>
   }
 }
 

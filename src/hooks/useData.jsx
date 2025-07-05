@@ -3,14 +3,7 @@ import { createClient } from "@supabase/supabase-js"
 
 const supabase = createClient("https://serttcbgdvcdujcrnusw.supabase.co/", import.meta.env.VITE_SUPABASE_API_KEY)
 
-const useData = ({
-  currentPage = 0,
-  rowsPerPage = 10,
-  sortBy = null,
-  sortOrder = true,
-  searchQuery = null,
-  filters = null,
-}) => {
+const useData = ({ currentPage = 0, rowsPerPage = 10, searchQuery = null, filters = null, sorts }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [data, setData] = useState(null)
@@ -48,8 +41,10 @@ const useData = ({
         })
       }
 
-      if (sortBy) {
-        query = query.order(sortBy, { ascending: sortOrder })
+      if (sorts && sorts.length > 0) {
+        sorts.forEach(sort => {
+          query = query.order(sort.id, { ascending: !sort.desc })
+        })
       }
 
       query = query.range(from, to)
@@ -106,7 +101,7 @@ const useData = ({
 
   useEffect(() => {
     getData()
-  }, [currentPage, rowsPerPage, sortBy, sortOrder, searchQuery, filters])
+  }, [currentPage, rowsPerPage, sorts, searchQuery, filters])
 
   return { loading, error, data }
 }

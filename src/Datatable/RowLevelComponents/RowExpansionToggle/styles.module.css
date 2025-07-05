@@ -16,9 +16,6 @@ button.row-expansion-toggle {
   place-content: center;
 }
 
-button.row-expansion-toggle:hover {
-}
-
 button.row-expansion-toggle svg {
   transition: transform 0.2s ease-out;
 }

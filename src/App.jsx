@@ -222,7 +222,6 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [sorting, setSorting] = useState([])
   const [columnFilters, setColumnFilters] = useState([])
-
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 15,
@@ -231,8 +230,7 @@ const App = () => {
   const { loading, error, data } = useData({
     currentPage: pagination.pageIndex,
     rowsPerPage: pagination.pageSize,
-    sortBy: sorting[0] && sorting[0].id,
-    sortOrder: sorting[0] && !sorting[0].desc,
+    sorts: sorting,
     searchQuery,
     filters: columnFilters,
   })

@@ -25,11 +25,7 @@ const PageNavigation = ({ table }) => {
       >
         <KeyboardDoubleArrowLeftIcon fontSize="small" />
       </IconButton>
-      <IconButton
-        className="pagination-trigger"
-        onClick={() => table.previousPage()}
-        disabled={!table.getCanPreviousPage()}
-      >
+      <IconButton onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
         <KeyboardArrowLeftIcon fontSize="small" />
       </IconButton>
       <IconButton className="pagination-trigger" onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>

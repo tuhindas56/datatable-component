@@ -69,7 +69,7 @@ const Range = ({ column, label, filterValues = [] }) => {
               style={{ maxWidth: 96 }}
             />
           </Stack>
-          <Button sx={{ width: "100%", maxWidth: "unset", cursor: "default" }} onClick={handleClear}>
+          <Button className="ts-dt-clear-filter-button" onClick={handleClear}>
             Clear
           </Button>
         </Stack>

@@ -75,7 +75,7 @@ const Datepicker = ({ column, label, filterValues = [] }) => {
               value={selected.to}
             />
           </Stack>
-          <Button sx={{ width: "100%", maxWidth: "unset" }} onClick={handleClear}>
+          <Button className="ts-dt-clear-filter-button" onClick={handleClear}>
             Clear
           </Button>
         </Stack>

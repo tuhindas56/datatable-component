@@ -1,4 +1,3 @@
-import Stack from "@mui/material/Stack"
 import CheckIcon from "@mui/icons-material/Check"
 import CloseIcon from "@mui/icons-material/Close"
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff"
@@ -20,7 +19,7 @@ const ColumnHeader = ({ column, title = "Header", child = false }) => {
   }
 
   const handleSorting = desc => {
-    column.toggleSorting(desc, false)
+    column.toggleSorting(desc, true)
   }
 
   const handleHide = () => {

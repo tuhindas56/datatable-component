@@ -5,7 +5,6 @@ import RowsPerPage from "./RowsPerPage"
 import PageNavigation from "./PageNavigation"
 
 const Pagination = ({ table, rowsPerPageDropdownOptions }) => {
-  console.log(Array.from(table.getState().rowSelection))
   return (
     <Stack direction="row" justifyContent="space-between">
       <span style={{ fontSize: 14 }}>

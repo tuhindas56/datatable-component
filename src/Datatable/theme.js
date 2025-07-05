@@ -56,8 +56,28 @@ const theme = createTheme({
           gap: 4,
           maxWidth: "max-content",
           border: `1px solid ${strokeDark}`,
+          cursor: "default",
           "&:hover": {
             backgroundColor: hoverColor,
+          },
+
+          "&.ts-dt-add-sort-filter-button": {
+            background: "black",
+            color: "white",
+            "&:hover": {
+              background: "#2e2e2e",
+            },
+          },
+
+          "&.ts-dt-add-sort-filter-button:disabled": {
+            background: "#8b8b8b",
+            color: "#f7f7f7",
+          },
+
+          "&.ts-dt-clear-filter-button": {
+            width: "100%",
+            maxWidth: "unset",
+            cursor: "default",
           },
 
           "&.column-header-menu-trigger": {
@@ -85,10 +105,7 @@ const theme = createTheme({
         root: {
           borderRadius,
           maxWidth: "max-content",
-          padding: paddingSm,
-          "&.pagination-trigger": {
-            padding: paddingMd,
-          },
+          padding: paddingMd,
           "&.row-options-trigger svg": {
             fontSize: iconSizeLg,
           },
@@ -258,7 +275,7 @@ const theme = createTheme({
     MuiStack: {
       styleOverrides: {
         root: {
-          "&.filter-popover-container": {
+          "&.filter-popover-container, &.sort-popover-container": {
             padding: "12px",
           },
         },

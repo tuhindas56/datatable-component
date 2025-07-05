@@ -101,6 +101,7 @@ const DatatableBase = ({
     pageCount: totalPages,
     manualSorting: true,
     enableSorting: true,
+    enableMultiSort: true,
     enableSortingRemoval: true,
     onSortingChange: setSorting,
     enableRowSelection: true,
