@@ -1,10 +1,8 @@
 import { useState } from "react"
 import Button from "@mui/material/Button"
-import Grid from "@mui/material/Grid"
 import IconButton from "@mui/material/IconButton"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
-import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined"
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
@@ -58,6 +56,7 @@ const SortOrderMenu = ({ sort, onSortUpdate }) => {
 
   const handleMenuItemClick = desc => {
     if (sort.desc !== desc) onSortUpdate(sort.id, { desc })
+    setAnchorEl(null)
   }
 
   return (

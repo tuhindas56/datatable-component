@@ -1,19 +1,33 @@
 import { createTheme } from "@mui/material/styles"
 
-const borderRadius = 4
-const boxShadowSubtle = "0 1px 2px 0 rgba(0,0,0,0.05)"
-const boxShadowStrong = "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px"
-const iconSizeMd = 14
-const iconSizeLg = 20
-const iconColorLight = "#565656"
-const checkedColor = "#171717"
-const hoverColor = "#f5f5f5"
-const strokeDark = "#e5e5e5"
-const strokeLight = "#f2f2f2"
-const paddingSm = 4
-const paddingMd = 8
-const tableCellBg = "#fff"
-const rowSelectionColor = "#f7f7f7"
+const themeVars = {
+  borderRadius: 4,
+  boxShadow: {
+    subtle: "0 1px 2px 0 rgba(0,0,0,0.05)",
+    strong: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
+  },
+  iconSize: {
+    md: 14,
+    lg: 20,
+  },
+  iconColor: {
+    light: "#565656",
+  },
+  checkedColor: "#171717",
+  hoverColor: "#f5f5f5",
+  stroke: {
+    dark: "#e5e5e5",
+    light: "#f2f2f2",
+  },
+  padding: {
+    sm: 4,
+    md: 8,
+  },
+  tableCellBg: "#fff",
+  rowSelectionColor: "#f7f7f7",
+  fontFamily: "Inter, system-ui",
+  fontSize: 14,
+}
 
 const theme = createTheme({
   palette: {
@@ -29,7 +43,8 @@ const theme = createTheme({
     MuiDivider: {
       styleOverrides: {
         root: {
-          marginBlock: "4px",
+          marginBlock: `${themeVars.padding.sm}px`,
+          margin: themeVars.padding.sm,
         },
       },
     },
@@ -41,10 +56,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           cursor: "default",
-          boxShadow: boxShadowSubtle,
+          boxShadow: themeVars.boxShadow.subtle,
           maxHeight: 32,
           "&.menu-open": {
-            backgroundColor: hoverColor,
+            backgroundColor: themeVars.hoverColor,
           },
         },
       },
@@ -53,12 +68,11 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          gap: 4,
-          maxWidth: "max-content",
-          border: `1px solid ${strokeDark}`,
+          gap: themeVars.padding.sm,
+          border: `1px solid ${themeVars.stroke.dark}`,
           cursor: "default",
           "&:hover": {
-            backgroundColor: hoverColor,
+            backgroundColor: themeVars.hoverColor,
           },
 
           "&.ts-dt-add-sort-filter-button": {
@@ -81,7 +95,8 @@ const theme = createTheme({
           },
 
           "&.column-header-menu-trigger": {
-            marginLeft: `-${paddingMd / 2}px`,
+            justifyContent: "space-between",
+            marginLeft: `-${themeVars.padding.md / 2}px`,
             overflow: "visible",
             boxShadow: "none",
             border: "none",
@@ -103,19 +118,19 @@ const theme = createTheme({
     MuiIconButton: {
       styleOverrides: {
         root: {
-          borderRadius,
+          borderRadius: themeVars.borderRadius,
           maxWidth: "max-content",
-          padding: paddingMd,
+          padding: themeVars.padding.md,
           "&.row-options-trigger svg": {
-            fontSize: iconSizeLg,
+            fontSize: themeVars.iconSize.lg,
           },
           "&:not(.row-options-trigger)": {
-            border: `1px solid ${strokeDark}`,
+            border: `1px solid ${themeVars.stroke.dark}`,
           },
           "&:disabled": {
-            border: `1px solid ${strokeLight}`,
+            border: `1px solid ${themeVars.stroke.light}`,
             boxShadow: "none",
-            color: iconColorLight,
+            color: themeVars.iconColor.light,
           },
         },
       },
@@ -127,11 +142,11 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          borderRadius,
-          color: "#e5e5e5",
+          borderRadius: themeVars.borderRadius,
+          color: themeVars.stroke.dark,
           padding: 0,
           "&.Mui-checked, &.MuiCheckbox-indeterminate": {
-            color: checkedColor,
+            color: themeVars.checkedColor,
           },
         },
       },
@@ -140,21 +155,13 @@ const theme = createTheme({
     MuiChip: {
       styleOverrides: {
         root: {
-          borderRadius,
+          borderRadius: themeVars.borderRadius,
           maxHeight: 20,
         },
         label: {
           padding: "2px 4px",
           fontWeight: 300,
           fontSize: 12,
-        },
-      },
-    },
-
-    MuiDivider: {
-      styleOverrides: {
-        root: {
-          margin: 4,
         },
       },
     },
@@ -169,7 +176,7 @@ const theme = createTheme({
             marginLeft: "auto",
           },
           "& .MuiSvgIcon-root": {
-            color: iconColorLight,
+            color: themeVars.iconColor.light,
           },
         },
       },
@@ -181,10 +188,10 @@ const theme = createTheme({
       },
       styleOverrides: {
         list: {
-          padding: paddingSm,
+          padding: themeVars.padding.sm,
         },
         paper: {
-          boxShadow: boxShadowStrong,
+          boxShadow: themeVars.boxShadow.strong,
         },
       },
     },
@@ -195,7 +202,7 @@ const theme = createTheme({
       },
       styleOverrides: {
         paper: {
-          boxShadow: boxShadowStrong,
+          boxShadow: themeVars.boxShadow.strong,
         },
       },
     },
@@ -203,7 +210,7 @@ const theme = createTheme({
     MuiInput: {
       styleOverrides: {
         root: {
-          fontSize: 14,
+          fontSize: themeVars.fontSize,
           color: "black",
           "&.menu-search-bar": {
             width: "126px",
@@ -216,8 +223,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           maxHeight: "480px",
-          border: `1px solid ${strokeDark}`,
-          borderRadius,
+          border: `1px solid ${themeVars.stroke.dark}`,
+          borderRadius: themeVars.borderRadius,
         },
       },
     },
@@ -225,13 +232,13 @@ const theme = createTheme({
     MuiTableCell: {
       styleOverrides: {
         root: {
-          backgroundColor: tableCellBg,
-          padding: paddingMd,
+          backgroundColor: themeVars.tableCellBg,
+          padding: themeVars.padding.md,
           "&.expanded-table-cell": {
             paddingBlock: 0,
           },
           "&.pinned div": {
-            boxShadow: boxShadowStrong,
+            boxShadow: themeVars.boxShadow.strong,
             color: "green",
           },
           "& div:not(:has(.column-header-menu-trigger))": {
@@ -247,7 +254,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "& .row-selected": {
-            backgroundColor: rowSelectionColor,
+            backgroundColor: themeVars.rowSelectionColor,
           },
         },
       },
@@ -256,11 +263,11 @@ const theme = createTheme({
     MuiSvgIcon: {
       styleOverrides: {
         root: {
-          fontSize: iconSizeMd,
+          fontSize: themeVars.iconSize.md,
           transition: "transform .2s ease-out",
           "&.search-icon": {
-            marginLeft: "4px",
-            color: iconColorLight,
+            marginLeft: `${themeVars.padding.sm}px`,
+            color: themeVars.iconColor.light,
           },
           "&.rotate-90": {
             transform: "rotate(-90deg)",
@@ -284,12 +291,12 @@ const theme = createTheme({
   },
 
   shape: {
-    borderRadius,
+    borderRadius: themeVars.borderRadius,
   },
 
   typography: {
-    fontFamily: "Inter",
-    fontSize: 14,
+    fontFamily: themeVars.fontFamily,
+    fontSize: themeVars.fontSize,
   },
 })
 

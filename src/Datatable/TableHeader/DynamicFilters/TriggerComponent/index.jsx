@@ -5,30 +5,44 @@ import Divider from "@mui/material/Divider"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 
 const dateFormatter = new Intl.DateTimeFormat("en-IN", {
-  dateStyle: "short",
+  dateStyle: "medium",
 }).format
 
+const renderFilterIndicator = (type, filterValues) => {
+  if (filterValues.length === 0) return null
+
+  switch (type) {
+    case "multiselect":
+      return <Chip label={`${filterValues.length} selected`} />
+    case "range":
+      const [min, max] = filterValues
+      return (
+        <span style={{ textWrap: "nowrap" }}>
+          {min || 0} - {max}
+        </span>
+      )
+    case "daterange":
+      const [start, end] = filterValues
+      return (
+        <span style={{ textWrap: "nowrap" }}>
+          {dateFormatter(new Date(start * 1000))} - {dateFormatter(new Date(end * 1000))}
+        </span>
+      )
+    default:
+      return null
+  }
+}
+
 const TriggerComponent = forwardRef(
-  ({ label = "Add a label", filterValues = [], type = "multiselect", ...props }, ref) => {
+  ({ label = "Add a label", filterValues = [], type = "multiselect", icon, ...props }, ref) => {
     return (
       <Button ref={ref} {...props}>
-        <AddCircleOutlineIcon /> {label}
+        {icon || <AddCircleOutlineIcon />}
+        {label}
         {filterValues.length > 0 && (
           <>
             <Divider orientation="vertical" variant="middle" sx={{ height: 16 }} />
-            {type === "multiselect" ? (
-              <Chip label={`${filterValues.length} selected`} />
-            ) : type === "range" ? (
-              <span style={{ textWrap: "nowrap" }}>
-                {filterValues[0]} - {filterValues[1]}
-              </span>
-            ) : (
-              type === "daterange" && (
-                <span style={{ textWrap: "nowrap" }}>
-                  {dateFormatter(new Date(filterValues[0] * 1000))} - {dateFormatter(new Date(filterValues[1] * 1000))}
-                </span>
-              )
-            )}
+            {renderFilterIndicator(type, filterValues)}
           </>
         )}
       </Button>

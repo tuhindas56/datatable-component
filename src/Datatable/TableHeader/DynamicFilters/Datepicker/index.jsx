@@ -73,6 +73,7 @@ const Datepicker = ({ column, label, filterValues = [] }) => {
               placeholder="End date"
               onChange={e => handleChange({ to: e.target.value })}
               value={selected.to}
+              min={selected.from}
             />
           </Stack>
           <Button className="ts-dt-clear-filter-button" onClick={handleClear}>

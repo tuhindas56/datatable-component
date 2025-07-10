@@ -1,23 +1,27 @@
 import { useRef, useState } from "react"
+import Button from "@mui/material/Button"
+import Chip from "@mui/material/Chip"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
+import Typography from "@mui/material/Typography"
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
 
-import CheckboxMenuToggleItem from "./CheckboxMenuToggleItem"
-import MenuSearchBar from "../../../SearchableMenu/MenuSearchBar"
-import NoResultsItem from "../../../SearchableMenu/NoResultsItem"
-import TriggerComponent from "../TriggerComponent"
+import CheckboxMenuToggleItem from "../../../DynamicFilters/CheckboxToggleMenu/CheckboxMenuToggleItem"
+import MenuSearchBar from "../../../../SearchableMenu/MenuSearchBar"
+import NoResultsItem from "../../../../SearchableMenu/NoResultsItem"
 
-const CheckboxToggleMenu = ({
-  column,
+const Multiselect = ({
+  filteredColumn,
   anchorOrigin = { vertical: "bottom", horizontal: "left" },
-  label,
-  filterValues = [],
+  filter = {},
+  setColumnFilters,
 }) => {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
   const anchorRef = useRef(null)
 
-  const filterOptions = column?.columnDef?.meta?.filter?.options ?? []
+  const filterValues = filter.value ?? []
+  const filterOptions = filteredColumn?.columnDef?.meta?.filter?.options ?? []
 
   const visibleItems = search
     ? filterOptions.filter(item => item.label?.toLowerCase().includes(search.toLowerCase()))
@@ -43,18 +47,28 @@ const CheckboxToggleMenu = ({
       nextValue = filterValues.filter(filterItem => filterItem !== value)
     }
 
-    column.setFilterValue(nextValue)
+    setColumnFilters(prev => prev.map(item => (item.id === filter.id ? { id: filter.id, value: nextValue } : item)))
   }
 
   return (
     <>
-      <TriggerComponent
+      <Button
         onClick={handleClick}
-        label={label}
-        filterValues={filterValues}
+        className="rows-per-page-menu-trigger"
+        sx={{ width: "100%", maxWidth: "unset", gap: 1.4 }}
         ref={anchorRef}
-        type="multiselect"
-      />
+      >
+        {!filterValues.length > 0 ? (
+          <Typography variant="body2" sx={{ color: "darkgray" }} noWrap>
+            Select options...
+          </Typography>
+        ) : (
+          <Chip label={`${filterValues.length} selected`} />
+        )}
+
+        <UnfoldMoreIcon />
+      </Button>
+
       <Menu
         anchorEl={anchorRef.current}
         open={open}
@@ -68,7 +82,7 @@ const CheckboxToggleMenu = ({
         {visibleItems.length > 0 ? (
           visibleItems.map((item, index) => (
             <MenuItem key={`${item?.label}-${index}`} onClick={() => handleMenuItemClick(item?.value)}>
-              <CheckboxMenuToggleItem label={item?.label} checked={filterValues.includes(item?.value)} />
+              <CheckboxMenuToggleItem label={item?.label} checked={filterValues?.includes(item?.value)} />
             </MenuItem>
           ))
         ) : (
@@ -78,4 +92,4 @@ const CheckboxToggleMenu = ({
     </>
   )
 }
-export default CheckboxToggleMenu
+export default Multiselect

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Stack from "@mui/material/Stack"
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap"
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
+import MoreVertIcon from "@mui/icons-material/MoreVert"
 
 import styles from "./styles.module.css"
 
@@ -14,7 +14,7 @@ const RowOptionsMenu = ({ rowID = "", options = [] }) => {
     <Stack alignItems="center" className="row-level-options">
       <Dropdown isOpen={isOpen} toggle={toggleDropdown}>
         <DropdownToggle className={styles["dropdown-icon-toggle"]}>
-          <MoreHorizIcon />
+          <MoreVertIcon />
         </DropdownToggle>
         <DropdownMenu className={styles["dropdown-menu"]}>
           {options.map(option => (

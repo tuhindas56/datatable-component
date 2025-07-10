@@ -1,5 +1,6 @@
-import { Fragment, useState } from "react"
+import { Fragment, useState, useEffect } from "react"
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
+import Button from "@mui/material/Button"
 import Stack from "@mui/material/Stack"
 import TableContainer from "@mui/material/TableContainer"
 import { Table } from "reactstrap"
@@ -112,9 +113,13 @@ const DatatableBase = ({
 
   if (error) return <h1>Uh oh! {error.message}.</h1>
 
+  useEffect(() => {
+    console.log("columnFilters:", columnFilters)
+  }, [columnFilters])
+
   return (
     <Stack spacing={2}>
-      <TableHeader table={table} setSearchQuery={setSearchQuery} />
+      <TableHeader table={table} setSearchQuery={setSearchQuery} setColumnFilters={setColumnFilters} />
 
       <TableContainer>
         <Table className={styles["ts-dt"]}>

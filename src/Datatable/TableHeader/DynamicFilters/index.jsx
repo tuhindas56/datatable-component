@@ -7,7 +7,7 @@ import Range from "./Range"
 
 const generateFilter = column => {
   const canFilter = column.getCanFilter()
-  const type = canFilter && column.columnDef?.meta?.filterType
+  const type = canFilter && column.columnDef?.meta?.filter?.type
   const label = canFilter && column.columnDef?.meta?.label
   const filterValues = canFilter && column.getFilterValue()
 
@@ -34,6 +34,8 @@ const generateFilter = column => {
       return (
         <Range key={`${column.id}-dynamic-range-filter`} column={column} label={label} filterValues={filterValues} />
       )
+    default:
+      return null
   }
 }
 
@@ -47,7 +49,7 @@ const DynamicFilters = ({ table }) => {
   return (
     <>
       {filterableColumns.map(column => generateFilter(column))}
-      {table.getState().columnFilters.length > 0 && (
+      {table.getState().columnFilters.some(item => item.value) && (
         <Button onClick={handleReset}>
           <CloseIcon /> Reset
         </Button>

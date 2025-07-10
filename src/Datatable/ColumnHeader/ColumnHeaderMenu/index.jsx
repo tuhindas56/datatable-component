@@ -23,17 +23,13 @@ const ColumnHeaderMenu = ({ buttonLabel = "Menu Button", options = [], isSorted 
   return (
     <>
       <Button size="small" onClick={handleClick} className={`column-header-menu-trigger ${open ? "menu-open" : ""}`}>
-        <Stack direction="row" alignItems="center" spacing={0.5} useFlexGap>
-          <Typography variant="body2" fontWeight={500}>
-            {buttonLabel}
-          </Typography>
-          <Stack direction="row" alignItems="center" justifyContent="space-between" useFlexGap>
-            {isSorted === "asc" && <KeyboardArrowUpIcon />}
-            {isSorted === "desc" && <KeyboardArrowDownIcon />}
-            {isPinned && <PushPinIcon sx={{ transform: "rotateZ(45deg)" }} />}
-          </Stack>
-          <UnfoldMoreIcon />
-        </Stack>
+        <Typography variant="body2" fontWeight={500}>
+          {buttonLabel}
+        </Typography>
+        {!isSorted && <UnfoldMoreIcon />}
+        {isSorted === "desc" && <KeyboardArrowDownIcon />}
+        {isSorted === "asc" && <KeyboardArrowUpIcon />}
+        {isPinned && <PushPinIcon sx={{ transform: "rotateZ(45deg)" }} />}
       </Button>
       <Menu
         anchorEl={anchorEl}

@@ -8,10 +8,10 @@ import SwapVertIcon from "@mui/icons-material/SwapVert"
 
 import SortField from "./SortField"
 
-const SortMenu = ({ table }) => {
+const SortMenu = ({ table, direction = "left" }) => {
   const [open, setOpen] = useState(false)
-
   const anchorRef = useRef(null)
+
   const sorting = table.getState().sorting
   const onSortingChange = table.setSorting
   const columns = table.getAllColumns().filter(column => column.getCanSort() && !column.getIsSorted())
@@ -26,9 +26,7 @@ const SortMenu = ({ table }) => {
     onSortingChange(prev => [...prev, { id: firstColumn.id, desc: false }])
   }
 
-  const onSortReset = () => {
-    onSortingChange([])
-  }
+  const onSortReset = () => onSortingChange([])
 
   const onSortUpdate = (sortId, updates) => {
     onSortingChange(prevSorting => {
@@ -50,8 +48,8 @@ const SortMenu = ({ table }) => {
         anchorEl={anchorRef.current}
         open={open}
         onClose={handleClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: direction }}
+        transformOrigin={{ vertical: "top", horizontal: direction }}
       >
         <Stack spacing={2} className="sort-popover-container" useFlexGap sx={{ minWidth: 380 }}>
           {!sorting.length && (
@@ -88,7 +86,7 @@ const SortMenu = ({ table }) => {
             <Button className="ts-dt-add-sort-filter-button" onClick={onSortAdd} disabled={columns.length === 0}>
               Add sort
             </Button>
-            <Button onClick={onSortReset}>Reset sorting</Button>
+            {sorting.length !== 0 && <Button onClick={onSortReset}>Reset sorting</Button>}
           </Stack>
         </Stack>
       </Popover>

@@ -1,10 +1,10 @@
 .dropdown-icon-toggle {
-  --bs-btn-bg: white;
-  --bs-btn-color: #565656;
-  --bs-btn-hover-bg: #f5f5f5;
-  --bs-btn-hover-color: #565656;
-  --bs-btn-active-bg: #f5f5f5;
-  --bs-btn-active-color: #565656;
+  --bs-btn-bg: var(--ts-dt-btn-bg, #ffffff);
+  --bs-btn-color: var(--ts-dt-btn-color, #565656);
+  --bs-btn-hover-bg: var(--ts-dt-btn-hover-bg, #f5f5f5);
+  --bs-btn-hover-color: var(--ts-dt-btn-hover-color, #565656);
+  --bs-btn-active-bg: var(--ts-dt-btn-active-bg, #f5f5f5);
+  --bs-btn-active-color: var(--ts-dt-btn-active-color, #565656);
   --bs-btn-padding-x: 4px;
   --bs-btn-padding-y: 4px;
   display: grid;
@@ -17,13 +17,13 @@
 }
 
 .dropdown-icon-toggle svg {
-  font-size: 20px;
+  font-size: var(--ts-dt-font-size);
 }
 
 .dropdown-menu {
-  --bs-dropdown-bg: white;
+  --bs-dropdown-bg: var(--ts-dt-dropdown-bg, #ffffff);
   --bs-dropdown-border-width: 0;
-  --bs-dropdown-font-size: 14px;
+  --bs-dropdown-font-size: var(--ts-dt-font-size, 14px);
   --bs-dropdown-min-width: 100px;
   --bs-dropdown-padding-x: 4px;
   --bs-dropdown-padding-y: 4px;
@@ -34,9 +34,11 @@
 .dropdown-menu .dropdown-item {
   --bs-dropdown-item-padding-x: 8px;
   --bs-dropdown-item-padding-y: 6px;
-  --bs-dropdown-item-font-size: 14px;
-  --bs-dropdown-link-active-bg: #f5f5f5;
-  --bs-dropdown-link-active-color: black;
+  --bs-dropdown-item-font-size: var(--ts-dt-font-size, 14px);
+  --bs-dropdown-link-active-bg: var(--ts-dt-dropdown-item-active-bg, #f5f5f5);
+  --bs-dropdown-link-active-color: var(--ts-dt-dropdown-item-active-color, #000000);
+  --bs-dropdown-link-hover-bg: var(--ts-dt-dropdown-item-hover-bg, #f5f5f5);
+  --bs-dropdown-link-hover-color: var(--ts-dt-dropdown-item-hover-color, #000000);
   display: flex;
   align-items: center;
   gap: 0.4rem;

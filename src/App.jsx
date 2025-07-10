@@ -1,6 +1,7 @@
 import { useState } from "react"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
+import { Modal } from "reactstrap"
 
 import useData from "./hooks/useData"
 
@@ -61,7 +62,9 @@ const columns = [
     enablePinning: true,
     meta: {
       label: "Price",
-      filterType: "range",
+      filter: {
+        type: "range",
+      },
     },
   },
   {
@@ -70,8 +73,14 @@ const columns = [
     header: ({ column }) => <ColumnHeader column={column} title="Material" />,
     meta: {
       label: "Material",
-      filterType: "multiselect",
-      filterOptions: ["Marble", "Bronze", "Plastic"],
+      filter: {
+        type: "multiselect",
+        options: [
+          { label: "Marble", value: "Marble" },
+          { label: "Bronze", value: "Bronze" },
+          { label: "Plastic", value: "Plastic" },
+        ],
+      },
     },
     enablePinning: false,
     enableSorting: false,
@@ -83,8 +92,17 @@ const columns = [
     header: ({ column }) => <ColumnHeader column={column} title="Department" />,
     meta: {
       label: "Department",
-      filterType: "multiselect",
-      filterOptions: ["Games", "Health", "Grocery", "Jewelry", "Electronics", "Sports"],
+      filter: {
+        type: "multiselect",
+        options: [
+          { label: "Games", value: "Games" },
+          { label: "Health", value: "Health" },
+          { label: "Grocery", value: "Grocery" },
+          { label: "Jewelry", value: "Jewelry" },
+          { label: "Electronics", value: "Electronics" },
+          { label: "Sports", value: "Sports" },
+        ],
+      },
     },
   },
   {
@@ -94,7 +112,7 @@ const columns = [
     cell: info => dateFormatter(new Date(info.getValue() * 1000)),
     meta: {
       label: "Date",
-      filterType: "daterange",
+      filter: { type: "daterange" },
     },
   },
   {

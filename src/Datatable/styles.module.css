@@ -1,6 +1,6 @@
 .ts-dt {
   margin: 0;
-  font-family: Inter;
+  font-family: var(--ts-dt-font-family, Inter, system-ui);
 }
 
 .ts-dt .expanded-table-cell {
@@ -20,7 +20,14 @@
 .ts-dt .th,
 .ts-dt .td {
   vertical-align: middle;
-  background-color: white;
+}
+
+.ts-dt .th {
+  background-color: var(--ts-dt-th-bg, #ffffff);
+}
+
+.ts-dt .td {
+  background-color: var(--ts-dt-td-bg, #ffffff);
 }
 
 .ts-dt th div {
@@ -29,7 +36,7 @@
 
 .ts-dt .th div,
 .ts-dt .td div {
-  font-size: 14px;
+  font-size: var(--ts-dt-font-size, 14px);
 }
 
 .ts-dt .td:not(:last-child) div {
