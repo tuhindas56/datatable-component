@@ -14,20 +14,53 @@ const renderFilterIndicator = (type, filterValues) => {
   switch (type) {
     case "multiselect":
       return <Chip label={`${filterValues.length} selected`} />
+
     case "range":
       const [min, max] = filterValues
-      return (
-        <span style={{ textWrap: "nowrap" }}>
-          {min || 0} - {max}
-        </span>
-      )
+      if (min && max)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {min} - {max}
+          </span>
+        )
+
+      if (min)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {">"} {min}
+          </span>
+        )
+
+      if (max)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {"<"} {max}
+          </span>
+        )
+
     case "daterange":
       const [start, end] = filterValues
-      return (
-        <span style={{ textWrap: "nowrap" }}>
-          {dateFormatter(new Date(start * 1000))} - {dateFormatter(new Date(end * 1000))}
-        </span>
-      )
+
+      if (start && end)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {dateFormatter(new Date(start * 1000))} - {dateFormatter(new Date(end * 1000))}
+          </span>
+        )
+
+      if (start)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {">"} {dateFormatter(new Date(start * 1000))}
+          </span>
+        )
+
+      if (end)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {"<"} {dateFormatter(new Date(end * 1000))}
+          </span>
+        )
     default:
       return null
   }

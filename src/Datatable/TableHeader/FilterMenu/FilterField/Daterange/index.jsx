@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react"
 import Stack from "@mui/material/Stack"
+import { DayPicker } from "react-day-picker"
+import classNames from "react-day-picker/style.module.css"
 
 import Input from "../../../..//Input"
 
@@ -26,8 +28,19 @@ const Daterange = ({ filter, setColumnFilters }) => {
 
   return (
     <Stack direction="row" gap={2}>
+      {/* <Button onClick={handleClick} className="rows-per-page-menu-trigger" ref={anchorRef}>
+        {!filterValues.length > 0 ? (
+          <Typography variant="body2" sx={{ color: "darkgray" }} noWrap>
+            Select options...
+          </Typography>
+        ) : (
+          <Chip label={`${filterValues.length} selected`} />
+        )}
+      </Button> */}
+
       <Input type="date" onChange={e => handleChange({ from: e.target.value })} />
       <Input type="date" onChange={e => handleChange({ to: e.target.value })} />
+      {/* <DayPicker classNames={classNames} /> */}
     </Stack>
   )
 }

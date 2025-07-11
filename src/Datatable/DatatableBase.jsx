@@ -55,7 +55,7 @@ const DatatableBase = ({
   columns,
   loading,
   error,
-  data,
+  data = [],
   columnFilters,
   setColumnFilters,
   pagination,
@@ -78,7 +78,7 @@ const DatatableBase = ({
 
   const table = useReactTable({
     columns,
-    data: data ?? [],
+    data: data,
     getRowId: row => row.id,
     getCoreRowModel: getCoreRowModel(),
     getSubRows: enableSubRows ? getSubRows : undefined,

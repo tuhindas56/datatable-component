@@ -8,14 +8,16 @@ import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined"
 import FilterField from "./FilterField"
 import TriggerComponent from "../DynamicFilters/TriggerComponent"
 
+import styles from "./styles.module.css"
+
 const FilterMenu = ({ table, setColumnFilters }) => {
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
 
   const filters = table.getState().columnFilters
   const allColumns = table.getAllColumns()
-  const columns = allColumns.filter(column => column.getCanFilter() && !column.getIsFiltered())
   const filterableColumns = allColumns.filter(column => column.getCanFilter())
+  const columns = filterableColumns.filter(column => !column.getIsFiltered())
 
   const handleClick = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -72,18 +74,20 @@ const FilterMenu = ({ table, setColumnFilters }) => {
                 Filters
               </Typography>
 
-              {filters.map(filter => {
-                return (
-                  <FilterField
-                    filter={filter}
-                    filteredColumn={filterableColumns.find(column => column.id === filter.id)}
-                    key={filter.id}
-                    columns={columns}
-                    setColumnFilters={setColumnFilters}
-                    onFilterRemove={onFilterRemove}
-                  />
-                )
-              })}
+              <div className={styles["ts-dt-filter-menu-field-container"]}>
+                {filters.map(filter => {
+                  return (
+                    <FilterField
+                      filter={filter}
+                      filteredColumn={filterableColumns.find(column => column.id === filter.id)}
+                      key={filter.id}
+                      columns={columns}
+                      setColumnFilters={setColumnFilters}
+                      onFilterRemove={onFilterRemove}
+                    />
+                  )
+                })}
+              </div>
             </>
           )}
           <Stack direction="row" gap={1}>

@@ -1,11 +1,14 @@
 import { useState } from "react"
 import Button from "@mui/material/Button"
+import IconButton from "@mui/material/IconButton"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
+import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
-import IconButton from "@mui/material/IconButton"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined"
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
+
+import styles from "../styles.module.css"
 
 import Daterange from "./Daterange"
 import Multiselect from "./Multiselect"
@@ -40,7 +43,7 @@ const ColumnMenu = ({ columns = [], filteredColumn, setColumnFilters }) => {
 
   return (
     <>
-      <Button onClick={handleClick} className="rows-per-page-menu-trigger" sx={{ width: "100%", maxWidth: "unset" }}>
+      <Button onClick={handleClick} className="rows-per-page-menu-trigger">
         <Typography variant="body2">{label}</Typography>
         <UnfoldMoreIcon />
       </Button>
@@ -69,15 +72,7 @@ const ColumnMenu = ({ columns = [], filteredColumn, setColumnFilters }) => {
 
 const FilterField = ({ filter, filteredColumn, columns, setColumnFilters, onFilterRemove }) => {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "2fr 2fr 1fr",
-        justifyContent: "stretch",
-        columnGap: 16,
-        width: "100%",
-      }}
-    >
+    <div className={styles["ts-dt-filter-menu-filter-field"]}>
       <ColumnMenu columns={columns} filteredColumn={filteredColumn} setColumnFilters={setColumnFilters} />
       {generateFilter(filteredColumn, filter, setColumnFilters)}
       <IconButton sx={{ border: "4px solid red" }} onClick={() => onFilterRemove(filter.id)}>
