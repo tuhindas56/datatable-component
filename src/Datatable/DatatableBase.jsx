@@ -113,10 +113,6 @@ const DatatableBase = ({
 
   if (error) return <h1>Uh oh! {error.message}.</h1>
 
-  useEffect(() => {
-    console.log("columnFilters:", columnFilters)
-  }, [columnFilters])
-
   return (
     <Stack spacing={2}>
       <TableHeader table={table} setSearchQuery={setSearchQuery} setColumnFilters={setColumnFilters} />

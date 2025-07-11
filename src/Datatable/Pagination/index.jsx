@@ -7,9 +7,9 @@ import PageNavigation from "./PageNavigation"
 const Pagination = ({ table, rowsPerPageDropdownOptions }) => {
   return (
     <Stack direction="row" justifyContent="space-between">
-      <span style={{ fontSize: 14 }}>
+      <Typography variant="body2">
         {table.getSelectedRowModel().rows.length} of {table.getRowModel().rows.length} row(s) selected.
-      </span>
+      </Typography>
       <Stack direction="row" justifyContent="flex-end" alignItems="center" gap={2} flexWrap="wrap">
         <RowsPerPage table={table} rowsPerPageDropdownOptions={rowsPerPageDropdownOptions} />
         <Typography fontWeight={500} variant="body2">

@@ -12,10 +12,6 @@ const Range = ({ filter, setColumnFilters }) => {
   }
 
   useEffect(() => {
-    console.log(filter)
-  }, [])
-
-  useEffect(() => {
     const timeout = setTimeout(() => {
       if (range.from >= 0 && range.to > 0) {
         const filterValue = [range.from, range.to]
@@ -26,9 +22,8 @@ const Range = ({ filter, setColumnFilters }) => {
     return () => clearTimeout(timeout)
   }, [range])
 
-  console.log({ range })
   return (
-    <Stack direction="row" gap={2}>
+    <Stack direction="row" gap={1.6}>
       <Input
         type="number"
         onChange={e => handleChange({ from: e.target.value })}

@@ -16,6 +16,8 @@ A table component powered by tanstack table.
   - Applying a multi select filter in the filter menu and then changing the column to one that requires a daterange filter, crashes the app
 - Fix the filter menu UI
 - Prepare and note down custom css properties for the remaining styles
+- CSV Export
+- Row selection actions
 
 ## Completed features
 

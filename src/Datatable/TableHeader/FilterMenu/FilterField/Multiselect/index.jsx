@@ -52,12 +52,7 @@ const Multiselect = ({
 
   return (
     <>
-      <Button
-        onClick={handleClick}
-        className="rows-per-page-menu-trigger"
-        sx={{ width: "100%", maxWidth: "unset", gap: 1.4 }}
-        ref={anchorRef}
-      >
+      <Button onClick={handleClick} className="rows-per-page-menu-trigger" ref={anchorRef}>
         {!filterValues.length > 0 ? (
           <Typography variant="body2" sx={{ color: "darkgray" }} noWrap>
             Select options...
