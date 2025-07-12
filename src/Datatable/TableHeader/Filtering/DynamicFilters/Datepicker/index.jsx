@@ -7,7 +7,7 @@ import { DayPicker } from "react-day-picker"
 import classNames from "react-day-picker/style.module.css"
 
 import Input from "../../../../Input"
-import TriggerComponent from "../TriggerComponent"
+import TriggerComponent from "../../TriggerComponent"
 
 const Datepicker = ({ column, dateRanges, setDateRanges }) => {
   const [open, setOpen] = useState(false)

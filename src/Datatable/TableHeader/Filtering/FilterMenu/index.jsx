@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography"
 import FilterListOutlinedIcon from "@mui/icons-material/FilterListOutlined"
 
 import FilterField from "./FilterField"
-import TriggerComponent from "../DynamicFilters/TriggerComponent"
+import TriggerComponent from "../TriggerComponent"
 
 import styles from "./styles.module.css"
 
@@ -42,7 +42,7 @@ const FilterMenu = ({ table, setColumnFilters, ranges, setRanges, dateRanges, se
         icon={<FilterListOutlinedIcon />}
         ref={anchorRef}
         type="filtermenu"
-        filterValues={filterableColumns.filter(col => col.getIsFiltered())}
+        filterValues={filterableColumns.filter(col => col.getIsFiltered() && col.getFilterValue())}
       />
 
       <Popover

@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem"
 import CheckboxMenuToggleItem from "./CheckboxMenuToggleItem"
 import MenuSearchBar from "../../../../SearchableMenu/MenuSearchBar"
 import NoResultsItem from "../../../../SearchableMenu/NoResultsItem"
-import TriggerComponent from "../TriggerComponent"
+import TriggerComponent from "../../TriggerComponent"
 
 const CheckboxToggleMenu = ({ column, multiSelects, setMultiSelects }) => {
   const [open, setOpen] = useState(false)

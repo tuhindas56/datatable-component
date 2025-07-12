@@ -5,7 +5,7 @@ import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 
 import Input from "../../../../Input"
-import TriggerComponent from "../TriggerComponent"
+import TriggerComponent from "../../TriggerComponent"
 
 const Range = ({ column, ranges, setRanges }) => {
   const [open, setOpen] = useState(false)
