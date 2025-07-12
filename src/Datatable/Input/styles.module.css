@@ -19,6 +19,7 @@ input[type="checkbox"].ts-dt-checkbox:checked {
 }
 
 input.ts-dt-filter-input {
+  height: 32px;
   font-size: var(--ts-dt-font-size, 14px);
   font-family: var(--ts-dt-font-family, Inter, system-ui);
 }
@@ -26,4 +27,20 @@ input.ts-dt-filter-input {
 input.ts-dt-filter-input:focus {
   border-color: var(--ts-dt-input-focus-border-color, #a1a1a1);
   box-shadow: 0 0 0 3px var(--ts-dt-input-focus-box-shadow-color, #cfcfcf), 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+input.ts-dt-search-input {
+  height: 32px;
+  max-width: 224px;
+  font-size: var(--ts-dt-font-size, 14px);
+  font-family: var(--ts-dt-font-family, Inter, system-ui);
+}
+
+input.ts-dt-search-input:focus {
+  border-color: var(--ts-dt-input-focus-border-color, #a1a1a1);
+  box-shadow: 0 0 0 3px var(--ts-dt-input-focus-box-shadow-color, #cfcfcf), 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+input.ts-dt-search-input::-webkit-search-cancel-button {
+  background: red;
 }

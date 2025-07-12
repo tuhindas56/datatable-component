@@ -61,6 +61,10 @@ const renderFilterIndicator = (type, filterValues) => {
             {"<"} {dateFormatter(new Date(end * 1000))}
           </span>
         )
+
+    case "filtermenu":
+      return <Chip label={`${filterValues.length} active`} />
+
     default:
       return null
   }

@@ -1,6 +1,6 @@
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
-import Input from "../../../Input"
+import Input from "../../../../Input"
 
 const CheckboxMenuToggleItem = ({ label = "Add a label", checked = false, onChange = () => {}, icon = null }) => {
   return (

@@ -18,6 +18,7 @@ A table component powered by tanstack table.
 - Prepare and note down custom css properties for the remaining styles
 - CSV Export
 - Row selection actions
+- Debounce multi selects
 
 ## Completed features
 

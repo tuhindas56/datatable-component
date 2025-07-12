@@ -7,8 +7,8 @@ import Typography from "@mui/material/Typography"
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
 
 import CheckboxMenuToggleItem from "../../../DynamicFilters/CheckboxToggleMenu/CheckboxMenuToggleItem"
-import MenuSearchBar from "../../../../SearchableMenu/MenuSearchBar"
-import NoResultsItem from "../../../../SearchableMenu/NoResultsItem"
+import MenuSearchBar from "../../../../../SearchableMenu/MenuSearchBar"
+import NoResultsItem from "../../../../../SearchableMenu/NoResultsItem"
 
 const Multiselect = ({
   filteredColumn,

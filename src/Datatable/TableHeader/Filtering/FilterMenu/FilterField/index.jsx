@@ -3,7 +3,6 @@ import Button from "@mui/material/Button"
 import IconButton from "@mui/material/IconButton"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
-import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined"
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore"
@@ -14,16 +13,16 @@ import Daterange from "./Daterange"
 import Multiselect from "./Multiselect"
 import Range from "./Range"
 
-const generateFilter = (filteredColumn, filter, setColumnFilters) => {
+const generateFilter = ({ filteredColumn, filter, setColumnFilters, ranges, setRanges, dateRanges, setDateRanges }) => {
   const type = filteredColumn.columnDef?.meta?.filter?.type
 
   switch (type) {
     case "multiselect":
       return <Multiselect filteredColumn={filteredColumn} filter={filter} setColumnFilters={setColumnFilters} />
     case "daterange":
-      return <Daterange filter={filter} setColumnFilters={setColumnFilters} />
+      return <Daterange filter={filter} dateRanges={dateRanges} setDateRanges={setDateRanges} />
     case "range":
-      return <Range filter={filter} setColumnFilters={setColumnFilters} />
+      return <Range filter={filter} ranges={ranges} setRanges={setRanges} />
     default:
       return null
   }
@@ -38,7 +37,7 @@ const ColumnMenu = ({ columns = [], filteredColumn, setColumnFilters }) => {
   const handleClose = () => setAnchorEl(null)
 
   const handleMenuItemClick = column => {
-    setColumnFilters(prev => prev.map(col => (col.id === filteredColumn.id ? { ...col, id: column.id } : col)))
+    setColumnFilters(prev => prev.map(col => (col.id === filteredColumn.id ? { id: column.id } : col)))
   }
 
   return (
@@ -70,11 +69,50 @@ const ColumnMenu = ({ columns = [], filteredColumn, setColumnFilters }) => {
   )
 }
 
-const FilterField = ({ filter, filteredColumn, columns, setColumnFilters, onFilterRemove }) => {
+const FilterField = ({
+  filter,
+  filteredColumn,
+  columns,
+  setColumnFilters,
+  ranges,
+  setRanges,
+  dateRanges,
+  setDateRanges,
+}) => {
+  const onFilterRemove = id => {
+    const type = filteredColumn.columnDef?.meta?.filter?.type
+
+    switch (type) {
+      case "multiselect":
+        setColumnFilters(prev => prev.filter(column => column.id !== id))
+        break
+      case "daterange":
+        setDateRanges(prev => {
+          const newState = { ...prev }
+          delete newState[filteredColumn.id]
+          return newState
+        })
+        filteredColumn.setFilterValue(undefined)
+        break
+
+      case "range":
+        setRanges(prev => {
+          const newState = { ...prev }
+          delete newState[filteredColumn.id]
+          return newState
+        })
+        filteredColumn.setFilterValue(undefined)
+        break
+
+      default:
+        return null
+    }
+  }
+
   return (
     <div className={styles["ts-dt-filter-menu-filter-field"]}>
       <ColumnMenu columns={columns} filteredColumn={filteredColumn} setColumnFilters={setColumnFilters} />
-      {generateFilter(filteredColumn, filter, setColumnFilters)}
+      {generateFilter({ filteredColumn, filter, setColumnFilters, ranges, setRanges, dateRanges, setDateRanges })}
       <IconButton sx={{ border: "4px solid red" }} onClick={() => onFilterRemove(filter.id)}>
         <DeleteOutlinedIcon sx={{ fontSize: 16 }} />
       </IconButton>

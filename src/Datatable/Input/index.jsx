@@ -4,7 +4,15 @@ import styles from "./styles.module.css"
 const Input = props => {
   return (
     <BSInput
-      className={`${styles[props.type === "checkbox" ? "ts-dt-checkbox" : "ts-dt-filter-input"]} ${props.className} `}
+      className={`${
+        styles[
+          props.type === "checkbox"
+            ? "ts-dt-checkbox"
+            : props.type === "search"
+            ? "ts-dt-search-input"
+            : "ts-dt-filter-input"
+        ]
+      } ${props.className}`}
       {...props}
     />
   )

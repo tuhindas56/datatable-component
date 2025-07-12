@@ -10,7 +10,7 @@ import TriggerComponent from "../DynamicFilters/TriggerComponent"
 
 import styles from "./styles.module.css"
 
-const FilterMenu = ({ table, setColumnFilters }) => {
+const FilterMenu = ({ table, setColumnFilters, ranges, setRanges, dateRanges, setDateRanges }) => {
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
 
@@ -28,9 +28,11 @@ const FilterMenu = ({ table, setColumnFilters }) => {
     setColumnFilters(prev => [...prev, { id: firstColumn.id }])
   }
 
-  const onFilterReset = () => table.resetColumnFilters()
-
-  const onFilterRemove = filterId => setColumnFilters(prev => prev.filter(column => column.id !== filterId))
+  const onFilterReset = () => {
+    table.resetColumnFilters()
+    setRanges({})
+    setDateRanges({})
+  }
 
   return (
     <>
@@ -39,7 +41,8 @@ const FilterMenu = ({ table, setColumnFilters }) => {
         label="Filter"
         icon={<FilterListOutlinedIcon />}
         ref={anchorRef}
-        type="range"
+        type="filtermenu"
+        filterValues={filterableColumns.filter(col => col.getIsFiltered())}
       />
 
       <Popover
@@ -83,7 +86,10 @@ const FilterMenu = ({ table, setColumnFilters }) => {
                       key={filter.id}
                       columns={columns}
                       setColumnFilters={setColumnFilters}
-                      onFilterRemove={onFilterRemove}
+                      ranges={ranges}
+                      setRanges={setRanges}
+                      dateRanges={dateRanges}
+                      setDateRanges={setDateRanges}
                     />
                   )
                 })}

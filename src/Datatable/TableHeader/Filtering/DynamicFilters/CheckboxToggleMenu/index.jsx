@@ -3,18 +3,18 @@ import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 
 import CheckboxMenuToggleItem from "./CheckboxMenuToggleItem"
-import MenuSearchBar from "../../../SearchableMenu/MenuSearchBar"
-import NoResultsItem from "../../../SearchableMenu/NoResultsItem"
+import MenuSearchBar from "../../../../SearchableMenu/MenuSearchBar"
+import NoResultsItem from "../../../../SearchableMenu/NoResultsItem"
 import TriggerComponent from "../TriggerComponent"
 
-const CheckboxToggleMenu = ({ column }) => {
+const CheckboxToggleMenu = ({ column, multiSelects, setMultiSelects }) => {
   const [open, setOpen] = useState(false)
   const [search, setSearch] = useState("")
   const anchorRef = useRef(null)
 
   const filterOptions = column?.columnDef?.meta?.filter?.options ?? []
   const label = column.columnDef?.meta?.label ?? ""
-  const filterValues = column.getFilterValue() ?? []
+  const filterValues = multiSelects[column.id] ?? []
 
   const visibleItems = search
     ? filterOptions.filter(item => item.label?.toLowerCase().includes(search.toLowerCase()))
@@ -32,7 +32,10 @@ const CheckboxToggleMenu = ({ column }) => {
       nextValue = filterValues.filter(filterItem => filterItem !== value)
     }
 
-    column.setFilterValue(nextValue)
+    setMultiSelects(prev => ({
+      ...prev,
+      [column.id]: nextValue,
+    }))
   }
 
   return (
