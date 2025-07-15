@@ -86,22 +86,23 @@ const FilterField = ({
       case "multiselect":
         setColumnFilters(prev => prev.filter(column => column.id !== id))
         break
+
       case "daterange":
+        setColumnFilters(prev => prev.filter(column => column.id !== id))
         setDateRanges(prev => {
           const newState = { ...prev }
           delete newState[filteredColumn.id]
           return newState
         })
-        filteredColumn.setFilterValue(undefined)
         break
 
       case "range":
+        setColumnFilters(prev => prev.filter(column => column.id !== id))
         setRanges(prev => {
           const newState = { ...prev }
           delete newState[filteredColumn.id]
           return newState
         })
-        filteredColumn.setFilterValue(undefined)
         break
 
       default:
