@@ -57,7 +57,6 @@ const CheckboxToggleMenu = ({ column, multiSelects, setMultiSelects }) => {
           vertical: "top",
           horizontal: "left",
         }}
-        disablePortal
       >
         <MenuSearchBar placeholder="Search.." value={search} setSearch={setSearch} />
         {visibleItems.length > 0 ? (

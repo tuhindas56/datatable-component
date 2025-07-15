@@ -26,7 +26,7 @@ const Filters = ({ table, setSearchQuery, setColumnFilters }) => {
   // Date filter debouncing effect
   useEffect(() => {
     if (!Object.values(dateRanges).length) return
-
+    console.log("effect ran")
     const timeout = setTimeout(() => {
       const dateFilters = []
 
@@ -79,8 +79,8 @@ const Filters = ({ table, setSearchQuery, setColumnFilters }) => {
   }, [multiSelects])
 
   return (
-    <Stack direction="row" justifyContent="space-between" sx={{ flex: 1 }}>
-      <Stack direction="row" gap={2} useFlexGap>
+    <Stack direction="row" justifyContent="space-between" gap={2} sx={{ flex: 1 }}>
+      <Stack direction="row" gap={2} useFlexGap flexWrap="wrap">
         <Search placeholder="Search..." search={search} onChange={onSearchChange} />
         <DynamicFilters
           table={table}

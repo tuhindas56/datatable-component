@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material/styles"
 
-const themeVars = {
+export const themeVars = {
   borderRadius: 4,
   boxShadow: {
     subtle: "0 1px 2px 0 rgba(0,0,0,0.05)",
@@ -190,6 +190,17 @@ const theme = createTheme({
         list: {
           padding: themeVars.padding.sm,
         },
+        paper: {
+          boxShadow: themeVars.boxShadow.strong,
+        },
+      },
+    },
+
+    MuiPaper: {
+      defaultProps: {
+        elevation: 0,
+      },
+      styleOverrides: {
         paper: {
           boxShadow: themeVars.boxShadow.strong,
         },

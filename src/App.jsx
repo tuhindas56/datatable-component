@@ -1,19 +1,15 @@
 import { useState } from "react"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
-import { Modal } from "reactstrap"
 
 import useData from "./hooks/useData"
+import { dateFormatter } from "./Datatable/utils"
 
 import ColumnHeader from "./Datatable/ColumnHeader"
 import Datatable from "./Datatable"
 import IndeterminateCheckbox from "./Datatable/RowLevelComponents/IndeterminateCheckbox"
 import RowExpansionToggle from "./Datatable/RowLevelComponents/RowExpansionToggle"
 import RowOptionsMenu from "./Datatable/RowLevelComponents/RowOptionsMenu"
-
-const dateFormatter = new Intl.DateTimeFormat("en-IN", {
-  dateStyle: "medium",
-}).format
 
 const columns = [
   {

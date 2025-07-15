@@ -3,21 +3,19 @@ import Button from "@mui/material/Button"
 import Popover from "@mui/material/Popover"
 import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
-import { DayPicker } from "react-day-picker"
-import classNames from "react-day-picker/style.module.css"
 
-import Input from "../../../../Input"
+import Datepicker from "../../Datepicker"
 import TriggerComponent from "../../TriggerComponent"
 
-const Datepicker = ({ column, dateRanges, setDateRanges }) => {
+const Daterange = ({ column, dateRanges, setDateRanges }) => {
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
 
   const label = column.columnDef?.meta?.label ?? ""
   const filterValues = column.getFilterValue() ?? []
 
-  const currentFrom = (dateRanges[column.id] && dateRanges[column.id]["from"]) ?? ""
-  const currentTo = (dateRanges[column.id] && dateRanges[column.id]["to"]) ?? ""
+  const currentFrom = (dateRanges[column.id] && dateRanges[column.id]["from"]) ?? null
+  const currentTo = (dateRanges[column.id] && dateRanges[column.id]["to"]) ?? null
 
   const handleClick = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -27,8 +25,8 @@ const Datepicker = ({ column, dateRanges, setDateRanges }) => {
       ...prev,
       [column.id]: {
         ...prev[column.id],
-        from: from ?? prev[column.id]?.from ?? "",
-        to: to ?? prev[column.id]?.to ?? "",
+        from: from ?? prev[column.id]?.from ?? null,
+        to: to ?? prev[column.id]?.to ?? null,
       },
     }))
   }
@@ -64,22 +62,18 @@ const Datepicker = ({ column, dateRanges, setDateRanges }) => {
           <Typography variant="body1" sx={{ fontWeight: 500 }}>
             {label}
           </Typography>
-          <Stack direction="row" spacing={2} useFlexGap>
-            <Input
-              type="date"
-              required
-              placeholder="Start date"
-              onChange={e => handleChange({ from: e.target.value })}
+          <Stack spacing={2} direction="row" useFlexGap>
+            <Datepicker
               value={currentFrom}
-              max={currentTo}
+              format="dd/MM/yyyy"
+              onChange={date => handleChange({ from: date })}
+              maxDate={currentTo}
             />
-            <Input
-              type="date"
-              required
-              placeholder="End date"
-              onChange={e => handleChange({ to: e.target.value })}
+            <Datepicker
               value={currentTo}
-              min={currentFrom}
+              format="dd/MM/yyyy"
+              onChange={date => handleChange({ to: date })}
+              minDate={currentFrom}
             />
           </Stack>
           <Button className="ts-dt-clear-filter-button" onClick={handleClear}>
@@ -91,4 +85,4 @@ const Datepicker = ({ column, dateRanges, setDateRanges }) => {
   )
 }
 
-export default Datepicker
+export default Daterange

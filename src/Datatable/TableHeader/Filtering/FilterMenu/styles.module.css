@@ -6,7 +6,7 @@
 .ts-dt-filter-menu-filter-field {
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 2fr 2fr max-content;
+  grid-template-columns: 1fr 1fr max-content;
   gap: 14px;
   width: 100%;
   margin-block: 14px;

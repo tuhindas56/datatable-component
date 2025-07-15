@@ -33,10 +33,7 @@ const Multiselect = ({
   }
 
   const handleClick = () => setOpen(true)
-
-  const handleClose = () => {
-    setOpen(false)
-  }
+  const handleClose = () => setOpen(false)
 
   const handleMenuItemClick = value => {
     let nextValue
@@ -71,7 +68,6 @@ const Multiselect = ({
         onTransitionExited={() => setSearch("")}
         anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
-        disablePortal
       >
         <MenuSearchBar placeholder="Search.." value={search} setSearch={setSearch} />
         {visibleItems.length > 0 ? (

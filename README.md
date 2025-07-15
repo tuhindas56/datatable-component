@@ -9,16 +9,12 @@ A table component powered by tanstack table.
 ## Todo
 
 - Dynamic Filters (Date component needs update)
-- Fix bugs
-  - Applying a range/daterange filter in the filter menu, doesnot reflect the applied state in the dynamic filter popover
-  - Applying a range/daterange filter in the dynamic filter popover doesnot reflect the applied state in the filter menu
-  - Applying a multi select filter in the filter menu and then changing the column does not reset the previous column's filter
-  - Applying a multi select filter in the filter menu and then changing the column to one that requires a daterange filter, crashes the app
 - Fix the filter menu UI
 - Prepare and note down custom css properties for the remaining styles
-- CSV Export
 - Row selection actions
-- Debounce multi selects
+- CSV Export (Aditya sir)
+- Column pinning (Aditya sir)
+- Loadable (Aditya sir)
 
 ## Completed features
 

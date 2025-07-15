@@ -2,7 +2,7 @@ import Button from "@mui/material/Button"
 import CloseIcon from "@mui/icons-material/Close"
 
 import CheckboxToggleMenu from "./CheckboxToggleMenu"
-import Datepicker from "./Datepicker"
+import Daterange from "./Daterange"
 import Range from "./Range"
 
 const DynamicFilters = ({ table, ranges, multiSelects, setMultiSelects, setRanges, dateRanges, setDateRanges }) => {
@@ -30,7 +30,7 @@ const DynamicFilters = ({ table, ranges, multiSelects, setMultiSelects, setRange
             )
           case "daterange":
             return (
-              <Datepicker
+              <Daterange
                 key={`${column.id}-dynamic-daterange-filter`}
                 column={column}
                 dateRanges={dateRanges}

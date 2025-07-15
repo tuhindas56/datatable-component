@@ -2,7 +2,11 @@ import { format, fromUnixTime, getUnixTime } from "date-fns"
 
 const convertToUnixTimestamp = date => getUnixTime(date)
 
-const convertFromUnixTimestamp = date => format(fromUnixTime(date), "yyyy-MM-dd")
+const convertFromUnixTimestamp = date => fromUnixTime(date)
+
+const dateFormatter = new Intl.DateTimeFormat("en-IN", {
+  dateStyle: "medium",
+}).format
 
 const mergeFilters = (prevFilters, updatedFilters) => {
   const merged = prevFilters.map(prev => {
@@ -19,4 +23,4 @@ const mergeFilters = (prevFilters, updatedFilters) => {
   return merged
 }
 
-export { convertToUnixTimestamp, convertFromUnixTimestamp, mergeFilters }
+export { convertToUnixTimestamp, convertFromUnixTimestamp, dateFormatter, mergeFilters }
