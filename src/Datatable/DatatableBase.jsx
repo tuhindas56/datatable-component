@@ -1,11 +1,12 @@
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from "@tanstack/react-table"
 import Stack from "@mui/material/Stack"
 import TableContainer from "@mui/material/TableContainer"
 import { Table } from "reactstrap"
 
-import TableHeader from "./TableHeader"
 import Pagination from "./Pagination"
+import RowSelectionActions from "./RowSelectionActions"
+import TableHeader from "./TableHeader"
 
 import styles from "./styles.module.css"
 
@@ -61,18 +62,22 @@ const DatatableBase = ({
   setPagination,
   sorting,
   setSorting,
+  setSelectedRows,
   setSearchQuery,
   totalPages,
   enableSubRows = false,
   getSubRows = () => [],
   subRowsColumns = [],
+  noDataComponent,
+  onSelectedRowsExport,
+  onSelectedRowsDelete,
 }) => {
   const [columnPinning, setColumnPinning] = useState({
     left: ["expand", "select"],
     right: [],
   })
-  const [columnVisibility, setColumnVisibility] = useState({})
   const [rowSelection, setRowSelection] = useState({})
+  const [columnVisibility, setColumnVisibility] = useState({})
   const [expanded, setExpanded] = useState([])
 
   const table = useReactTable({
@@ -111,6 +116,14 @@ const DatatableBase = ({
   })
 
   if (error) return <h1>Uh oh! {error.message}.</h1>
+
+  useEffect(() => {
+    const parentRows = table
+      .getSelectedRowModel()
+      .rows.filter(row => row.depth === 0)
+      .map(row => row.id)
+    setSelectedRows(parentRows)
+  }, [rowSelection])
 
   return (
     <Stack spacing={2}>
@@ -156,7 +169,7 @@ const DatatableBase = ({
             ) : data?.length === 0 ? (
               <tr className={styles["tr"]}>
                 <td colSpan={table.getHeaderGroups()[0].headers.length} align="center">
-                  No data found.
+                  {noDataComponent ? noDataComponent : "No data found."}
                 </td>
               </tr>
             ) : (
@@ -201,6 +214,13 @@ const DatatableBase = ({
       </TableContainer>
 
       <Pagination table={table} />
+
+      <RowSelectionActions
+        setRowSelection={setRowSelection}
+        table={table}
+        onSelectedRowsExport={onSelectedRowsExport}
+        onSelectedRowsDelete={onSelectedRowsDelete}
+      />
     </Stack>
   )
 }

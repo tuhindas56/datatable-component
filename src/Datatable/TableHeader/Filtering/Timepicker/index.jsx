@@ -1,13 +1,31 @@
-import { DatePicker } from "@mui/x-date-pickers"
+import { TimePicker } from "@mui/x-date-pickers"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns"
 
 import { themeVars } from "../../../theme"
 
-const Datepicker = props => (
+const Timepicker = props => (
   <LocalizationProvider dateAdapter={AdapterDateFns}>
-    <DatePicker
+    <TimePicker
       slotProps={{
+        actionBar: {
+          sx: {
+            display: "none",
+          },
+        },
+        desktopPaper: {
+          elevation: 0,
+          sx: {
+            boxShadow: themeVars.boxShadow.strong,
+            "& .MuiMenuItem-root": {
+              minWidth: "unset",
+              fontSize: themeVars.fontSize,
+            },
+            "& .MuiDialogActions-root": {
+              justifyContent: "center",
+            },
+          },
+        },
         textField: {
           size: "small",
           error: false,
@@ -33,32 +51,10 @@ const Datepicker = props => (
             },
           },
         },
-        desktopPaper: {
-          elevation: 0,
-          sx: {
-            boxShadow: themeVars.boxShadow.strong,
-            "& .MuiPickersArrowSwitcher-root": {
-              gap: 0.6,
-            },
-            "& .MuiButtonBase-root": {
-              border: "none",
-              cursor: "default",
-              boxShadow: "unset",
-            },
-            "& .MuiButtonBase-root.MuiPickersDay-root": {
-              borderRadius: `${themeVars.borderRadius}px`,
-            },
-            "& .MuiButtonBase-root": {
-              boxShadow: "unset !important",
-              border: "unset !important",
-              cursor: "default",
-            },
-          },
-        },
       }}
       {...props}
     />
   </LocalizationProvider>
 )
 
-export default Datepicker
+export default Timepicker

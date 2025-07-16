@@ -6,6 +6,8 @@ import Stack from "@mui/material/Stack"
 import Typography from "@mui/material/Typography"
 import SwapVertIcon from "@mui/icons-material/SwapVert"
 
+import styles from "./styles.module.css"
+
 import SortField from "./SortField"
 
 const SortMenu = ({ table, direction = "left" }) => {
@@ -51,7 +53,7 @@ const SortMenu = ({ table, direction = "left" }) => {
         anchorOrigin={{ vertical: "bottom", horizontal: direction }}
         transformOrigin={{ vertical: "top", horizontal: direction }}
       >
-        <Stack spacing={2} className="sort-popover-container" useFlexGap sx={{ minWidth: 380 }}>
+        <Stack spacing={2} useFlexGap sx={{ minWidth: 380 }} className="sort-popover-container">
           {!sorting.length && (
             <Stack>
               <Typography variant="body1" sx={{ fontWeight: 500 }}>

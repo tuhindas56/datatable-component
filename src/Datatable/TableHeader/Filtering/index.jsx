@@ -4,12 +4,16 @@ import Stack from "@mui/material/Stack"
 import DynamicFilters from "./DynamicFilters"
 import FilterMenu from "./FilterMenu"
 import Search from "./Search"
+import SortMenu from "../SortMenu"
+import ViewMenu from "../ViewMenu"
+
 import { convertToUnixTimestamp, mergeFilters } from "../../utils"
 
 const Filters = ({ table, setSearchQuery, setColumnFilters }) => {
   const [search, setSearch] = useState("")
   const [ranges, setRanges] = useState({})
   const [dateRanges, setDateRanges] = useState({})
+  const [timeRanges, setTimeRanges] = useState({})
   const [multiSelects, setMultiSelects] = useState({})
 
   const onSearchChange = e => setSearch(e.target.value)
@@ -26,7 +30,7 @@ const Filters = ({ table, setSearchQuery, setColumnFilters }) => {
   // Date filter debouncing effect
   useEffect(() => {
     if (!Object.values(dateRanges).length) return
-    console.log("effect ran")
+
     const timeout = setTimeout(() => {
       const dateFilters = []
 
@@ -41,6 +45,25 @@ const Filters = ({ table, setSearchQuery, setColumnFilters }) => {
 
     return () => clearTimeout(timeout)
   }, [dateRanges])
+
+  // Time filter debouncing effect
+  useEffect(() => {
+    if (!Object.values(timeRanges).length) return
+
+    const timeout = setTimeout(() => {
+      const timeFilters = []
+
+      for (const [id, range] of Object.entries(timeRanges)) {
+        const from = range.from ? convertToUnixTimestamp(range.from) : null
+        const to = range.to ? convertToUnixTimestamp(range.to) : null
+        if (from || to) timeFilters.push({ id, value: [from, to] })
+      }
+
+      setColumnFilters(prevFilters => mergeFilters(prevFilters, timeFilters))
+    }, 600)
+
+    return () => clearTimeout(timeout)
+  }, [timeRanges])
 
   // Range filter debouncing effect
   useEffect(() => {
@@ -79,7 +102,7 @@ const Filters = ({ table, setSearchQuery, setColumnFilters }) => {
   }, [multiSelects])
 
   return (
-    <Stack direction="row" justifyContent="space-between" gap={2} sx={{ flex: 1 }}>
+    <Stack direction="row" justifyContent="space-between" gap={2} sx={{ flex: 1 }} flexWrap="wrap">
       <Stack direction="row" gap={2} useFlexGap flexWrap="wrap">
         <Search placeholder="Search..." search={search} onChange={onSearchChange} />
         <DynamicFilters
@@ -90,18 +113,26 @@ const Filters = ({ table, setSearchQuery, setColumnFilters }) => {
           setRanges={setRanges}
           dateRanges={dateRanges}
           setDateRanges={setDateRanges}
+          timeRanges={timeRanges}
+          setTimeRanges={setTimeRanges}
         />
       </Stack>
-      <FilterMenu
-        table={table}
-        setColumnFilters={setColumnFilters}
-        multiSelects={multiSelects}
-        setMultiSelects={setMultiSelects}
-        ranges={ranges}
-        setRanges={setRanges}
-        dateRanges={dateRanges}
-        setDateRanges={setDateRanges}
-      />
+      <Stack direction="row" gap={2} useFlexGap>
+        <FilterMenu
+          table={table}
+          setColumnFilters={setColumnFilters}
+          multiSelects={multiSelects}
+          setMultiSelects={setMultiSelects}
+          ranges={ranges}
+          setRanges={setRanges}
+          dateRanges={dateRanges}
+          setDateRanges={setDateRanges}
+          timeRanges={timeRanges}
+          setTimeRanges={setTimeRanges}
+        />
+        <SortMenu table={table} direction="right" />
+        <ViewMenu table={table} />
+      </Stack>
     </Stack>
   )
 }

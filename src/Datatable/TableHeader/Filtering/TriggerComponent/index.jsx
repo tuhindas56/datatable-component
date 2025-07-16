@@ -4,9 +4,7 @@ import Chip from "@mui/material/Chip"
 import Divider from "@mui/material/Divider"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 
-const dateFormatter = new Intl.DateTimeFormat("en-IN", {
-  dateStyle: "medium",
-}).format
+import { dateFormatter, timeFormatter } from "../../../utils"
 
 const renderFilterIndicator = (type, filterValues) => {
   if (filterValues.length === 0) return null
@@ -39,26 +37,50 @@ const renderFilterIndicator = (type, filterValues) => {
         )
 
     case "daterange":
-      const [start, end] = filterValues
+      const [startDate, endDate] = filterValues
 
-      if (start && end)
+      if (startDate && endDate)
         return (
           <span style={{ textWrap: "nowrap" }}>
-            {dateFormatter(new Date(start * 1000))} - {dateFormatter(new Date(end * 1000))}
+            {dateFormatter(new Date(startDate * 1000))} - {dateFormatter(new Date(endDate * 1000))}
           </span>
         )
 
-      if (start)
+      if (startDate)
         return (
           <span style={{ textWrap: "nowrap" }}>
-            {">"} {dateFormatter(new Date(start * 1000))}
+            {">"} {dateFormatter(new Date(startDate * 1000))}
           </span>
         )
 
-      if (end)
+      if (endDate)
         return (
           <span style={{ textWrap: "nowrap" }}>
-            {"<"} {dateFormatter(new Date(end * 1000))}
+            {"<"} {dateFormatter(new Date(endDate * 1000))}
+          </span>
+        )
+
+    case "timerange":
+      const [startTime, endTime] = filterValues
+
+      if (startTime && endTime)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {timeFormatter(new Date(startTime * 1000))} - {timeFormatter(new Date(endTime * 1000))}
+          </span>
+        )
+
+      if (startTime)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {">"} {timeFormatter(new Date(startTime * 1000))}
+          </span>
+        )
+
+      if (endTime)
+        return (
+          <span style={{ textWrap: "nowrap" }}>
+            {"<"} {timeFormatter(new Date(endTime * 1000))}
           </span>
         )
 
@@ -73,7 +95,7 @@ const renderFilterIndicator = (type, filterValues) => {
 const TriggerComponent = forwardRef(
   ({ label = "Add a label", filterValues = [], type = "multiselect", icon, ...props }, ref) => {
     return (
-      <Button ref={ref} {...props}>
+      <Button ref={ref} sx={{ minWidth: "max-content" }} {...props}>
         {icon || <AddCircleOutlineIcon />}
         {label}
         {filterValues.length > 0 && (

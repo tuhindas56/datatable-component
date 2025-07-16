@@ -10,7 +10,16 @@ import TriggerComponent from "../TriggerComponent"
 
 import styles from "./styles.module.css"
 
-const FilterMenu = ({ table, setColumnFilters, ranges, setRanges, dateRanges, setDateRanges }) => {
+const FilterMenu = ({
+  table,
+  setColumnFilters,
+  ranges,
+  setRanges,
+  dateRanges,
+  setDateRanges,
+  timeRanges,
+  setTimeRanges,
+}) => {
   const [open, setOpen] = useState(false)
   const anchorRef = useRef(null)
 
@@ -90,6 +99,8 @@ const FilterMenu = ({ table, setColumnFilters, ranges, setRanges, dateRanges, se
                       setRanges={setRanges}
                       dateRanges={dateRanges}
                       setDateRanges={setDateRanges}
+                      timeRanges={timeRanges}
+                      setTimeRanges={setTimeRanges}
                     />
                   )
                 })}

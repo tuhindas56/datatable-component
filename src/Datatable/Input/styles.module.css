@@ -31,7 +31,8 @@ input.ts-dt-filter-input:focus {
 
 input.ts-dt-search-input {
   height: 32px;
-  max-width: 224px;
+  flex: 1;
+  min-width: 224px;
   font-size: var(--ts-dt-font-size, 14px);
   font-family: var(--ts-dt-font-family, Inter, system-ui);
 }

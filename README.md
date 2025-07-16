@@ -8,13 +8,14 @@ A table component powered by tanstack table.
 
 ## Todo
 
-- Dynamic Filters (Date component needs update)
-- Fix the filter menu UI
 - Prepare and note down custom css properties for the remaining styles
 - Row selection actions
 - CSV Export (Aditya sir)
 - Column pinning (Aditya sir)
 - Loadable (Aditya sir)
+
+- For add filter button, increase border radius
+- For filter menu and sort menu, space out the items a little more
 
 ## Completed features
 

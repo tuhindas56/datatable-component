@@ -33,6 +33,7 @@ const useData = ({ currentPage = 0, rowsPerPage = 10, searchQuery = null, filter
               query = query.in(filter.id, filter.value)
               break
             case "date_unix":
+            case "time_unix":
             case "price":
               if (filter.value[0]) query = query.gte(filter.id, filter.value[0])
               if (filter.value[1]) query = query.lte(filter.id, filter.value[1])

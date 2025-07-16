@@ -1,9 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 
 import useData from "./hooks/useData"
-import { dateFormatter } from "./Datatable/utils"
+import { dateFormatter, timeFormatter } from "./Datatable/utils"
 
 import ColumnHeader from "./Datatable/ColumnHeader"
 import Datatable from "./Datatable"
@@ -109,6 +109,16 @@ const columns = [
     meta: {
       label: "Date",
       filter: { type: "daterange" },
+    },
+  },
+  {
+    accessorFn: row => row.time_unix,
+    id: "time_unix",
+    header: ({ column }) => <ColumnHeader column={column} title="Time" />,
+    cell: info => timeFormatter(new Date(info.getValue() * 1000)),
+    meta: {
+      label: "Time",
+      filter: { type: "timerange" },
     },
   },
   {
@@ -235,6 +245,7 @@ const subRowsColumns = [
 const App = () => {
   const [searchQuery, setSearchQuery] = useState("")
   const [sorting, setSorting] = useState([])
+  const [selectedRows, setSelectedRows] = useState([])
   const [columnFilters, setColumnFilters] = useState([])
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -248,6 +259,9 @@ const App = () => {
     searchQuery,
     filters: columnFilters,
   })
+
+  const onSelectedRowsDelete = () => confirm(`${selectedRows.length} row(s) will be deleted, confirm?`)
+  const onSelectedRowsExport = () => alert(`${selectedRows.length} row(s) exported.`)
 
   return (
     <div style={{ padding: 32 }}>
@@ -267,6 +281,10 @@ const App = () => {
         subRowsColumns={subRowsColumns}
         columnFilters={columnFilters}
         setColumnFilters={setColumnFilters}
+        selectedRows={selectedRows}
+        setSelectedRows={setSelectedRows}
+        onSelectedRowsDelete={onSelectedRowsDelete}
+        onSelectedRowsExport={onSelectedRowsExport}
       />
     </div>
   )

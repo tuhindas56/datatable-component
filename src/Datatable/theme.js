@@ -271,6 +271,19 @@ const theme = createTheme({
       },
     },
 
+    MuiTooltip: {
+      styleOverrides: {
+        tooltip: {
+          backgroundColor: "#ffffff",
+          color: "#000000",
+          boxShadow: themeVars.boxShadow.strong,
+        },
+        arrow: {
+          color: "#ffffff",
+        },
+      },
+    },
+
     MuiSvgIcon: {
       styleOverrides: {
         root: {

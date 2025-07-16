@@ -12,8 +12,19 @@ import styles from "../styles.module.css"
 import Daterange from "./Daterange"
 import Multiselect from "./Multiselect"
 import Range from "./Range"
+import Timerange from "../Timerange"
 
-const generateFilter = ({ filteredColumn, filter, setColumnFilters, ranges, setRanges, dateRanges, setDateRanges }) => {
+const generateFilter = ({
+  filteredColumn,
+  filter,
+  setColumnFilters,
+  ranges,
+  setRanges,
+  dateRanges,
+  setDateRanges,
+  timeRanges,
+  setTimeRanges,
+}) => {
   const type = filteredColumn.columnDef?.meta?.filter?.type
 
   switch (type) {
@@ -21,6 +32,8 @@ const generateFilter = ({ filteredColumn, filter, setColumnFilters, ranges, setR
       return <Multiselect filteredColumn={filteredColumn} filter={filter} setColumnFilters={setColumnFilters} />
     case "daterange":
       return <Daterange filter={filter} dateRanges={dateRanges} setDateRanges={setDateRanges} />
+    case "timerange":
+      return <Timerange filter={filter} timeRanges={timeRanges} setTimeRanges={setTimeRanges} />
     case "range":
       return <Range filter={filter} ranges={ranges} setRanges={setRanges} />
     default:
@@ -78,6 +91,8 @@ const FilterField = ({
   setRanges,
   dateRanges,
   setDateRanges,
+  timeRanges,
+  setTimeRanges,
 }) => {
   const onFilterRemove = id => {
     const type = filteredColumn.columnDef?.meta?.filter?.type
@@ -90,6 +105,15 @@ const FilterField = ({
       case "daterange":
         setColumnFilters(prev => prev.filter(column => column.id !== id))
         setDateRanges(prev => {
+          const newState = { ...prev }
+          delete newState[filteredColumn.id]
+          return newState
+        })
+        break
+
+      case "timerange":
+        setColumnFilters(prev => prev.filter(column => column.id !== id))
+        setTimeRanges(prev => {
           const newState = { ...prev }
           delete newState[filteredColumn.id]
           return newState
@@ -113,7 +137,17 @@ const FilterField = ({
   return (
     <div className={styles["ts-dt-filter-menu-filter-field"]}>
       <ColumnMenu columns={columns} filteredColumn={filteredColumn} setColumnFilters={setColumnFilters} />
-      {generateFilter({ filteredColumn, filter, setColumnFilters, ranges, setRanges, dateRanges, setDateRanges })}
+      {generateFilter({
+        filteredColumn,
+        filter,
+        setColumnFilters,
+        ranges,
+        setRanges,
+        dateRanges,
+        setDateRanges,
+        timeRanges,
+        setTimeRanges,
+      })}
       <IconButton sx={{ border: "4px solid red" }} onClick={() => onFilterRemove(filter.id)}>
         <DeleteOutlinedIcon sx={{ fontSize: 16 }} />
       </IconButton>

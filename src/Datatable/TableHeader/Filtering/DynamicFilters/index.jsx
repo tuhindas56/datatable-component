@@ -4,8 +4,19 @@ import CloseIcon from "@mui/icons-material/Close"
 import CheckboxToggleMenu from "./CheckboxToggleMenu"
 import Daterange from "./Daterange"
 import Range from "./Range"
+import Timerange from "./Timerange"
 
-const DynamicFilters = ({ table, ranges, multiSelects, setMultiSelects, setRanges, dateRanges, setDateRanges }) => {
+const DynamicFilters = ({
+  table,
+  ranges,
+  multiSelects,
+  setMultiSelects,
+  setRanges,
+  dateRanges,
+  setDateRanges,
+  timeRanges,
+  setTimeRanges,
+}) => {
   const filterableColumns = table.getAllColumns().filter(column => column.getCanFilter())
   const handleReset = () => {
     table.resetColumnFilters()
@@ -35,6 +46,15 @@ const DynamicFilters = ({ table, ranges, multiSelects, setMultiSelects, setRange
                 column={column}
                 dateRanges={dateRanges}
                 setDateRanges={setDateRanges}
+              />
+            )
+          case "timerange":
+            return (
+              <Timerange
+                key={`${column.id}-dynamic-timerange-filter`}
+                column={column}
+                timeRanges={timeRanges}
+                setTimeRanges={setTimeRanges}
               />
             )
           case "range":
