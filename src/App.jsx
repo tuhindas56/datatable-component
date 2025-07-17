@@ -260,9 +260,6 @@ const App = () => {
     filters: columnFilters,
   })
 
-  const onSelectedRowsDelete = () => confirm(`${selectedRows.length} row(s) will be deleted, confirm?`)
-  const onSelectedRowsExport = () => alert(`${selectedRows.length} row(s) exported.`)
-
   return (
     <div style={{ padding: 32 }}>
       <Datatable
@@ -283,8 +280,13 @@ const App = () => {
         setColumnFilters={setColumnFilters}
         selectedRows={selectedRows}
         setSelectedRows={setSelectedRows}
-        onSelectedRowsDelete={onSelectedRowsDelete}
-        onSelectedRowsExport={onSelectedRowsExport}
+        rowSelectionOptions={[
+          {
+            icon: <DeleteOutlineIcon />,
+            tooltipText: "Delete",
+            onClick: () => alert("deleted"),
+          },
+        ]}
       />
     </div>
   )

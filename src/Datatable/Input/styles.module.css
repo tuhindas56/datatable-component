@@ -2,6 +2,7 @@ input[type="checkbox"].ts-dt-checkbox {
   border: 1px solid var(--ts-dt-checkbox-border-color, #d5d5d5);
   box-shadow: none;
   margin: 0;
+  font-size: 16px;
 }
 
 input[type="checkbox"].ts-dt-checkbox:active {

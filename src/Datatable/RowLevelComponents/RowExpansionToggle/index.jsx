@@ -1,5 +1,7 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import KeyboardDoubleArrowDownIcon from "@mui/icons-material/KeyboardDoubleArrowDown"
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight"
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight"
 import { Button } from "reactstrap"
 
 import styles from "./styles.module.css"
@@ -9,11 +11,9 @@ const RowExpansionToggle = ({ table = null, row = null }) => {
     return (
       <Button onClick={table.getToggleAllRowsExpandedHandler()} className={styles["row-expansion-toggle"]}>
         {table.getIsAllRowsExpanded() ? (
-          <KeyboardDoubleArrowDownIcon className="rotate-180" />
-        ) : table.getIsSomeRowsExpanded() ? (
-          <KeyboardDoubleArrowDownIcon className="rotate-90" />
+          <KeyboardDoubleArrowRightIcon className="expanded" />
         ) : (
-          <KeyboardDoubleArrowDownIcon />
+          <KeyboardDoubleArrowRightIcon />
         )}
       </Button>
     )
@@ -21,7 +21,7 @@ const RowExpansionToggle = ({ table = null, row = null }) => {
   if (row)
     return (
       <Button onClick={row.getToggleExpandedHandler()} className={styles["row-expansion-toggle"]}>
-        {row.getIsExpanded() ? <ExpandMoreIcon className="rotate-180" /> : <ExpandMoreIcon />}
+        {row.getIsExpanded() ? <KeyboardArrowRightIcon className="expanded" /> : <KeyboardArrowRightIcon />}
       </Button>
     )
 }

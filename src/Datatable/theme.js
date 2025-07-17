@@ -1,7 +1,7 @@
 import { createTheme } from "@mui/material/styles"
 
 export const themeVars = {
-  borderRadius: 4,
+  borderRadius: 6,
   boxShadow: {
     subtle: "0 1px 2px 0 rgba(0,0,0,0.05)",
     strong: "rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px",
@@ -22,10 +22,11 @@ export const themeVars = {
   padding: {
     sm: 4,
     md: 8,
+    lg: 16,
   },
   tableCellBg: "#fff",
   rowSelectionColor: "#f7f7f7",
-  fontFamily: "Inter, system-ui",
+  fontFamily: "var(--ts-dt-font-family, Inter, system-ui)",
   fontSize: 14,
 }
 
@@ -70,6 +71,7 @@ const theme = createTheme({
         root: {
           gap: themeVars.padding.sm,
           border: `1px solid ${themeVars.stroke.dark}`,
+          padding: `${themeVars.padding.lg}px ${themeVars.padding.md}px`,
           cursor: "default",
           "&:hover": {
             backgroundColor: themeVars.hoverColor,
@@ -210,6 +212,14 @@ const theme = createTheme({
     MuiPopover: {
       defaultProps: {
         elevation: 0,
+        sx: {
+          "&:has(.bottom-anchored)": {
+            transform: "translateY(4px)",
+          },
+          "&:has(.top-anchored)": {
+            transform: "translateY(-4px)",
+          },
+        },
       },
       styleOverrides: {
         paper: {
@@ -293,11 +303,8 @@ const theme = createTheme({
             marginLeft: `${themeVars.padding.sm}px`,
             color: themeVars.iconColor.light,
           },
-          "&.rotate-90": {
-            transform: "rotate(-90deg)",
-          },
-          "&.rotate-180": {
-            transform: "rotate(-180deg)",
+          "&.expanded": {
+            transform: "rotate(90deg)",
           },
         },
       },
@@ -307,7 +314,10 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "&.filter-popover-container, &.sort-popover-container": {
-            padding: "12px",
+            padding: themeVars.padding.lg,
+          },
+          "&.dynamic-filter-popover-container": {
+            padding: themeVars.padding.lg,
           },
         },
       },

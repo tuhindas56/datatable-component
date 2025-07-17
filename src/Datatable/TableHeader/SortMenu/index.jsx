@@ -53,10 +53,10 @@ const SortMenu = ({ table, direction = "left" }) => {
         anchorOrigin={{ vertical: "bottom", horizontal: direction }}
         transformOrigin={{ vertical: "top", horizontal: direction }}
       >
-        <Stack spacing={2} useFlexGap sx={{ minWidth: 380 }} className="sort-popover-container">
+        <Stack gap={2} sx={{ minWidth: 380 }} className="sort-popover-container bottom-anchored">
           {!sorting.length && (
-            <Stack>
-              <Typography variant="body1" sx={{ fontWeight: 500 }}>
+            <Stack gap={0.2}>
+              <Typography variant="body1" sx={{ fontWeight: 500, margin: 0 }}>
                 No sorting applied
               </Typography>
               <Typography variant="body2" sx={{ color: "gray" }}>
@@ -69,22 +69,23 @@ const SortMenu = ({ table, direction = "left" }) => {
               <Typography variant="body1" sx={{ fontWeight: 500 }}>
                 Sort by
               </Typography>
-
-              {sorting.map(sort => {
-                return (
-                  <SortField
-                    sort={sort}
-                    key={sort.id}
-                    sortedColLabel={sortableColumns.find(col => col.id === sort.id).columnDef?.meta?.label}
-                    columns={columns}
-                    onSortUpdate={onSortUpdate}
-                    onSortRemove={onSortRemove}
-                  />
-                )
-              })}
+              <Stack gap={1.4}>
+                {sorting.map(sort => {
+                  return (
+                    <SortField
+                      sort={sort}
+                      key={sort.id}
+                      sortedColLabel={sortableColumns.find(col => col.id === sort.id).columnDef?.meta?.label}
+                      columns={columns}
+                      onSortUpdate={onSortUpdate}
+                      onSortRemove={onSortRemove}
+                    />
+                  )
+                })}
+              </Stack>
             </>
           )}
-          <Stack direction="row" gap={1}>
+          <Stack direction="row" gap={1.4}>
             <Button className="ts-dt-add-sort-filter-button" onClick={onSortAdd} disabled={columns.length === 0}>
               Add sort
             </Button>

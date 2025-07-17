@@ -69,8 +69,7 @@ const DatatableBase = ({
   getSubRows = () => [],
   subRowsColumns = [],
   noDataComponent,
-  onSelectedRowsExport,
-  onSelectedRowsDelete,
+  rowSelectionOptions = [],
 }) => {
   const [columnPinning, setColumnPinning] = useState({
     left: ["expand", "select"],
@@ -118,11 +117,7 @@ const DatatableBase = ({
   if (error) return <h1>Uh oh! {error.message}.</h1>
 
   useEffect(() => {
-    const parentRows = table
-      .getSelectedRowModel()
-      .rows.filter(row => row.depth === 0)
-      .map(row => row.id)
-    setSelectedRows(parentRows)
+    setSelectedRows(table.getSelectedRowModel().rows)
   }, [rowSelection])
 
   return (
@@ -215,12 +210,7 @@ const DatatableBase = ({
 
       <Pagination table={table} />
 
-      <RowSelectionActions
-        setRowSelection={setRowSelection}
-        table={table}
-        onSelectedRowsExport={onSelectedRowsExport}
-        onSelectedRowsDelete={onSelectedRowsDelete}
-      />
+      <RowSelectionActions setRowSelection={setRowSelection} table={table} options={rowSelectionOptions} />
     </Stack>
   )
 }

@@ -17,7 +17,7 @@ const DefaultTrigger = props => (
 const SearchableMenu = ({
   triggerComponent: TriggerComponent = DefaultTrigger,
   menuItems = [],
-  anchorOrigin = { vertical: "bottom", horizontal: "left" },
+  anchorOrigin = { vertical: "top", horizontal: "left" },
   searchPlaceholder = "Search...",
 }) => {
   const [search, setSearch] = useState("")
@@ -60,19 +60,28 @@ const SearchableMenu = ({
         anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
       >
-        <MenuSearchBar value={search} setSearch={setSearch} placeholder={searchPlaceholder} />
-
-        {visibleItems.length > 0 ? (
-          visibleItems.map((item, index) => (
-            <MenuItem key={index} onClick={e => handleMenuItemClick(e, item?.onClick)} disabled={item?.disabled}>
-              {item.icon && <span>{item.icon}</span>}
-              <Typography variant="body2">{item?.label}</Typography>
-              {item.endIcon && <span style={{ marginLeft: "auto" }}>{item.endIcon}</span>}
-            </MenuItem>
-          ))
-        ) : (
-          <NoResultsItem />
-        )}
+        <div
+          className={
+            anchorOrigin.vertical === "top"
+              ? "top-anchored"
+              : anchorOrigin.vertical === "bottom"
+              ? "bottom-anchored"
+              : ""
+          }
+        >
+          <MenuSearchBar value={search} setSearch={setSearch} placeholder={searchPlaceholder} />
+          {visibleItems.length > 0 ? (
+            visibleItems.map((item, index) => (
+              <MenuItem key={index} onClick={e => handleMenuItemClick(e, item?.onClick)} disabled={item?.disabled}>
+                {item.icon && <span>{item.icon}</span>}
+                <Typography variant="body2">{item?.label}</Typography>
+                {item.endIcon && <span style={{ marginLeft: "auto" }}>{item.endIcon}</span>}
+              </MenuItem>
+            ))
+          ) : (
+            <NoResultsItem />
+          )}
+        </div>
       </Menu>
     </>
   )

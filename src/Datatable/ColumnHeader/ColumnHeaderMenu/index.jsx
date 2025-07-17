@@ -38,15 +38,17 @@ const ColumnHeaderMenu = ({ buttonLabel = "Menu Button", options = [], isSorted 
         anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         transformOrigin={{ vertical: "top", horizontal: "left" }}
       >
-        {options.map((option, index) => (
-          <MenuItem key={index} onClick={e => handleMenuItemClick(e, option.onClick)} disabled={option.disabled}>
-            <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1} useFlexGap>
-              {option?.icon}
-              <Typography variant="body2">{option?.label}</Typography>
-            </Stack>
-            <span className="end-icon">{option?.endIcon}</span>
-          </MenuItem>
-        ))}
+        <div className="bottom-anchored">
+          {options.map((option, index) => (
+            <MenuItem key={index} onClick={e => handleMenuItemClick(e, option.onClick)} disabled={option.disabled}>
+              <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1} useFlexGap>
+                {option?.icon}
+                <Typography variant="body2">{option?.label}</Typography>
+              </Stack>
+              <span className="end-icon">{option?.endIcon}</span>
+            </MenuItem>
+          ))}
+        </div>
       </Menu>
     </>
   )

@@ -5,18 +5,11 @@ import IconButton from "@mui/material/IconButton"
 import Slide from "@mui/material/Slide"
 import Stack from "@mui/material/Stack"
 import Tooltip from "@mui/material/Tooltip"
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined"
-import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined"
 import HighlightOffIcon from "@mui/icons-material/HighlightOff"
 
 import { themeVars } from "../theme"
 
-const RowSelectionActions = ({
-  table,
-  setRowSelection,
-  onSelectedRowsExport = () => {},
-  onSelectedRowsDelete = () => {},
-}) => {
+const RowSelectionActions = ({ table, setRowSelection, options }) => {
   const [open, setOpen] = useState(false)
   const [lastCount, setLastCount] = useState(0)
 
@@ -42,7 +35,7 @@ const RowSelectionActions = ({
           alignItems="center"
           justifyContent="space-between"
           sx={{
-            borderRadius: themeVars.borderRadius / 2,
+            borderRadius: themeVars.borderRadius / 5,
             background: "white",
             padding: `${themeVars.padding.md}px`,
             boxShadow: themeVars.boxShadow.strong,
@@ -58,19 +51,18 @@ const RowSelectionActions = ({
               </Button>
             </Tooltip>
           </Stack>
-          <Divider orientation="vertical" variant="middle" sx={{ height: 24 }} />
-          <Stack direction="row" gap={1}>
-            <Tooltip title="Export selected rows" arrow>
-              <IconButton onClick={onSelectedRowsExport} sx={{ padding: "6px" }}>
-                <FileDownloadOutlinedIcon sx={{ fontSize: 16 }} />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Delete selected rows" arrow>
-              <IconButton onClick={onSelectedRowsDelete} sx={{ padding: "6px" }}>
-                <DeleteOutlinedIcon sx={{ fontSize: 16 }} />
-              </IconButton>
-            </Tooltip>
-          </Stack>
+          {options && options?.length > 0 && <Divider orientation="vertical" variant="middle" sx={{ height: 24 }} />}
+          {options && options?.length > 0 && (
+            <Stack direction="row" gap={1}>
+              {options.map(option => (
+                <Tooltip title={option?.tooltipText} arrow>
+                  <IconButton onClick={option?.onClick} sx={{ padding: "6px" }}>
+                    {option?.icon}
+                  </IconButton>
+                </Tooltip>
+              ))}
+            </Stack>
+          )}
         </Stack>
       </Slide>
     </Stack>

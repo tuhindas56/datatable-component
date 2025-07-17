@@ -25,23 +25,25 @@ const SortColumnMenu = ({ columns, sort, sortedColLabel, onSortUpdate }) => {
         <UnfoldMoreIcon />
       </Button>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        {columns.length > 0 ? (
-          columns.map((column, index) => (
-            <MenuItem key={`${column.id}-${index}-sort-menu`} onClick={() => handleMenuItemClick(column)}>
-              <Typography variant="body2">{column.columnDef?.meta?.label}</Typography>
+        <div className="bottom-anchored">
+          {columns.length > 0 ? (
+            columns.map((column, index) => (
+              <MenuItem key={`${column.id}-${index}-sort-menu`} onClick={() => handleMenuItemClick(column)}>
+                <Typography variant="body2">{column.columnDef?.meta?.label}</Typography>
+              </MenuItem>
+            ))
+          ) : (
+            <MenuItem
+              sx={{
+                "&:hover": {
+                  background: "transparent",
+                },
+              }}
+            >
+              <Typography variant="body2">No other sortable columns</Typography>
             </MenuItem>
-          ))
-        ) : (
-          <MenuItem
-            sx={{
-              "&:hover": {
-                background: "transparent",
-              },
-            }}
-          >
-            <Typography variant="body2">No other sortable columns</Typography>
-          </MenuItem>
-        )}
+          )}
+        </div>
       </Menu>
     </>
   )
@@ -66,12 +68,14 @@ const SortOrderMenu = ({ sort, onSortUpdate }) => {
         <UnfoldMoreIcon />
       </Button>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        <MenuItem onClick={() => handleMenuItemClick(false)}>
-          <Typography variant="body2">Asc</Typography>
-        </MenuItem>
-        <MenuItem onClick={() => handleMenuItemClick(true)}>
-          <Typography variant="body2">Desc</Typography>
-        </MenuItem>
+        <div className="bottom-anchored">
+          <MenuItem onClick={() => handleMenuItemClick(false)}>
+            <Typography variant="body2">Asc</Typography>
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuItemClick(true)}>
+            <Typography variant="body2">Desc</Typography>
+          </MenuItem>
+        </div>
       </Menu>
     </>
   )

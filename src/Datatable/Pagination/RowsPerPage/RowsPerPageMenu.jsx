@@ -35,11 +35,13 @@ const RowsPerPageMenu = ({
         anchorOrigin={anchorOrigin}
         transformOrigin={transformOrigin}
       >
-        {options.map((option, index) => (
-          <MenuItem key={index} onClick={e => handleMenuItemClick(e, option.onClick)}>
-            <Typography variant="body2">{option.label}</Typography>
-          </MenuItem>
-        ))}
+        <div className="top-anchored">
+          {options.map((option, index) => (
+            <MenuItem key={index} onClick={e => handleMenuItemClick(e, option.onClick)}>
+              <Typography variant="body2">{option.label}</Typography>
+            </MenuItem>
+          ))}
+        </div>
       </Menu>
     </>
   )

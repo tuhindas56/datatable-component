@@ -9,13 +9,17 @@ A table component powered by tanstack table.
 ## Todo
 
 - Prepare and note down custom css properties for the remaining styles
-- Row selection actions
-- CSV Export (Aditya sir)
-- Column pinning (Aditya sir)
-- Loadable (Aditya sir)
 
-- For add filter button, increase border radius
-- For filter menu and sort menu, space out the items a little more
+- Have the dropdowns take the full width of their triggers
+- Implement a component that can have badges and text for cells
+- Implement a single select filter
+
+- In ec app web, replace sx styles with css
+- In ec app web, conditionally send them to next step
+
+- CSV Export
+- Column pinning
+- Loadable
 
 ## Completed features
 
