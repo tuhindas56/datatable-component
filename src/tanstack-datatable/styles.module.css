@@ -1,0 +1,76 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+:root {
+  --primary: black
+}
+
+.ts-dt {
+  margin: 0;
+  font-family: var(--ts-dt-font-family, Inter, system-ui);
+}
+
+.ts-dt,
+.ts-dt * {
+  scroll-behavior: smooth;
+}
+
+.ts-dt table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.ts-dt .expanded-table-cell {
+  padding: 0;
+}
+
+.ts-dt .thead {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+}
+
+.ts-dt .expanded-table-cell .thead {
+  z-index: 98;
+}
+
+.ts-dt .th,
+.ts-dt .td {
+  vertical-align: middle;
+  padding: 16px;
+}
+
+.ts-dt tr:first-child th,
+.ts-dt tr:first-child td {
+  border-top: none;
+}
+
+.ts-dt .th {
+  background-color: var(--ts-dt-th-bg, #fafafa) !important;
+  color: var(--ts-dt-font-color, black);
+  font-size: var(--ts-dt-font-size, 14px);
+  text-transform: none;
+  padding-block: 8px !important;
+  border: none;
+  border-bottom: 1px solid #ebe9f1;
+}
+
+.ts-dt .td {
+  background-color: var(--ts-dt-td-bg, #ffffff);
+  color: var(--ts-dt-font-color, black);
+  padding-block: 8px !important;
+}
+
+.ts-dt th div {
+  font-weight: 500;
+}
+
+.ts-dt .th div,
+.ts-dt .td div {
+  font-size: var(--ts-dt-font-size, 14px);
+}
+
+.ts-dt .td:not(:last-child) div {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

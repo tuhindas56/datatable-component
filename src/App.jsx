@@ -3,13 +3,13 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 
 import useData from "./hooks/useData"
-import { dateFormatter, timeFormatter } from "./Datatable/utils"
+import { dateFormatter, timeFormatter } from "@tanstack-datatable/utils"
 
-import ColumnHeader from "./Datatable/ColumnHeader"
-import Datatable from "./Datatable"
-import IndeterminateCheckbox from "./Datatable/RowLevelComponents/IndeterminateCheckbox"
-import RowExpansionToggle from "./Datatable/RowLevelComponents/RowExpansionToggle"
-import RowOptionsMenu from "./Datatable/RowLevelComponents/RowOptionsMenu"
+import ColumnHeader from "@tanstack-datatable/ColumnHeader"
+import Datatable from "@tanstack-datatable"
+import IndeterminateCheckbox from "@tanstack-datatable/RowLevelComponents/IndeterminateCheckbox"
+import RowExpansionToggle from "@tanstack-datatable/RowLevelComponents/RowExpansionToggle"
+import RowOptionsMenu from "@tanstack-datatable/RowLevelComponents/RowOptionsMenu"
 
 const columns = [
   {

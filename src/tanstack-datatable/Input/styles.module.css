@@ -1,0 +1,46 @@
+input[type="checkbox"].ts-dt-checkbox {
+  border: 1px solid var(--ts-dt-checkbox-border-color, #d5d5d5) !important;
+  box-shadow: none;
+  margin: 0;
+  height: 14px;
+  width: 14px;
+  accent-color: var(--ts-dt-checkbox-checked-bg, var(--primary));
+}
+
+input[type="checkbox"].ts-dt-checkbox:active {
+  box-shadow: none;
+}
+
+input[type="checkbox"].ts-dt-checkbox:focus {
+  background-color: transparent;
+}
+
+input[type="checkbox"].ts-dt-checkbox:indeterminate,
+input[type="checkbox"].ts-dt-checkbox:checked {
+  background-color: var(--ts-dt-checkbox-checked-bg, var(--primary));
+  border: 1px solid var(--ts-dt-checkbox-checked-border-color, #d5d5d5);
+}
+
+input.ts-dt-filter-input {
+  height: 32px;
+  font-size: var(--ts-dt-font-size, 14px);
+  font-family: var(--ts-dt-font-family, Inter, system-ui);
+}
+
+input.ts-dt-filter-input:focus {
+  border-color: var(--ts-dt-input-focus-border-color, #a1a1a1);
+  box-shadow: 0 0 0 3px var(--ts-dt-input-focus-box-shadow-color, #cfcfcf), 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+input.ts-dt-search-input {
+  height: 34px;
+  flex: 1;
+  max-width: 224px;
+  font-size: var(--ts-dt-font-size, 14px);
+  font-family: var(--ts-dt-font-family, Inter, system-ui);
+}
+
+input.ts-dt-search-input:focus {
+  border-color: var(--ts-dt-input-focus-border-color, #a1a1a1);
+  box-shadow: 0 0 0 3px var(--ts-dt-input-focus-box-shadow-color, #cfcfcf), 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
